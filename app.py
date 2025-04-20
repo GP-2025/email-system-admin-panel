@@ -7,6 +7,10 @@ app.config['SECRET_KEY'] = 'your_secret_key'
 def home():
     return flask.render_template('home.html')
 
+@app.route('/login')
+def login():
+    return flask.render_template('login.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5080)
