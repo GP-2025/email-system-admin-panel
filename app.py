@@ -11,6 +11,10 @@ def home():
 def login():
     return flask.render_template('login.html')
 
+@app.route('/dashboard')
+def dashboard():
+    return flask.render_template('dashboard.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5080)
