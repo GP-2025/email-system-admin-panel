@@ -1,9 +1,11 @@
 {
   "dependencies": {
-    "@tailwindcss/cli": "^4.1.4",
-    "tailwindcss": "^4.1.4"
+    "@tailwindcss/cli": "^4.1.4"
   },
   "scripts": {
     "build:css": "tailwindcss -i ./static/css/tailwind-input.css -o ./static/cssc/tailwind-output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
   }
 }
