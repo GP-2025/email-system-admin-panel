@@ -15,9 +15,17 @@ def login():
 def dashboard():
     return flask.render_template('dashboard.html')
 
-@app.route('/test')
-def test():
-    return flask.render_template('test.html')
+@app.route('/colleges')
+def colleges():
+    return flask.render_template('colleges.html')
+
+@app.route('/departments')
+def departments():
+    return flask.render_template('departments.html')
+
+@app.route('/accounts')
+def accounts():
+    return flask.render_template('accounts.html')
 
 
 if __name__ == '__main__':
