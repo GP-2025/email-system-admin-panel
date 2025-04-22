@@ -3,6 +3,10 @@ const crudModelButton = document.getElementById("crud-modal-button");
 const crudModelCloseButton = document.getElementById("crud-modal-close-button");
 const crudModelBackdrop = document.getElementById("crud-modal");
 
+const updateCollegeModelButton = document.getElementById("update-college-modal-button");
+const updateCollegeModelCloseButton = document.getElementById("update-college-close-button");
+const updateCollegeModelBackdrop = document.getElementById("update-college-modal");
+
 const prevPageButton = document.getElementById('prev-page');
 const nextPageButton = document.getElementById('next-page');
 const currentPageInput = document.getElementById('current-page');
@@ -30,6 +34,18 @@ document.addEventListener('DOMContentLoaded', () => {
     crudModelCloseButton.addEventListener('click', () => {
         crudModelBackdrop.classList.add('pointer-events-none', 'opacity-0');
     });
+
+    // todo: create foreach edit button an eventlister and make it to work with the college-id
+
+    updateCollegeModelButton.addEventListener('click', () => {
+        updateCollegeModelBackdrop.classList.remove('pointer-events-none', 'opacity-0');
+    });
+
+    updateCollegeModelCloseButton.addEventListener('click', () => {
+        updateCollegeModelBackdrop.classList.add('pointer-events-none', 'opacity-0');
+    });
+
+    // todo: end create
 });
 
 
