@@ -1,7 +1,7 @@
 
 const crudModelButton = document.getElementById("crud-modal-button");
 const crudModelCloseButton = document.getElementById("crud-modal-close-button");
-const crudModel = document.getElementById("crud-modal");
+const crudModelBackdrop = document.getElementById("crud-modal");
 
 const prevPageButton = document.getElementById('prev-page');
 const nextPageButton = document.getElementById('next-page');
@@ -21,14 +21,25 @@ let currentPage = 1;
 let totalColleges = 0;
 let totalPages = 1;
 
-crudModelButton.addEventListener("click", function () {
-    crudModel.classList.remove("hidden");
-    crudModel.classList.add("flex");
-});
+// crudModelButton.addEventListener("click", function () {
+//     crudModelBackdrop.classList.remove("hidden");
+//     crudModelBackdrop.classList.add("flex");
+// });
 
-crudModelCloseButton.addEventListener("click", function () {
-    crudModel.classList.remove("flex");
-    crudModel.classList.add("hidden");
+// crudModelCloseButton.addEventListener("click", function () {
+//     crudModelBackdrop.classList.remove("flex");
+//     crudModelBackdrop.classList.add("hidden");
+// });
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    crudModelButton.addEventListener('click', () => {
+        crudModelBackdrop.classList.remove('pointer-events-none', 'opacity-0');
+    });
+
+    crudModelCloseButton.addEventListener('click', () => {
+        crudModelBackdrop.classList.add('pointer-events-none', 'opacity-0');
+    });
 });
 
 
