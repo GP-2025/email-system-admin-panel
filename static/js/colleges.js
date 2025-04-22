@@ -21,18 +21,8 @@ let currentPage = 1;
 let totalColleges = 0;
 let totalPages = 1;
 
-// crudModelButton.addEventListener("click", function () {
-//     crudModelBackdrop.classList.remove("hidden");
-//     crudModelBackdrop.classList.add("flex");
-// });
-
-// crudModelCloseButton.addEventListener("click", function () {
-//     crudModelBackdrop.classList.remove("flex");
-//     crudModelBackdrop.classList.add("hidden");
-// });
 
 document.addEventListener('DOMContentLoaded', () => {
-
     crudModelButton.addEventListener('click', () => {
         crudModelBackdrop.classList.remove('pointer-events-none', 'opacity-0');
     });
