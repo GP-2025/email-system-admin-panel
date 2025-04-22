@@ -1,7 +1,7 @@
 
-const crudModelButton = document.getElementById("crud-modal-button");
-const crudModelCloseButton = document.getElementById("crud-modal-close-button");
-const crudModelBackdrop = document.getElementById("crud-modal");
+const addModelButton = document.getElementById("add-modal-button");
+const addModelCloseButton = document.getElementById("add-modal-close-button");
+const addModelBackdrop = document.getElementById("add-modal");
 
 const updateCollegeModelButton = document.getElementById("update-college-modal-button");
 const updateCollegeModelCloseButton = document.getElementById("update-college-close-button");
@@ -27,25 +27,13 @@ let totalPages = 1;
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    crudModelButton.addEventListener('click', () => {
-        crudModelBackdrop.classList.remove('pointer-events-none', 'opacity-0');
+    addModelButton.addEventListener('click', () => {
+        addModelBackdrop.classList.remove('pointer-events-none', 'opacity-0');
     });
 
-    crudModelCloseButton.addEventListener('click', () => {
-        crudModelBackdrop.classList.add('pointer-events-none', 'opacity-0');
+    addModelCloseButton.addEventListener('click', () => {
+        addModelBackdrop.classList.add('pointer-events-none', 'opacity-0');
     });
-
-    // todo: create foreach edit button an eventlister and make it to work with the college-id
-
-    // updateCollegeModelButton.addEventListener('click', () => {
-    //     updateCollegeModelBackdrop.classList.remove('pointer-events-none', 'opacity-0');
-    // });
-
-    // updateCollegeModelCloseButton.addEventListener('click', () => {
-    //     updateCollegeModelBackdrop.classList.add('pointer-events-none', 'opacity-0');
-    // });
-
-    // todo: end create
 });
 
 
@@ -126,9 +114,12 @@ fetch("https://jsonplaceholder.typicode.com/users")
         updateCollegeModalForms.forEach(form => {
             form.addEventListener('submit', (e) => {
                 e.preventDefault()
-                const collegeId = form.getAttribute("modal-form-college-id")
-                // const formData = new FormData(form);
-                console.log(form);
+                var collegeId = form.querySelector(".college-id").value
+                var collegeName = form.querySelector(".college-name").value
+                var collegeAbbreviation = form.querySelector(".college-abbreviation").value
+                
+                // update the college data through the PUT Request
+                // fetch()
             });
         });
 
