@@ -16,7 +16,7 @@ const sortByInput = document.querySelector("[data-sort-by]");
 
 let colleges = [];
 
-const collegesPerPage = 3;
+const collegesPerPage = 10;
 let currentPage = 1;
 let totalColleges = 0;
 let totalPages = 1;
@@ -76,6 +76,9 @@ sortByInput.addEventListener("change", function (e) {
         }
     });
     colleges.forEach(college => collegesContainer.appendChild(college.element));
+    totalColleges = colleges.length;
+    totalPages = Math.ceil(totalColleges / collegesPerPage);
+    updatePagination();
 });
 
 
