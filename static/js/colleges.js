@@ -64,15 +64,22 @@ fetch("https://jsonplaceholder.typicode.com/users")
             const row = collegeRowTemplate.content.cloneNode(true).children[0];
             const collegeName = row.querySelector("[data-college-name]");
             const collegeAbbreviation = row.querySelector("[data-college-abbreviation]");
+
             const updateCollegeModalOpenButton = row.querySelector("[update-college-modal-open-button]")
             const updateCollegeModalCloseButton = row.querySelector("[update-college-modal-close-button]")
             const updateCollegeModalBackdrop = row.querySelector("[update-college-modal-backdrop]")
+
+            const currentCollegeName = row.querySelector(".current-college-name")
+            const currentCollegeAbbreviation = row.querySelector(".current-college-abbreviation")
 
             const collegeIdInputField = row.querySelector(".college-id")
             const collegeNameInputField = row.querySelector(".college-name")
             const collegeAbbreviationInputField = row.querySelector(".college-abbreviation")
             
             var collegeId = index
+
+            currentCollegeName.textContent = user.name
+            currentCollegeAbbreviation.textContent = user.email // should be abbreviation
 
             collegeIdInputField.value = collegeId
             collegeNameInputField.value = user.name
@@ -93,10 +100,6 @@ fetch("https://jsonplaceholder.typicode.com/users")
                 element: row,
             };
         });
-
-        totalColleges = colleges.length;
-        totalPages = Math.ceil(totalColleges / collegesPerPage);
-        updatePagination();
         
         const updateCollegeModalOpenButtons = document.querySelectorAll("[update-college-modal-open-button]")
         const updateCollegeModalCloseButtons = document.querySelectorAll("[update-college-modal-close-button]")
@@ -116,6 +119,10 @@ fetch("https://jsonplaceholder.typicode.com/users")
                 collegeModalBackdrop.classList.add('pointer-events-none', 'opacity-0');
             });
         });
+
+        totalColleges = colleges.length;
+        totalPages = Math.ceil(totalColleges / collegesPerPage);
+        updatePagination();
     });
 
 
