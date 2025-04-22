@@ -85,10 +85,12 @@
 
                 <div class="flex mx-auto max-w-5xl mb-4">
                     <input data-search type="text" id="searchBar" placeholder="Search Colleges.." class="mr-4 block w-96 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-600 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                    <select id="sortDropdown" class="text-gray-600 appearance-none block w-36 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <select data-sort-by id="sortDropdown" class="text-gray-600 appearance-none block w-64 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                         <option value="">Sort by..</option>
-                        <option value="abbreviation">Abbreviation</option>
-                        <option value="name">Name</option>
+                        <option value="college_name_asc">College Name (A-Z)</option>
+                        <option value="college_name_desc">College Name (Z-A)</option>
+                        <option value="college_abbreviation_asc">College Abbreviation (A-Z)</option>
+                        <option value="college_abbreviation_desc">College Abbreviation (Z-A)</option>
                     </select>
 
                     <!-- Modal toggle -->
@@ -138,8 +140,8 @@
                     <div class="w-full">
                         <div class="dark:bg-gray-800">
                             <div class="flex text-left text-white">
-                                <div class="font-semibold text-sm uppercase px-6 py-4 w-1/2">College Name</div>
-                                <div class="font-semibold text-sm uppercase px-6 py-4 w-1/3">College Abbreviation</div>
+                                <div data-sort-by-college-name class="font-semibold text-sm uppercase px-6 py-4 w-1/2 select-none cursor-pointer">College Name &nbsp;</div>
+                                <div data-sort-by-college-abbreviation class="font-semibold text-sm uppercase px-6 py-4 w-1/3 select-none cursor-pointer">College Abbreviation &nbsp;</div>
                                 <div class="font-semibold text-sm uppercase px-6 py-4 w-1/6"></div>
                             </div>
                         </div>
@@ -164,22 +166,6 @@
                 </div>
             </div>
         </section>
-        <script>
-            const searchBar = document.getElementById('searchBar');
-            const sortDropdown = document.getElementById('sortDropdown');
-
-            searchBar.addEventListener('input', () => {
-                const searchValue = searchBar.value.toLowerCase();
-                // Logic to filter table rows based on search input
-                console.log('Search:', searchValue);
-            });
-
-            sortDropdown.addEventListener('change', () => {
-                const sortValue = sortDropdown.value;
-                // Logic to sort table rows based on selected sort option
-                console.log('Sort by:', sortValue);
-            });
-        </script>
     </main>
 
     <div class="loader"></div>

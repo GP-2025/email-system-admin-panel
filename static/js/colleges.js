@@ -44,3 +44,22 @@ fetch("https://jsonplaceholder.typicode.com/users")
             };
         });
     });
+
+
+const sortByInput = document.querySelector("[data-sort-by]");
+
+sortByInput.addEventListener("change", function (e) {
+    const value = e.target.value;
+    colleges.sort((a, b) => {
+        if (value === "college_name_asc") {
+            return a.name.localeCompare(b.name);
+        } else if (value === "college_name_desc") {
+            return b.name.localeCompare(a.name);
+        } else if (value === "college_abbreviation_asc") {
+            return a.abbreviation.localeCompare(b.abbreviation);
+        } else if (value === "college_abbreviation_desc") {
+            return b.abbreviation.localeCompare(a.abbreviation);
+        }
+    });
+    colleges.forEach(college => collegesContainer.appendChild(college.element));
+});
