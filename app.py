@@ -11,6 +11,10 @@ def home():
 def login():
     return flask.render_template('login.html')
 
+@app.route('/logout')
+def logout():
+    return flask.redirect('/login')
+
 @app.route('/dashboard')
 def dashboard():
     return flask.render_template('dashboard.html')
