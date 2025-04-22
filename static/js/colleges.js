@@ -68,6 +68,7 @@ fetch("https://jsonplaceholder.typicode.com/users")
             const updateCollegeModalOpenButton = row.querySelector("[update-college-modal-open-button]")
             const updateCollegeModalCloseButton = row.querySelector("[update-college-modal-close-button]")
             const updateCollegeModalBackdrop = row.querySelector("[update-college-modal-backdrop]")
+            const updateCollegeModalForm = row.querySelector("[update-college-modal-form]")
 
             const currentCollegeName = row.querySelector(".current-college-name")
             const currentCollegeAbbreviation = row.querySelector(".current-college-abbreviation")
@@ -88,6 +89,7 @@ fetch("https://jsonplaceholder.typicode.com/users")
             updateCollegeModalOpenButton.setAttribute("open-button-college-id", collegeId);
             updateCollegeModalCloseButton.setAttribute("close-button-college-id", collegeId);
             updateCollegeModalBackdrop.setAttribute("modal-backdrop-college-id", collegeId);
+            updateCollegeModalForm.setAttribute("modal-form-college-id", collegeId);
 
             collegeName.textContent = user.name;
             collegeAbbreviation.textContent = user.email;
@@ -103,6 +105,7 @@ fetch("https://jsonplaceholder.typicode.com/users")
         
         const updateCollegeModalOpenButtons = document.querySelectorAll("[update-college-modal-open-button]")
         const updateCollegeModalCloseButtons = document.querySelectorAll("[update-college-modal-close-button]")
+        const updateCollegeModalForms = document.querySelectorAll("[update-college-modal-form]")
         
         updateCollegeModalOpenButtons.forEach(openButton => {
             const collegeId = openButton.getAttribute("open-button-college-id")
@@ -117,6 +120,15 @@ fetch("https://jsonplaceholder.typicode.com/users")
             const collegeModalBackdrop = document.querySelector(`[modal-backdrop-college-id="${collegeId}"]`);
             closeButton.addEventListener('click', () => {
                 collegeModalBackdrop.classList.add('pointer-events-none', 'opacity-0');
+            });
+        });
+
+        updateCollegeModalForms.forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault()
+                const collegeId = form.getAttribute("modal-form-college-id")
+                // const formData = new FormData(form);
+                console.log(form);
             });
         });
 
