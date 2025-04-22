@@ -20,7 +20,7 @@ const sortByInput = document.querySelector("[data-sort-by]");
 
 let colleges = [];
 
-const collegesPerPage = 10;
+const collegesPerPage = 8;
 let currentPage = 1;
 let totalColleges = 0;
 let totalPages = 1;
@@ -37,13 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // todo: create foreach edit button an eventlister and make it to work with the college-id
 
-    updateCollegeModelButton.addEventListener('click', () => {
-        updateCollegeModelBackdrop.classList.remove('pointer-events-none', 'opacity-0');
-    });
+    // updateCollegeModelButton.addEventListener('click', () => {
+    //     updateCollegeModelBackdrop.classList.remove('pointer-events-none', 'opacity-0');
+    // });
 
-    updateCollegeModelCloseButton.addEventListener('click', () => {
-        updateCollegeModelBackdrop.classList.add('pointer-events-none', 'opacity-0');
-    });
+    // updateCollegeModelCloseButton.addEventListener('click', () => {
+    //     updateCollegeModelBackdrop.classList.add('pointer-events-none', 'opacity-0');
+    // });
 
     // todo: end create
 });
@@ -60,22 +60,62 @@ searchInput.addEventListener("input", function (e) {
 fetch("https://jsonplaceholder.typicode.com/users")
     .then(res => res.json())
     .then(data => {
-        colleges = data.map(user => {
+        colleges = data.map((user, index) => {
             const row = collegeRowTemplate.content.cloneNode(true).children[0];
             const collegeName = row.querySelector("[data-college-name]");
             const collegeAbbreviation = row.querySelector("[data-college-abbreviation]");
+            const updateCollegeModalOpenButton = row.querySelector("[update-college-modal-open-button]")
+            const updateCollegeModalCloseButton = row.querySelector("[update-college-modal-close-button]")
+            const updateCollegeModalBackdrop = row.querySelector("[update-college-modal-backdrop]")
+
+            const collegeIdInputField = row.querySelector(".college-id")
+            const collegeNameInputField = row.querySelector(".college-name")
+            const collegeAbbreviationInputField = row.querySelector(".college-abbreviation")
+            
+            var collegeId = index
+
+            collegeIdInputField.value = collegeId
+            collegeNameInputField.value = user.name
+            collegeAbbreviationInputField.value = user.email // should be abbreviation
+
+            updateCollegeModalOpenButton.setAttribute("open-button-college-id", collegeId);
+            updateCollegeModalCloseButton.setAttribute("close-button-college-id", collegeId);
+            updateCollegeModalBackdrop.setAttribute("modal-backdrop-college-id", collegeId);
+
             collegeName.textContent = user.name;
             collegeAbbreviation.textContent = user.email;
             collegesContainer.appendChild(row);
+
             return {
+                id: collegeId,
                 name: user.name,
                 abbreviation: user.email,
-                element: row
+                element: row,
             };
         });
+
         totalColleges = colleges.length;
         totalPages = Math.ceil(totalColleges / collegesPerPage);
         updatePagination();
+        
+        const updateCollegeModalOpenButtons = document.querySelectorAll("[update-college-modal-open-button]")
+        const updateCollegeModalCloseButtons = document.querySelectorAll("[update-college-modal-close-button]")
+        
+        updateCollegeModalOpenButtons.forEach(openButton => {
+            const collegeId = openButton.getAttribute("open-button-college-id")
+            const collegeModalBackdrop = document.querySelector(`[modal-backdrop-college-id="${collegeId}"]`);
+            openButton.addEventListener('click', () => {
+                collegeModalBackdrop.classList.remove('pointer-events-none', 'opacity-0');
+            });
+        });
+
+        updateCollegeModalCloseButtons.forEach(closeButton => {
+            const collegeId = closeButton.getAttribute("close-button-college-id")
+            const collegeModalBackdrop = document.querySelector(`[modal-backdrop-college-id="${collegeId}"]`);
+            closeButton.addEventListener('click', () => {
+                collegeModalBackdrop.classList.add('pointer-events-none', 'opacity-0');
+            });
+        });
     });
 
 
