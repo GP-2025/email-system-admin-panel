@@ -3,6 +3,24 @@ const crudModelButton = document.getElementById("crud-modal-button");
 const crudModelCloseButton = document.getElementById("crud-modal-close-button");
 const crudModel = document.getElementById("crud-modal");
 
+const prevPageButton = document.getElementById('prev-page');
+const nextPageButton = document.getElementById('next-page');
+const currentPageInput = document.getElementById('current-page');
+const totalPagesSpan = document.getElementById('total-pages');
+
+const collegeRowTemplate = document.querySelector("[data-college-row-template]");
+const collegesContainer = document.querySelector("[data-colleges-container]");
+const searchInput = document.querySelector("[data-search]");
+
+const sortByInput = document.querySelector("[data-sort-by]");
+
+let colleges = [];
+
+const collegesPerPage = 3;
+let currentPage = 1;
+let totalColleges = 0;
+let totalPages = 1;
+
 crudModelButton.addEventListener("click", function () {
     crudModel.classList.remove("hidden");
     crudModel.classList.add("flex");
@@ -13,11 +31,6 @@ crudModelCloseButton.addEventListener("click", function () {
     crudModel.classList.add("hidden");
 });
 
-const collegeRowTemplate = document.querySelector("[data-college-row-template]");
-const collegesContainer = document.querySelector("[data-colleges-container]");
-const searchInput = document.querySelector("[data-search]");
-
-let colleges = [];
 
 searchInput.addEventListener("input", function (e) {
     const value = e.target.value.toLowerCase();
@@ -43,10 +56,11 @@ fetch("https://jsonplaceholder.typicode.com/users")
                 element: row
             };
         });
+        totalColleges = colleges.length;
+        totalPages = Math.ceil(totalColleges / collegesPerPage);
+        updatePagination();
     });
 
-
-const sortByInput = document.querySelector("[data-sort-by]");
 
 sortByInput.addEventListener("change", function (e) {
     const value = e.target.value;
@@ -62,4 +76,53 @@ sortByInput.addEventListener("change", function (e) {
         }
     });
     colleges.forEach(college => collegesContainer.appendChild(college.element));
+});
+
+
+function updatePagination() {
+    totalPages = Math.ceil(totalColleges / collegesPerPage);
+    totalPagesSpan.textContent = totalPages;
+    currentPageInput.value = currentPage;
+
+    prevPageButton.disabled = currentPage === 1;
+    nextPageButton.disabled = currentPage === totalPages || totalPages === 0;
+
+    loadColleges();
+}
+
+function loadColleges() {
+    collegesContainer.innerHTML = "";
+    const startIndex = (currentPage - 1) * collegesPerPage;
+    const endIndex = startIndex + collegesPerPage;
+    const collegesToDisplay = colleges.slice(startIndex, endIndex);
+    collegesToDisplay.forEach(college => {
+        collegesContainer.appendChild(college.element);
+    });
+
+    console.log(`Loaded colleges for page ${currentPage}`);
+}
+
+
+prevPageButton.addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        updatePagination();
+    }
+});
+
+nextPageButton.addEventListener('click', () => {
+    if (currentPage < totalPages) {
+        currentPage++;
+        updatePagination();
+    }
+});
+
+currentPageInput.addEventListener('change', () => {
+    const newPage = parseInt(currentPageInput.value, 10);
+    if (newPage >= 1 && newPage <= totalPages) {
+        currentPage = newPage;
+        updatePagination();
+    } else {
+        currentPageInput.value = currentPage;
+    }
 });

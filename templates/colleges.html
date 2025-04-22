@@ -147,6 +147,20 @@
                         </div>
                         <div data-colleges-container class="divide-y divide-gray-200 overflow-y-auto" style="max-height: 500px;">
                         </div>
+                        <div class="flex items-center justify-between px-6 py-4 bg-gray-50">
+                            <button id="prev-page" class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 disabled:opacity-50" disabled>
+                                &laquo; Previous
+                            </button>
+                            <div class="flex items-center space-x-2">
+                                <span>Page</span>
+                                <input id="current-page" type="number" min="1" value="1" class="w-12 text-center border border-gray-300 rounded-md">
+                                <span>of</span>
+                                <span id="total-pages">1</span>
+                            </div>
+                            <button id="next-page" class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 disabled:opacity-50">
+                                Next &raquo;
+                            </button>
+                        </div>
 
                         <template data-college-row-template>
                             <div data-college-row class="flex items-center">
