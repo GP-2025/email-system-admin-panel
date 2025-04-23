@@ -168,8 +168,6 @@ function loadColleges() {
     collegesToDisplay.forEach(college => {
         collegesContainer.appendChild(college.element);
     });
-
-    console.log(`Loaded colleges for page ${currentPage}`);
 }
 
 
