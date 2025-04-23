@@ -1,25 +1,24 @@
 import flask
-from flask_cors import CORS
+import os
+
 import config
+import tools
 
 app = flask.Flask(__name__, static_folder='static')
-app.secret_key = config.SECRET_KEY
-CORS(app, supports_credentials=True)
-
 
 # ---------------------------------------
 # Routes
 # ---------------------------------------
 
 # Admin Routes Blueprints
-from routes.user.login import login_bp
+# from routes.user.login import login_bp
 
-app.register_blueprint(login_bp)
+# app.register_blueprint(login_bp)
 
-# College Admin Routes Blueprints
-from routes.admin.admin_events import admin_events_bp
+# # College Admin Routes Blueprints
+# from routes.admin.admin_events import admin_events_bp
 
-app.register_blueprint(admin_events_bp)
+# app.register_blueprint(admin_events_bp)
 
 
 # ---------------------------------------
