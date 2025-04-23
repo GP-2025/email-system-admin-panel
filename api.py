@@ -509,3 +509,7 @@ def GetDepartmentById(id):
     except Exception as err:
         print("An error occurred during getting GetById:", err)
         raise
+
+
+## ----------------------------------------------------------------
+## ----------------------------------------------------------------
