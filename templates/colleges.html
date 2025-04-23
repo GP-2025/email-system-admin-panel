@@ -10,9 +10,10 @@
 </head>
 
 <body class="bg-gray-400 h-screen flex">
-    <aside id="cta-button-sidebar" class="fixed top-0 left-0 z-50 w-48 h-full transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-            <ul class="space-y-2 font-medium">
+    <aside id="cta-button-sidebar" aria-label="Sidebar"
+        class="fixed top-0 left-0 z-50 w-48 h-full transition-transform -translate-x-full sm:translate-x-0">
+        <div class="h-full px-2 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+            <ul class="space-y-3 font-medium">
                 <li>
                     <a href="/dashboard" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
@@ -47,7 +48,7 @@
                     </a>
                 </li>
             </ul>
-            <div class="absolute bottom-3">
+            <div class="absolute bottom-2 grid grid-cols-2">
                 <button onclick="setLanguage('en')" class="px-4 py-2 bg-gray-900 font-bold text-white rounded-l-lg hover:bg-gray-600">English</button>
                 <button onclick="setLanguage('ar')" class="px-4 py-2 bg-gray-900 font-bold text-white rounded-r-lg hover:bg-gray-600">العربية</button>
             </div>
@@ -77,8 +78,8 @@
         </nav>
     </header>
 
-    <main class="flex-1 ml-48">        
-        <section class="min-h-screen mt-16">
+    <main class="flex-1 ml-48">
+        <section class="mt-16">
             <div class="overflow-x-auto w-full p-4">
 
                 <div class="flex mx-auto max-w-5xl mb-4">
@@ -236,7 +237,7 @@
         </section>
 
         <footer class="ml-48 fixed inset-x-0 bottom-0">
-            <div class="bg-indigo-100 py-3 text-center">
+            <div class="bg-white py-3 text-center">
                 <p class="text-sm text-gray-600">© 2025 Hurghada University. All rights reserved.</p>
             </div>
         </footer>
