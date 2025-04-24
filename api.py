@@ -252,13 +252,12 @@ def EditDepartment(data):
             "Content-Type": "application/json"
         },
         data={
-            "id": data["id"],
             "name": data["name"],
             "abbreviation": data["abbreviation"],
             "collegeId": data["college_id"],
         }
     )
-    return response.json()
+    return response
 
 
 ## ----------------------------------------------------------------
