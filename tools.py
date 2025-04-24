@@ -2,6 +2,14 @@
 from flask import session
 
 # ---------------------------------------
+# Update Access Token Function
+# ---------------------------------------
+
+def update_token(token):
+    session["access_token"] = token
+
+
+# ---------------------------------------
 # Check Session Function
 # ---------------------------------------
 

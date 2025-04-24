@@ -19,4 +19,8 @@ def login_get():
 # ---------------------------------------
 @login_bp.route("/login", methods=["POST"])
 def login_post():
+    email = request.form.get("email")
+    password = request.form.get("password")
+    response = api.Login(email, password)
+    print(response)
     return redirect("/login")
