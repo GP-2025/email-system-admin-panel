@@ -48,6 +48,16 @@ def delete_session():
 
 
 # ---------------------------------------
+# Check If Logged In Function
+# ---------------------------------------
+
+def is_logged_in():
+    if check_session():
+        return True
+    False
+
+
+# ---------------------------------------
 # Update Language Function
 # ---------------------------------------
 

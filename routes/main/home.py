@@ -11,10 +11,7 @@ home_bp = Blueprint('home', __name__, url_prefix='')
 # ---------------------------------------
 @home_bp.route('/', methods=["GET"])
 def home_get():
-    is_logged_in = tools.check_session()
     
-    if not is_logged_in:
-        return redirect("/login")
-    
-    return redirect("/admin")
+    return render_template(f"/main/{tools.get_lang()}/home.html")
+
 

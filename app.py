@@ -10,11 +10,9 @@ app.config['SECRET_KEY'] = 'secret_key'
 # ---------------------------------------
 # Main Routes Blueprints
 # ---------------------------------------
-from routes.main.get_started import get_started_bp
 from routes.main.home import home_bp
 from routes.main.login import login_bp
 
-app.register_blueprint(get_started_bp)
 app.register_blueprint(home_bp)
 app.register_blueprint(login_bp)
 
