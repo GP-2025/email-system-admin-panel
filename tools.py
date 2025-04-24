@@ -45,3 +45,20 @@ def set_session(data):
 
 def delete_session():
     session.clear()
+
+
+# ---------------------------------------
+# Update Language Function
+# ---------------------------------------
+
+def get_lang():
+    # Default: English - en
+    return session.get("lang", "en")
+
+
+# ---------------------------------------
+# Update Language Function
+# ---------------------------------------
+
+def update_lang(lang):
+    session["lang"] = lang
