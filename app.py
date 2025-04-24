@@ -7,6 +7,16 @@ import api
 app = flask.Flask(__name__, static_folder='static')
 app.config['SECRET_KEY'] = 'secret_key'
 
+
+# ---------------------------------------
+# test
+# ---------------------------------------
+
+@app.route("/test")
+def test():
+    return flask.render_template('/test.html')
+
+
 # ---------------------------------------
 # Main Routes Blueprints
 # ---------------------------------------

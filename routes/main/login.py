@@ -1,5 +1,5 @@
 
-from flask import Blueprint, render_template, request, jsonify, redirect
+from flask import Blueprint, render_template, request, jsonify, redirect, flash
 import api
 import tools
 
@@ -21,6 +21,11 @@ def login_get():
 def login_post():
     email = request.form.get("email")
     password = request.form.get("password")
+    
     response = api.Login(email, password)
-    print(response)
+    if response.get("statusCode") != 200:
+        flash(response.get("message"), "orange")
+        return redirect("/login")
+    
     return redirect("/login")
+    

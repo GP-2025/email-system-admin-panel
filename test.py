@@ -1,12 +1,14 @@
 import config
 import api
 
-email = "ismailcolege@gmail.com"
+email = "ismailollege@gmail.com"
 password = "helloworld"
 
 response = api.Login(email, password)
 
-print(response)
-# if response:
-# else:
-#     print("NOOOOOOOOOOO")
+print(response.get("statusCode"))
+
+if response.get("statusCode"):
+    print("YESS")
+else:
+    print("NOOOOOOOOOOO")
