@@ -82,7 +82,7 @@ def departments_put(department_id):
     
     tools.update_token()
     data = {
-        "id": department_id,
+        "id": 0, # should be edited in the future or removed
         "name": department_name,
         "abbreviation": department_abbreviation,
         "college_id": session.get("college_id")
