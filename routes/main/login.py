@@ -1,5 +1,5 @@
 
-from flask import Blueprint, render_template, request, jsonify, redirect, flash
+from flask import Blueprint, render_template, request, session, jsonify, redirect, flash
 import api
 import tools
 
@@ -28,9 +28,19 @@ def login_post():
         return redirect("/login")
     
     is_session_set = tools.set_session(res)
-    if is_session_set:
-        flash("Error setting session.", "red")
+    if not is_session_set:
+        flash("Error setting account session.", "red")
         return redirect("/login")
     
-    return redirect("/admin/dashboard")
+    # checking if the logged in user is not a college admin or an admin
+    if not tools.is_admin() or not tools.is_college_admin():
+        flash("Your account is not authorized!", "red")
+        return redirect("/login")
     
+    if tools.is_admin():
+        return redirect("/admin/dashboard")
+    
+    if tools.is_college_admin():
+        return redirect("/college_admin/dashboard")
+    
+    return redirect("/")

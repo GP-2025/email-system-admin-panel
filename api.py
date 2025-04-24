@@ -20,7 +20,7 @@ def getNewTokenFromLogin(email, password):
             "password": password
         }
     )
-    return response.json()["accessToken"]
+    return response.json().json()["accessToken"]
 
 
 ## ----------------------------------------------------------------
@@ -35,7 +35,7 @@ def AllUsers():
             "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -50,7 +50,7 @@ def ResetPassowrd(email):
             "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -70,7 +70,7 @@ def EditAccount(data, picture_file, signature_file):
             "Signature": signature_file,
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -85,7 +85,7 @@ def GetAccountByEmail(email):
             "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -105,7 +105,7 @@ def Register(data, picture_file, signature_file):
             "Signature": signature_file,
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -139,7 +139,7 @@ def Logout():
             "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -154,7 +154,7 @@ def Refresh():
             "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -169,7 +169,7 @@ def GetAllColleges():
             "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -190,7 +190,7 @@ def UpdateCollege(data):
             "abbreviation": data["abbreviation"],
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -209,7 +209,7 @@ def AddCollege(data):
             "abbreviation": data["abbreviation"]
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -224,7 +224,7 @@ def GetCollegeById(college_id):
             "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -245,7 +245,7 @@ def AddDepartment(data):
             "collegeId": data["college_id"]
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -267,7 +267,7 @@ def EditDepartment(data):
             "collegeId": data["college_id"],
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
@@ -282,7 +282,7 @@ def GetDepartmentById(id):
             "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
         }
     )
-    return response
+    return response.json()
 
 
 ## ----------------------------------------------------------------
