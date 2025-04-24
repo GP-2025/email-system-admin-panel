@@ -1,5 +1,6 @@
 
-from flask import Blueprint, render_template, request, jsonify, redirect, flash
+from flask import Blueprint, render_template, request, session, jsonify, redirect, flash
+import json
 import api
 import tools
 
@@ -19,12 +20,10 @@ def dashboard_get():
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
-    return render_template(f"/college_admin/{tools.get_lang()}/dashboard.html")
-
-
-# ---------------------------------------
-# POST METHOD
-# ---------------------------------------
-@dashboard_bp.route("/dashboard", methods=["POST"])
-def dashboard_post():
-    return redirect("/admin/dashboard")
+    college_id = session.get("college_id")
+    tools.update_token()
+    
+    college = api.GetCollegeById(college_id)
+    print(college)
+    
+    return render_template(f"/college_admin/{tools.get_lang()}/dashboard.html", )

@@ -1,5 +1,6 @@
 
 from flask import session
+from api import getNewTokenFromLogin
 
 # ---------------------------------------
 # Is Admin Role Function
@@ -31,8 +32,12 @@ def get_account_role():
 # Update Access Token Function
 # ---------------------------------------
 
-def update_token(token):
-    session["access_token"] = token
+def update_token():
+    email = session.get("email")
+    password = session.get("password")
+    
+    new_token = getNewTokenFromLogin(email, password)
+    session["access_token"] = new_token
 
 
 # ---------------------------------------
@@ -62,6 +67,7 @@ def set_session(data):
     session.update({
         "id": data["userId"],
         "email": data["email"],
+        "password": data["password"],
         "name": data["name"],
         "role": data["role"],
         "picture_url": data["pictureURL"],

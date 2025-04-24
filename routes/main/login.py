@@ -32,6 +32,7 @@ def login_post():
         flash(res.get("message"), "red")
         return redirect("/login")
     
+    res["password"] = password
     is_session_set = tools.set_session(res)
     if not is_session_set:
         flash("Error setting account session.", "red")

@@ -1,14 +1,11 @@
 import config
 import api
 
-email = "ismailollege@gmail.com"
+email = "ismailcollege@gmail.com"
 password = "helloworld"
 
 response = api.Login(email, password)
+token = response["accessToken"]
 
-print(response.get("statusCode"))
-
-if response.get("statusCode"):
-    print("YESS")
-else:
-    print("NOOOOOOOOOOO")
+new = api.GetCollegeById(7, token)
+print(new)

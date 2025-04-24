@@ -1,4 +1,5 @@
 
+from flask import session
 import os
 import requests
 
@@ -9,18 +10,8 @@ BASE_URL = os.environ["API_BASE_URL"]
 ## ----------------------------------------------------------------
 
 def getNewTokenFromLogin(email, password):
-    response = requests.post(
-        url = f"{BASE_URL}/api/Auth/Login",
-        headers = {
-            "accept": "text/plain",
-            "Content-Type": "application/json",
-        },
-        json = {
-            "email": email,
-            "password": password
-        }
-    )
-    return response.json().json()["accessToken"]
+    response_json = Login(email, password)
+    return response_json.get("accessToken")
 
 
 ## ----------------------------------------------------------------
@@ -32,7 +23,7 @@ def AllUsers():
         f"{BASE_URL}/api/Admin/AllUsers",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
         }
     )
     return response.json()
@@ -47,7 +38,7 @@ def ResetPassowrd(email):
         f"{BASE_URL}/api/Admin/ResetPassowrd/{email}",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
         }
     )
     return response.json()
@@ -62,7 +53,7 @@ def EditAccount(data, picture_file, signature_file):
         f"{BASE_URL}/api/Admin/EditAccount?Email={data["email"]}&Name={data["name"]}&Role={data["role_id"]}&NationalId={data["national_id"]}&CollegeId={data["college_id"]}&DepartmentId={data["department_id"]}",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
             "Content-Type": "multipart/form-data"
         },
         files={
@@ -82,7 +73,7 @@ def GetAccountByEmail(email):
         f"{BASE_URL}/api/Admin/GetAccountByEmail/{email}",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
         }
     )
     return response.json()
@@ -94,10 +85,10 @@ def GetAccountByEmail(email):
 
 def Register(data, picture_file, signature_file):
     response = requests.post(
-        f"{BASE_URL}/api/Admin/Register?Email={data["email"]}&Name={data["name"]}&Role={data["role_id"]}&NationalId={data["national_id"]}&CollegeId={data["college_id"]}&DepartmentId={data["department_id"]}",
+        f"{BASE_URL}/api/Auth/Register?Email={data["email"]}&Name={data["name"]}&Role={data["role_id"]}&NationalId={data["national_id"]}&CollegeId={data["college_id"]}&DepartmentId={data["department_id"]}",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
             "Content-Type": "multipart/form-data"
         },
         files={
@@ -133,10 +124,10 @@ def Login(email, password):
 
 def Logout():
     response = requests.get(
-        f"{BASE_URL}/api/Admin/Logout",
+        f"{BASE_URL}/api/Auth/Logout",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
         }
     )
     return response.json()
@@ -148,10 +139,10 @@ def Logout():
 
 def Refresh():
     response = requests.get(
-        f"{BASE_URL}/api/Admin/Refresh",
+        f"{BASE_URL}/api/Auth/Refresh",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
         }
     )
     return response.json()
@@ -163,10 +154,10 @@ def Refresh():
 
 def GetAllColleges():
     response = requests.get(
-        f"{BASE_URL}/api/Admin/GetAllColleges",
+        f"{BASE_URL}/api/College/GetAllColleges",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
         }
     )
     return response.json()
@@ -178,10 +169,10 @@ def GetAllColleges():
 
 def UpdateCollege(data):
     response = requests.post(
-        f"{BASE_URL}/api/Admin/UpdateCollege?Id={data["id"]}",
+        f"{BASE_URL}/api/College/UpdateCollege?Id={data["id"]}",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
             "Content-Type": "multipart/form-data"
         },
         files={
@@ -199,10 +190,10 @@ def UpdateCollege(data):
 
 def AddCollege(data):
     response = requests.post(
-        f"{BASE_URL}/api/Admin/AddCollege",
+        f"{BASE_URL}/api/College/AddCollege",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
         },
         data={
             "name": data["name"],
@@ -218,10 +209,10 @@ def AddCollege(data):
 
 def GetCollegeById(college_id):
     response = requests.get(
-        f"{BASE_URL}/api/Admin/GetById/{college_id}",
+        f"{BASE_URL}/api/College/GetById/{college_id}",
         headers={
-            "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get('access_token')}",
+            "Content-Type": "application/json"
         }
     )
     return response.json()
@@ -233,10 +224,10 @@ def GetCollegeById(college_id):
 
 def AddDepartment(data):
     response = requests.post(
-        f"{BASE_URL}/api/Admin/AddDepartment",
+        f"{BASE_URL}/api/Department/AddDepartment",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
             "Content-Type": "application/json"
         },
         json={
@@ -254,10 +245,10 @@ def AddDepartment(data):
 
 def EditDepartment(data):
     response = requests.post(
-        f"{BASE_URL}/api/Admin/EditDepartment/{data["id"]}",
+        f"{BASE_URL}/api/Department/EditDepartment/{data["id"]}",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
             "Content-Type": "application/json"
         },
         data={
@@ -276,10 +267,10 @@ def EditDepartment(data):
 
 def GetDepartmentById(id):
     response = requests.get(
-        f"{BASE_URL}/api/Admin/GetById/{id}",
+        f"{BASE_URL}/api/Department/GetById/{id}",
         headers={
             "accept": "text/plain",
-            "Authorization": f"Bearer {os.environ["API_ACCESS_TOKEN"]}",
+            "Authorization": f"Bearer {session.get("access_token")}",
         }
     )
     return response.json()
