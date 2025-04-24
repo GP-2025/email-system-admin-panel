@@ -23,7 +23,14 @@ def dashboard_get():
     college_id = session.get("college_id")
     tools.update_token()
     
-    college = api.GetCollegeById(college_id)
-    print(college)
+    college = api.GetCollegeById(college_id).get("departments")
+    accounts = api.AllUsers().get("data")
     
-    return render_template(f"/college_admin/{tools.get_lang()}/dashboard.html", )
+    no_of_departments = len(college)
+    no_of_accounts = len(accounts)
+    
+    return render_template(
+        f"/college_admin/{tools.get_lang()}/dashboard.html",
+        no_of_departments=no_of_departments,
+        no_of_accounts=no_of_accounts
+    )
