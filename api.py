@@ -188,14 +188,12 @@ def UpdateCollege(data):
 ## /api/College/AddCollege
 ## ----------------------------------------------------------------
 
-# def AddCollege(data):
-# def AddCollege(data, token=session.get("access_token")):
-def AddCollege(data, token):
+def AddCollege(data):
     response = requests.post(
         f"{BASE_URL}/api/College/AddCollege",
         headers={
             "accept": "application/json",
-            "Authorization": f"Bearer {token}",
+            "Authorization": f"Bearer {session.get('access_token')}",
             "Content-Type": "application/json"
         },
         json={
@@ -229,7 +227,6 @@ def AddDepartment(data):
     response = requests.post(
         f"{BASE_URL}/api/Department/AddDepartment",
         headers={
-            "accept": "text/plain",
             "Authorization": f"Bearer {session.get("access_token")}",
             "Content-Type": "application/json"
         },
@@ -239,7 +236,7 @@ def AddDepartment(data):
             "collegeId": data["college_id"]
         }
     )
-    return response.json()
+    return response
 
 
 ## ----------------------------------------------------------------

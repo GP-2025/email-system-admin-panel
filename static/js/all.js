@@ -19,9 +19,6 @@ let totalRows = 0;
 let totalPages = 1;
 let Rows = [];
 
-const alertTemplates = document.querySelectorAll("[alert-template]")
-const alertTimeExpiration = 7 // in seconds
-
 
 document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < rowsContainer.children.length; i++) {
@@ -45,14 +42,18 @@ document.addEventListener('DOMContentLoaded', () => {
     addModalCloseButton.addEventListener('click', () => {
         addModalBackdrop.classList.add('pointer-events-none', 'opacity-0');
     });
+
+    const alertTemplates = document.querySelectorAll("[alert-template]")
+
+    const alertTimeExpiration = 7 // in seconds
+    alertTemplates.forEach(alertTemplate => {
+        setTimeout(() => { alertTemplate.remove() }, alertTimeExpiration*1000);
+    });
 });
 
-alertTemplates.forEach(alertTemplate => {
-    setTimeout(() => { alertTemplate.remove() }, alertTimeExpiration*1000);
-});
 
 function closeAlertTemplate (message) {
-    var alertTemplate = document.querySelector(`[alret-message='${message}']`)
+    var alertTemplate = document.querySelector(`[alert-message='${message}']`)
     alertTemplate.remove()
 }
 
@@ -110,7 +111,6 @@ function loadRows() {
         if ( !row.element.classList.contains("hidden") )
             tempRows.push(row)
     });
-    console.log(tempRows)
     rowsContainer.innerHTML = "";
     const startIndex = (currentPage - 1) * RowsPerPage;
     const endIndex = startIndex + RowsPerPage;
