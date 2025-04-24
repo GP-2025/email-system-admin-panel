@@ -21,6 +21,10 @@ app.config['SECRET_KEY'] = 'secret_key'
 
 # app.register_blueprint(admin_events_bp)
 
+@app.route("/", methods=["GET"])
+def home():
+    return flask.render_template('/main/en/get_started.html')
+
 
 # ---------------------------------------
 # 404 Error Handler
@@ -28,7 +32,7 @@ app.config['SECRET_KEY'] = 'secret_key'
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return flask.render_template('404.html'), 404
+    return flask.render_template('/main/en/404.html'), 404
 
 
 # ---------------------------------------
