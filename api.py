@@ -1,6 +1,5 @@
 
 import os
-import json
 import requests
 
 BASE_URL = os.environ["API_BASE_URL"]

@@ -1,36 +1,39 @@
 import flask
+import os
 
-app = flask.Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
+import config
+import api
 
-@app.route('/')
-def home():
-    return flask.render_template('home.html')
+app = flask.Flask(__name__, static_folder='static')
+app.config['SECRET_KEY'] = 'secret_key'
 
-@app.route('/login')
-def login():
-    return flask.render_template('login.html')
+# ---------------------------------------
+# Routes
+# ---------------------------------------
 
-@app.route('/logout')
-def logout():
-    return flask.redirect('/login')
+# Admin Routes Blueprints
+# from routes.user.login import login_bp
 
-@app.route('/dashboard')
-def dashboard():
-    return flask.render_template('dashboard.html')
+# app.register_blueprint(login_bp)
 
-@app.route('/colleges')
-def colleges():
-    return flask.render_template('colleges.html')
+# # College Admin Routes Blueprints
+# from routes.admin.admin_events import admin_events_bp
 
-@app.route('/departments')
-def departments():
-    return flask.render_template('departments.html')
-
-@app.route('/accounts')
-def accounts():
-    return flask.render_template('accounts.html')
+# app.register_blueprint(admin_events_bp)
 
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5080)
+# ---------------------------------------
+# 404 Error Handler
+# ---------------------------------------
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return flask.render_template('404.html'), 404
+
+
+# ---------------------------------------
+# Main
+# ---------------------------------------
+
+if __name__ == "__main__":
+    app.run(port=4000, debug=True)
