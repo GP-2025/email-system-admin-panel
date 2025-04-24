@@ -2,6 +2,32 @@
 from flask import session
 
 # ---------------------------------------
+# Is Admin Role Function
+# ---------------------------------------
+
+def is_admin():
+    if session.get("role").lower() == "admin":
+        return True
+    return False
+
+# ---------------------------------------
+# Is College Admin Role Function
+# ---------------------------------------
+
+def is_college_admin():
+    if session.get("role").lower() == "collegeadmin":
+        return True
+    return False
+
+# ---------------------------------------
+# get Account Role Function
+# ---------------------------------------
+
+def get_account_role():
+    return session.get("role")
+
+
+# ---------------------------------------
 # Update Access Token Function
 # ---------------------------------------
 
