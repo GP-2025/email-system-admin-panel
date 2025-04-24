@@ -21,8 +21,8 @@ app.config['SECRET_KEY'] = 'secret_key'
 
 # app.register_blueprint(admin_events_bp)
 
-@app.route("/", methods=["GET"])
-def home():
+@app.route("/get_started", methods=["GET"])
+def get_started():
     return flask.render_template('/main/en/get_started.html')
 
 
