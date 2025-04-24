@@ -8,22 +8,27 @@ app = flask.Flask(__name__, static_folder='static')
 app.config['SECRET_KEY'] = 'secret_key'
 
 # ---------------------------------------
-# Routes
+# Main Routes Blueprints
+# ---------------------------------------
+from routes.main.get_started import get_started_bp
+from routes.main.home import home_bp
+from routes.main.login import login_bp
+
+app.register_blueprint(get_started_bp)
+app.register_blueprint(home_bp)
+app.register_blueprint(login_bp)
+
+
+# ---------------------------------------
+# Admin Routes Blueprints
 # ---------------------------------------
 
-# Admin Routes Blueprints
-# from routes.user.login import login_bp
 
-# app.register_blueprint(login_bp)
 
-# # College Admin Routes Blueprints
-# from routes.admin.admin_events import admin_events_bp
+# ---------------------------------------
+# College Admin Routes Blueprints
+# ---------------------------------------
 
-# app.register_blueprint(admin_events_bp)
-
-@app.route("/get_started", methods=["GET"])
-def get_started():
-    return flask.render_template('/main/en/get_started.html')
 
 
 # ---------------------------------------
