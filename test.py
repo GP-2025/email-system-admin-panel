@@ -7,5 +7,10 @@ password = "helloworld"
 response = api.Login(email, password)
 token = response["accessToken"]
 
-new = api.GetCollegeById(7, token)
+data={
+    "name": "Arts and Sciences",
+    "abbreviation": "AC"
+}
+
+new = api.AddCollege(data, token)
 print(new)

@@ -12,7 +12,6 @@ login_bp = Blueprint("login", __name__, url_prefix="")
 @login_bp.route("/login", methods=["GET"])
 def login_get():
     if tools.check_session():
-        flash("You are already logged in.", "orange")
         flash("You are already logged in.", "red")
         return redirect("/admin")
     

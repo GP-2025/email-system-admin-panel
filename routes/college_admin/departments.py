@@ -4,14 +4,14 @@ import json
 import api
 import tools
 
-college_admin_dashboard_bp = Blueprint("dashboard", __name__, url_prefix="/college_admin")
+college_admin_departments_bp = Blueprint("departments", __name__, url_prefix="/college_admin")
 
 
 # ---------------------------------------
 # GET METHOD
 # ---------------------------------------
-@college_admin_dashboard_bp.route("/dashboard", methods=["GET"])
-def dashboard_get():
+@college_admin_departments_bp.route("/departments", methods=["GET"])
+def departments_get():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -23,14 +23,11 @@ def dashboard_get():
     college_id = session.get("college_id")
     tools.update_token()
     
-    departments = api.GetCollegeById(college_id).get("departments")
-    accounts = api.AllUsers().get("data")
-    
-    no_of_departments = len(departments)
-    no_of_accounts = len(accounts)
+    # departments = api.GetCollegeById(college_id).get("departments")
+    departments = api.AllUsers().get("data")
+    print(departments)
     
     return render_template(
-        f"/college_admin/{tools.get_lang()}/dashboard.html",
-        no_of_departments=no_of_departments,
-        no_of_accounts=no_of_accounts
+        f"/college_admin/{tools.get_lang()}/departments.html",
+        departments=departments
     )
