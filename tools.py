@@ -45,6 +45,8 @@ def set_session(data):
         "access_token": data["accessToken"],
         "token_expiration_time": data["refreshTokenExpirationTime"]
     })
+    
+    return True
 
 
 # ---------------------------------------

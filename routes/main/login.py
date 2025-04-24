@@ -22,10 +22,15 @@ def login_post():
     email = request.form.get("email")
     password = request.form.get("password")
     
-    response = api.Login(email, password)
-    if response.get("statusCode") != 200:
-        flash(response.get("message"), "orange")
+    res = api.Login(email, password)
+    if not res.get("userId"):
+        flash(res.get("message"), "red")
         return redirect("/login")
     
-    return redirect("/login")
+    is_session_set = tools.set_session(res)
+    if is_session_set:
+        flash("Error setting session.", "red")
+        return redirect("/login")
+    
+    return redirect("/admin/dashboard")
     
