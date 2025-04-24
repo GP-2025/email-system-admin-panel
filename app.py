@@ -22,9 +22,11 @@ def test():
 # ---------------------------------------
 from routes.main.home import home_bp
 from routes.main.login import login_bp
+from routes.main.admin import admin_bp
 
 app.register_blueprint(home_bp)
 app.register_blueprint(login_bp)
+app.register_blueprint(admin_bp)
 
 
 # ---------------------------------------
@@ -37,6 +39,9 @@ app.register_blueprint(login_bp)
 # College Admin Routes Blueprints
 # ---------------------------------------
 
+from routes.college_admin.dashboard import dashboard_bp
+
+app.register_blueprint(dashboard_bp)
 
 
 # ---------------------------------------

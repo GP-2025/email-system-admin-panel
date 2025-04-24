@@ -40,8 +40,8 @@ def update_token(token):
 # ---------------------------------------
 
 def check_session():
-    if (session.get("id")):
-        return session
+    if session.get("id"):
+        return True
     return False
 
 

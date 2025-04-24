@@ -13,7 +13,7 @@ admin_bp = Blueprint("admin", __name__, url_prefix="")
 def admin_get():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
-        return redirect("/admin")
+        return redirect("/login")
     
     if tools.is_admin():
         return redirect("/admin/dashboard")
@@ -21,4 +21,3 @@ def admin_get():
         return redirect("/college_admin/dashboard")
     
     return redirect("/")
-

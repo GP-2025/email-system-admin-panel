@@ -1,15 +1,14 @@
 
-const alertTemplate = document.querySelector("[role='alert']")
+const alertTemplates = document.querySelectorAll("[alert-template]")
 const alertTimeExpiration = 7 // in seconds
 
-if (alertTemplate) {
-    const alertTemplateCloseButton = alertTemplate.querySelector("button")
-    
+alertTemplates.forEach(alertTemplate => {
     setTimeout(() => { alertTemplate.remove() }, alertTimeExpiration*1000);
-    
-    alertTemplateCloseButton.addEventListener("click", () => {
-        alertTemplate.remove()
-    })
+});
+
+function closeAlertTemplate (message) {
+    var alertTemplate = document.querySelector(`[alret-message='${message}']`)
+    alertTemplate.remove()
 }
 
 

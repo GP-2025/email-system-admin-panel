@@ -11,6 +11,11 @@ login_bp = Blueprint("login", __name__, url_prefix="")
 # ---------------------------------------
 @login_bp.route("/login", methods=["GET"])
 def login_get():
+    if tools.check_session():
+        flash("You are already logged in.", "orange")
+        flash("You are already logged in.", "red")
+        return redirect("/admin")
+    
     return render_template(f"/main/{tools.get_lang()}/login.html")
 
 
@@ -18,7 +23,7 @@ def login_get():
 # POST METHOD
 # ---------------------------------------
 @login_bp.route("/login", methods=["POST"])
-def login_post():
+def login_post():    
     email = request.form.get("email")
     password = request.form.get("password")
     
@@ -33,7 +38,7 @@ def login_post():
         return redirect("/login")
     
     # checking if the logged in user is not a college admin or an admin
-    if not tools.is_admin() or not tools.is_college_admin():
+    if not tools.is_admin() and not tools.is_college_admin():
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
