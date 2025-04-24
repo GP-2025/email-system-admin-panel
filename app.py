@@ -39,9 +39,9 @@ app.register_blueprint(admin_bp)
 # College Admin Routes Blueprints
 # ---------------------------------------
 
-from routes.college_admin.dashboard import dashboard_bp
+from routes.college_admin.dashboard import college_admin_dashboard_bp
 
-app.register_blueprint(dashboard_bp)
+app.register_blueprint(college_admin_dashboard_bp)
 
 
 # ---------------------------------------
