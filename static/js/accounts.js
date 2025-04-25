@@ -7,7 +7,6 @@ const signaturePictureInputTextContainer = document.querySelector("[signature_pi
 const signaturePictureInput = document.getElementById("signature_picture")
 
 
-
 document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < rowsContainer.children.length; i++) {
         let row_element = rowsContainer.children[i]
