@@ -261,11 +261,12 @@ def EditDepartment(data):
     response = requests.post(
         f"{BASE_URL}/api/Department/EditDepartment/{data["id"]}",
         headers={
-            "accept": "text/plain",
+            "accept": "*/*",
             "Authorization": f"Bearer {session.get("access_token")}",
             "Content-Type": "application/json"
         },
-        data={
+        json={
+            "id": data["id"],
             "name": data["name"],
             "abbreviation": data["abbreviation"],
             "collegeId": data["college_id"],

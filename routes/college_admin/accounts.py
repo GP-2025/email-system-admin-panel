@@ -24,8 +24,15 @@ def accounts_get():
     tools.update_token()
     
     college = api.GetCollegeById(college_id)
+    
     accounts = api.AllUsers().get("data")
+    if accounts:
+        accounts = list(reversed(accounts))
+    
     departments = college.get("departments")
+    if departments:
+        departments = list(reversed(departments))
+    
     roles = tools.get_roles({tools.get_lang()})
     
     return render_template(

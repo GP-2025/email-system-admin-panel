@@ -21,11 +21,13 @@ def departments_get():
         return redirect("/login")
     
     college_id = session.get("college_id")
-    tools.update_token()
     
+    tools.update_token()
     college = api.GetCollegeById(college_id)
+    
     departments = college.get("departments")
-    print(departments)
+    if departments:
+        departments = list(reversed(departments))
     
     return render_template(
         f"/college_admin/{tools.get_lang()}/departments.html",
@@ -83,15 +85,17 @@ def departments_put(department_id):
     
     tools.update_token()
     data = {
-        "id": department_id,
+        "id": int(department_id),
         "name": department_name,
         "abbreviation": department_abbreviation,
         "college_id": session.get("college_id")
     }
+    print(json.dumps(data, indent=2))
     res = api.EditDepartment(data)
+    
     if res.status_code != 200:
-        flash("Department name or abbreviation already exists.", "red")
+        flash(res.json().get("message"), "red")
         return redirect("/college_admin/departments")
     
-    flash("Department added successfully.", "green")
+    flash("Department updated successfully.", "green")
     return redirect("/college_admin/departments")

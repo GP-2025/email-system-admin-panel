@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const alertTemplates = document.querySelectorAll("[alert-template]")
 
-    const alertTimeExpiration = 7 // in seconds
+    const alertTimeExpiration = 10 // in seconds
     alertTemplates.forEach(alertTemplate => {
         setTimeout(() => { alertTemplate.remove() }, alertTimeExpiration*1000);
     });
