@@ -25,9 +25,33 @@ def accounts_get():
     
     college = api.GetCollegeById(college_id)
     accounts = api.AllUsers().get("data")
+    departments = college.get("departments")
+    roles = tools.get_roles({tools.get_lang()})
     
     return render_template(
         f"/college_admin/{tools.get_lang()}/accounts.html",
         accounts=accounts,
-        college=college
+        roles=roles,
+        departments=departments,
+        college=college,
     )
+
+
+# ---------------------------------------
+# POST METHOD
+# ---------------------------------------
+@college_admin_accounts_bp.route("/accounts/add_account", methods=["POST"])
+def accounts_post():
+    if not tools.check_session():
+        flash("Your are not logged in!", "red")
+        return redirect("/login")
+    
+    if not tools.is_college_admin():
+        flash("Your account is not authorized!", "red")
+        return redirect("/login")
+    
+    print(request.form)
+    
+    # college_id = session.get("college_id")
+    # tools.update_token()
+    return redirect("/college_admin/accounts")
