@@ -165,20 +165,20 @@
                                                 <label for="department" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
                                                 <select name="account_department_id" id="department" placeholder="Type account department"
                                                     class="dark:text-gray-400 appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500" required>
+                                                    <option value="">Choose department..</option>
                                                     {% for dep in departments %}
                                                     <option value="{{dep.id}}">{{dep.name}}</option>
                                                     {% endfor %}
-                                                    <option value="">Choose department..</option>
                                                 </select>
                                             </div>
                                             <div class="w-1/2">
                                                 <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
                                                 <select name="account_role_id" id="role" placeholder="Type account role"
                                                     class="dark:text-gray-400 appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500" required>
+                                                    <option value="">Choose role..</option>
                                                     {% for role in roles %}
                                                     <option value="{{role.id}}">{{role.name}}</option>
                                                     {% endfor %}
-                                                    <option value="">Choose role..</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -238,7 +238,7 @@
                             </div>
                         </div>
                     </div> 
-                    <!-- End of modal -->  
+                    <!-- End of modal -->
                 </div>
 
                 <div class="border border-1 border-gray-300 mb-10 mx-auto max-w-8xl rounded-lg bg-white divide-y divide-gray-300 overflow-hidden">
@@ -287,11 +287,12 @@
                                     <!-- Update Modal toggle -->
                                     <button onclick="updateModalOpenButton('{{account.id}}')" update-modal-open-button data-modal-target="update-modal" data-modal-toggle="update-modal" 
                                         class="ml-auto rounded-md bg-indigo-600 px-3.5 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-indigo-600">Edit</button>
-
+                                
                                     <!-- Update Main modal -->
                                     <div data-modal-row-id="{{account.id}}""
-                                        class="select-none pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-200">
-                                        <div data-modal="update-modal" class="relative p-4 w-full max-w-md max-h-full">
+                                        class="select-none  fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-200">
+                                        <!-- pointer-events-none opacity-0 -->
+                                        <div data-modal="update-modal" class="relative p-4 w-full max-w-5xl max-h-full">
                                             <!-- Modal content -->
                                             <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-800">
                                                 <!-- Modal header -->
@@ -307,34 +308,156 @@
                                                         <span class="sr-only">Close modal</span>
                                                     </button>
                                                 </div>
-                                                <div class="text-left p-4 md:p-5 border-b dark:border-gray-600 border-gray-200">
-                                                    <div>
-                                                        <p class="text-md text-gray-900 dark:text-white">Current Name:</p>
-                                                        <p class="current-name text-lg text-gray-900 dark:text-white font-semibold">{{account.name}}</p>
+                                                <div class="update-account-container flex space-x-5">
+                                                    <div class="w-2/5 border-r dark:border-gray-600 border-gray-200">
+                                                        <div class="text-left p-4 md:p-5">
+                                                            <div class="flex-col items-center">
+                                                                <div class="flex space-x-4 mb-4">
+                                                                    <div class="w-20 h-20">
+                                                                        {% if account.pictureURL == "Empty" or not account.pictureURL %}
+                                                                        <img class="w-20 h-20 object-cover rounded-lg" src="/static/images/profile.jpg" alt="Profile Picture">
+                                                                        {% else %}
+                                                                        <img class="w-20 h-20 object-cover rounded-lg" src="{{account.pictureURL}}" alt="Profile Picture">
+                                                                        {% endif %}
+                                                                    </div>
+                                                                    <div class="w-32 h-20">
+                                                                        {% if account.signatureURL == "Empty" or not account.signatureURL %}
+                                                                        <img class="w-32 h-20 object-cover rounded-lg" src="/static/images/signature-default.png" alt="Signature Picture">
+                                                                        {% else %}
+                                                                        <img class="w-32 h-20 object-cover rounded-lg" src="{{account.signatureURL}}" alt="Signature Picture">
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <p class="text-lg text-gray-900 dark:text-white font-bold">{{account.name}}</p>
+                                                                    <p class="text-md text-gray-900 dark:text-white font-medium">{{account.email}}</p>
+                                                                    <p class="text-md text-gray-900 dark:text-white font-medium">{{account.nationalId}}</p>
+                                                                    <p class="text-md text-gray-900 dark:text-white font-medium">{{account.role}}</p>
+                                                                    <p class="text-md text-gray-900 dark:text-white font-medium">{{account.departmentName}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-12 border-t dark:border-gray-600 border-gray-200 flex-col text-left p-4 md:p-5">
+                                                            <div class="mb-3">
+                                                                <p class="text-sm text-gray-700 dark:text-gray-400">The password will be reset to the account's National ID.</p>
+                                                            </div>
+                                                            <form class="" action="/college_admin/accounts/reset_password/{{account.email}}" method="POST" class="">
+                                                                <button type="submit" class="block text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-500 dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-red-600">
+                                                                    Reset Password
+                                                                </button>
+                                                            </form>
+                                                        </div>
                                                     </div>
-                                                    <div class="mt-5">
-                                                        <p class="text-md text-gray-900 dark:text-white">Current Abbreviation:</p>
-                                                        <p class="current-abbreviation text-lg text-gray-900 dark:text-white font-semibold">{{account.abbreviation}}</p>
+
+                                                    <div class="w-3/5">
+                                                        <!-- Update Modal body -->
+                                                        <form action="/college_admin/accounts/edit_account/{{account.id}}" method="POST" class="p-4 md:p-5" enctype="multipart/form-data">
+                                                            <div class="text-left grid gap-4 mb-4 grid-cols-2">
+                                                                <div class="col-span-2 flex space-x-3">
+                                                                    <div class="w-1/2">
+                                                                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                                                        <input value="New Ismail Sherif" type="text" name="account_name" id="name" placeholder="Type account name"
+                                                                            class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500" required>
+                                                                    </div>
+                                                                    <div class="w-1/2">
+                                                                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                                                        <input value="ismailsherifnew@hotmail.com" type="email" name="account_email" id="email" placeholder="Type account email"
+                                                                            class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500" required>
+                                                                    </div>
+                                                                </div>
+        
+                                                                
+                                                                <div class="col-span-2 flex space-x-3">
+                                                                    <div class="w-1/3">
+                                                                        <label for="national_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">National ID</label>
+                                                                        <input value="30218374104237" maxlength="14" type="text" name="account_national_id" id="national_id" placeholder="Type account national id"
+                                                                            class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500" required>
+                                                                    </div>
+                                                                    <div class="w-1/3">
+                                                                        <label for="department" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
+                                                                        <select name="account_department_id" id="department" placeholder="Type account department"
+                                                                            class="dark:text-gray-400 appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500" required>
+                                                                            <option value="">Choose department..</option>
+                                                                            {% for dep in departments %}
+                                                                                {% if account.departmentName == dep.name %}
+                                                                                <option value="{{dep.id}}" selected>{{dep.name}}</option>
+                                                                                {% else %}
+                                                                                <option value="{{dep.id}}">{{dep.name}}</option>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="w-1/3">
+                                                                        <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+                                                                        <select name="account_role_id" id="role" placeholder="Type account role"
+                                                                            class="dark:text-gray-400 appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500" required>
+                                                                            <option value="">Choose role..</option>
+                                                                            {% for role in roles %}
+                                                                                {% if account.role == role.name_id %}
+                                                                                <option value="{{role.id}}" selected>{{role.name}}</option>
+                                                                                {% else %}
+                                                                                <option value="{{role.id}}">{{role.name}}</option>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+            
+                                                                <div class="col-span-2 flex space-x-3">
+                                                                    <div class="w-1/2">
+                                                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Picture</label>
+                                                                        <div class="flex items-center justify-center">
+                                                                            <label for="profile_picture" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                                                                <div class="flex flex-col items-center justify-center py-4">
+                                                                                    <div profile_picture_input_text_container
+                                                                                        class="flex flex-col items-center justify-center">
+                                                                                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                                                                        </svg>
+                                                                                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                                                                        <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or JPEG (MAX. 800x400px or 2 MB)</p>
+                                                                                    </div>
+                                                                                    <div class="flex flex-col text-center items-center justify-center">
+                                                                                        <p profile_picture_file_name
+                                                                                            class="mb-2 text-sm text-gray-500 font-semibold dark:text-gray-400"></p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <input type="file" name="account_profile_picture" id="profile_picture" accept=".png, .jpg, .jpeg" class="hidden">
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="w-1/2">
+                                                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Signature Picture</label>
+                                                                        <div class="flex items-center justify-center">
+                                                                            <label for="signature_picture" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                                                                <div signature_picture_input_text_container
+                                                                                    class="flex flex-col items-center justify-center">
+                                                                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                                                                    </svg>
+                                                                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                                                                    <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or JPEG (MAX. 800x400px or 2 MB)</p>
+                                                                                </div>
+                                                                                <div class="flex flex-col text-center items-center justify-center">
+                                                                                    <p signature_picture_file_name
+                                                                                        class="mb-2 text-sm text-gray-500 font-semibold dark:text-gray-400"></p>
+                                                                                </div>
+                                                                            </label>
+                                                                            <input type="file" name="account_signature_picture" id="signature_picture" accept=".png, .jpg, .jpeg" class="hidden">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+            
+                                                            </div>
+            
+                                                            <button type="submit" class="text-white inline-flex items-center font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-500 dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-indigo-600">
+                                                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                                                                Update account
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </div>
-                                                <!-- Update Modal body -->
-                                                <form action="/college_admin/departments/update_department/{{account.id}}" method="POST"class="p-4 md:p-5">
-                                                    <div class="grid gap-4 mb-4 grid-cols-2">
-                                                        <div class="col-span-2">
-                                                            <label for="name" class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                                            <!-- <input id="name" class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500"
-                                                                type="text" value="{{account.name}}" name="account_name" placeholder="Type account name" required> -->
-                                                        </div>
-                                                        <div class="col-span-2">
-                                                            <label for="abbreviation" class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Abbreviation</label>
-                                                            <input id="abbreviation" class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500"
-                                                                type="text" value="{{account.abbreviation}}" name="account_abbreviation" placeholder="Type account abbreviation" required>
-                                                        </div>
-                                                    </div>
-                                                    <button type="submit" class="block text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-500 dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-indigo-600">
-                                                        Update account
-                                                    </button>
-                                                </form>
+                                                
                                             </div>
                                         </div>
                                     </div> 

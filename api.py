@@ -41,7 +41,7 @@ def ResetPassowrd(email):
             "Authorization": f"Bearer {session.get("access_token")}",
         }
     )
-    return response.json()
+    return response
 
 
 ## ----------------------------------------------------------------

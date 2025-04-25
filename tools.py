@@ -8,33 +8,33 @@ import api
 
 def get_roles(lang):
     roles_en = [
-        {"id": 0, "name": "Normal"},
-        {"id": 1, "name": "Secretary"},
-        {"id": 2, "name": "Vice Dean For Environment"},
-        {"id": 3, "name": "Vice Dean Students Affairs"},
-        {"id": 4, "name": "Vice Dean Postgraduate Studies"},
-        {"id": 5, "name": "Dean"},
+        {"id": 0, "name_id": "NormalUser", "name": "Normal User"},
+        {"id": 1, "name_id": "Secretary", "name": "Secretary"},
+        {"id": 2, "name_id": "ViceDeanForEnvironment", "name": "Vice Dean For Environment"},
+        {"id": 3, "name_id": "ViceDeanStudentsAffairs", "name": "Vice Dean Students Affairs"},
+        {"id": 4, "name_id": "ViceDeanPostgraduateStudies", "name": "Vice Dean Postgraduate Studies"},
+        {"id": 5, "name_id": "Dean", "name": "Dean"},
         
-        {"id": 6, "name": "Vice President For Environment"},
-        {"id": 7, "name": "Vice President For Students Affairs"},
-        {"id": 8, "name": "Vice President For Postgraduate Studies"},
-        {"id": 9, "name": "President"},
-        {"id": 10, "name": "College Admin"},
+        {"id": 6, "name_id": "VicePresidentForEnvironment", "name": "Vice President For Environment"},
+        {"id": 7, "name_id": "VicePresidentForStudentsAffairs", "name": "Vice President For Students Affairs"},
+        {"id": 8, "name_id": "VicePresidentForPostgraduateStudies", "name": "Vice President For Postgraduate Studies"},
+        {"id": 9, "name_id": "President", "name": "President"},
+        {"id": 10, "name_id": "CollegeAdmin", "name": "College Admin"},
     ]
 
     roles_ar = [
-        {"id": 0, "name": "عادي"},
-        {"id": 1, "name": "سكرتير"},
-        {"id": 2, "name": "وكيل الكلية لشؤون البيئة"},
-        {"id": 3, "name": "وكيل الكلية لشؤون الطلاب"},
-        {"id": 4, "name": "وكيل الكلية للدراسات العليا"},
-        {"id": 5, "name": "عميد"},
+        {"id": 0, "name_id": "NormalUser", "name": "عادي"},
+        {"id": 1, "name_id": "Secretary", "name": "سكرتير"},
+        {"id": 2, "name_id": "ViceDeanForEnvironment", "name": "وكيل الكلية لشؤون البيئة"},
+        {"id": 3, "name_id": "ViceDeanStudentsAffairs", "name": "وكيل الكلية لشؤون الطلاب"},
+        {"id": 4, "name_id": "ViceDeanPostgraduateStudies", "name": "وكيل الكلية للدراسات العليا"},
+        {"id": 5, "name_id": "Dean", "name": "عميد"},
         
-        {"id": 6, "name": "نائب رئيس الجامعة لشؤون البيئة"},
-        {"id": 7, "name": "نائب رئيس الجامعة لشؤون الطلاب"},
-        {"id": 8, "name": "نائب رئيس الجامعة للدراسات العليا"},
-        {"id": 9, "name": "رئيس الجامعة"},
-        {"id": 10, "name": "ادمن كلية"},
+        {"id": 6, "name_id": "VicePresidentForEnvironment", "name": "نائب رئيس الجامعة لشؤون البيئة"},
+        {"id": 7, "name_id": "VicePresidentForStudentsAffairs", "name": "نائب رئيس الجامعة لشؤون الطلاب"},
+        {"id": 8, "name_id": "VicePresidentForPostgraduateStudies", "name": "نائب رئيس الجامعة للدراسات العليا"},
+        {"id": 9, "name_id": "President", "name": "رئيس الجامعة"},
+        {"id": 10, "name_id": "CollegeAdmin", "name": "ادمن كلية"},
     ]
 
     roles = roles_ar if lang == "ar" else roles_en 

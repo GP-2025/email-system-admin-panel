@@ -104,9 +104,33 @@ def accounts_post():
     
     res = api.Register(data, files)
     if res.status_code != 200:
-        print(res.json())
         flash("error adding new account.", "red")
         return redirect("/college_admin/accounts")
     
     flash("Account added successfully.", "green")
+    return redirect("/college_admin/accounts")
+
+
+
+# ---------------------------------------
+# POST METHOD
+# ---------------------------------------
+@college_admin_accounts_bp.route("/accounts/reset_password/<string:email>", methods=["POST"])
+def accounts_reset_password(email):
+    if not tools.check_session():
+        flash("Your are not logged in!", "red")
+        return redirect("/login")
+    
+    if not tools.is_college_admin():
+        flash("Your account is not authorized!", "red")
+        return redirect("/login")
+    
+    tools.update_token()
+    res = api.ResetPassowrd(email)
+    
+    if res.status_code != 200:
+        flash("Error reseting  account password.", "red")
+        return redirect("/college_admin/accounts")
+    
+    flash("Account password reset successfully.", "green")
     return redirect("/college_admin/accounts")
