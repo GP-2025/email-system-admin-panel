@@ -1,4 +1,13 @@
 
+
+const profilePictureInputTextContainer = document.querySelector("[profile_picture_input_text_container]")
+const profilePictureInput = document.getElementById("profile_picture")
+
+const signaturePictureInputTextContainer = document.querySelector("[signature_picture_input_text_container]")
+const signaturePictureInput = document.getElementById("signature_picture")
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < rowsContainer.children.length; i++) {
         let row_element = rowsContainer.children[i]
@@ -27,4 +36,26 @@ searchInput.addEventListener("input", function (e) {
         row.element.classList.toggle("hidden", !isVisible);
     }) 
     updatePagination()
+});
+
+profilePictureInput.addEventListener("change", (e) => {
+    var profilePictureFileName = document.querySelector("[profile_picture_file_name]")
+    if ( ! profilePictureInput.files.length ) {
+        profilePictureFileName.textContent = ""
+        return profilePictureInputTextContainer.classList.remove("hidden")
+    }
+    var filename = profilePictureInput.files[0].name
+    profilePictureFileName.textContent = filename
+    profilePictureInputTextContainer.classList.add("hidden")
+});
+
+signaturePictureInput.addEventListener("change", (e) => {
+    var signaturePictureFileName = document.querySelector("[signature_picture_file_name]")
+    if ( ! signaturePictureInput.files.length ) {
+        signaturePictureFileName.textContent = ""
+        return signaturePictureInputTextContainer.classList.remove("hidden")
+    }
+    var filename = signaturePictureInput.files[0].name
+    signaturePictureFileName.textContent = filename
+    signaturePictureInputTextContainer.classList.add("hidden")
 });
