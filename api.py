@@ -85,7 +85,7 @@ def GetAccountByEmail(email):
 
 def Register(data, picture_file, signature_file):
     response = requests.post(
-        f"{BASE_URL}/api/Auth/Register?Email={data["email"]}&Name={data["name"]}&Role={data["role_id"]}&NationalId={data["national_id"]}&CollegeId={data["college_id"]}&DepartmentId={data["department_id"]}",
+        f"{BASE_URL}/api/Auth/Register?Email={data["email"]}&Name={data["name"]}&Password={data["password"]}&Role={data["role_id"]}&NationalId={data["national_id"]}&CollegeId={data["college_id"]}&DepartmentId={data["department_id"]}",
         headers={
             "accept": "text/plain",
             "Authorization": f"Bearer {session.get("access_token")}",
@@ -93,10 +93,10 @@ def Register(data, picture_file, signature_file):
         },
         files={
             "Picture": picture_file,
-            "Signature": signature_file,
+            "SignatureFile": signature_file,
         }
     )
-    return response.json()
+    return response
 
 
 ## ----------------------------------------------------------------

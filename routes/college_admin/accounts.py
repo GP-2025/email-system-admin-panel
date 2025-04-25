@@ -50,8 +50,27 @@ def accounts_post():
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
-    print(request.form)
+    college_id = session.get("college_id")
+    tools.update_token()
     
-    # college_id = session.get("college_id")
-    # tools.update_token()
+    data = {
+        "email": request.form["account_email"],
+        "password": request.form["account_password"],
+        "name": request.form["account_name"],
+        "role_id": request.form["account_role_id"],
+        "national_id": request.form["account_national_id"],
+        "department_id": request.form["account_department_id"],
+        "college_id": college_id,
+    }
+    
+    picture_file = request.files["account_profile_picture"]
+    signature_file = request.files["account_signature_picture"]
+    
+    res = api.Register(data, picture_file, signature_file)
+    if res.status_code != 200:
+        print(res.json())
+        flash("error adding new account.", "red")
+        return redirect("/college_admin/accounts")
+    
+    flash("Account added successfully.", "green")
     return redirect("/college_admin/accounts")
