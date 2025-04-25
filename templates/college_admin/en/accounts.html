@@ -188,9 +188,8 @@
                                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Picture</label>
                                                 <div class="flex items-center justify-center">
                                                     <label for="profile_picture" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                                        <div class="flex flex-col items-center justify-center py-4">
-                                                            <div profile_picture_input_text_container
-                                                                class="flex flex-col items-center justify-center">
+                                                        <div class="flex flex-col items-center justify-center py-4" update_profile_picture_input_container="add-account">
+                                                            <div class="flex flex-col items-center justify-center">
                                                                 <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
                                                                 </svg>
@@ -198,11 +197,10 @@
                                                                 <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or JPEG (MAX. 800x400px or 2 MB)</p>
                                                             </div>
                                                             <div class="flex flex-col text-center items-center justify-center">
-                                                                <p profile_picture_file_name
-                                                                    class="mb-2 text-sm text-gray-500 font-semibold dark:text-gray-400"></p>
+                                                                <p file_name class="mb-2 text-sm text-gray-500 font-semibold dark:text-gray-400"></p>
                                                             </div>
+                                                            <input type="file" id="profile_picture" onchange="updateProfilePictureInput('add-account')" name="account_profile_picture" accept=".png, .jpg, .jpeg" class="hidden">
                                                         </div>
-                                                        <input type="file" name="account_profile_picture" id="profile_picture" accept=".png, .jpg, .jpeg" class="hidden">
                                                     </label>
                                                 </div>
                                             </div>
@@ -210,20 +208,20 @@
                                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Signature Picture</label>
                                                 <div class="flex items-center justify-center">
                                                     <label for="signature_picture" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                                        <div signature_picture_input_text_container
-                                                            class="flex flex-col items-center justify-center">
-                                                            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                                            </svg>
-                                                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                                            <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or JPEG (MAX. 800x400px or 2 MB)</p>
-                                                        </div>
-                                                        <div class="flex flex-col text-center items-center justify-center">
-                                                            <p signature_picture_file_name
-                                                                class="mb-2 text-sm text-gray-500 font-semibold dark:text-gray-400"></p>
+                                                        <div class="flex flex-col items-center justify-center py-4" update_signature_picture_input_container="add-account">
+                                                            <div class="flex flex-col items-center justify-center">
+                                                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                                                </svg>
+                                                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                                                <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or JPEG (MAX. 800x400px or 2 MB)</p>
+                                                            </div>
+                                                            <div class="flex flex-col text-center items-center justify-center">
+                                                                <p file_name class="mb-2 text-sm text-gray-500 font-semibold dark:text-gray-400"></p>
+                                                            </div>
+                                                            <input type="file" id="signature_picture" onchange="updateSignaturePictureInput('add-account')" name="account_signature_picture" accept=".png, .jpg, .jpeg" class="hidden">
                                                         </div>
                                                     </label>
-                                                    <input type="file" name="account_signature_picture" id="signature_picture" accept=".png, .jpg, .jpeg" class="hidden">
                                                 </div>
                                             </div>
                                         </div>
@@ -406,10 +404,9 @@
                                                                     <div class="w-1/2">
                                                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Picture</label>
                                                                         <div class="flex items-center justify-center">
-                                                                            <label for="profile_picture" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                                                                <div class="flex flex-col items-center justify-center py-4">
-                                                                                    <div profile_picture_input_text_container
-                                                                                        class="flex flex-col items-center justify-center">
+                                                                            <label for="profile_picture_{{account.id}}" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                                                                <div class="flex flex-col items-center justify-center py-4" update_profile_picture_input_container="profile_picture_{{account.id}}">
+                                                                                    <div class="flex flex-col items-center justify-center">
                                                                                         <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                                                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
                                                                                         </svg>
@@ -417,32 +414,31 @@
                                                                                         <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or JPEG (MAX. 800x400px or 2 MB)</p>
                                                                                     </div>
                                                                                     <div class="flex flex-col text-center items-center justify-center">
-                                                                                        <p profile_picture_file_name
-                                                                                            class="mb-2 text-sm text-gray-500 font-semibold dark:text-gray-400"></p>
+                                                                                        <p file_name class="mb-2 text-sm text-gray-500 font-semibold dark:text-gray-400"></p>
                                                                                     </div>
+                                                                                    <input type="file" id="profile_picture_{{account.id}}" onchange="updateProfilePictureInput('profile_picture_{{account.id}}')" value="{{account.pictureURL}}" name="account_profile_picture" accept=".png, .jpg, .jpeg" class="hidden">
                                                                                 </div>
-                                                                                <input type="file" name="account_profile_picture" accept=".png, .jpg, .jpeg" class="hidden">
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="w-1/2">
                                                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Signature Picture</label>
                                                                         <div class="flex items-center justify-center">
-                                                                            <label for="signature_picture" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                                                                <div signature_picture_input_text_container
-                                                                                    class="flex flex-col items-center justify-center">
-                                                                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                                                                    </svg>
-                                                                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                                                                    <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or JPEG (MAX. 800x400px or 2 MB)</p>
-                                                                                </div>
-                                                                                <div class="flex flex-col text-center items-center justify-center">
-                                                                                    <p signature_picture_file_name
-                                                                                        class="mb-2 text-sm text-gray-500 font-semibold dark:text-gray-400"></p>
+                                                                            <label for="signature_picture_{{account.id}}" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                                                                <div class="flex flex-col items-center justify-center py-4" update_signature_picture_input_container="signature_picture_{{account.id}}">
+                                                                                    <div class="flex flex-col items-center justify-center">
+                                                                                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                                                                        </svg>
+                                                                                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                                                                        <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or JPEG (MAX. 800x400px or 2 MB)</p>
+                                                                                    </div>
+                                                                                    <div class="flex flex-col text-center items-center justify-center">
+                                                                                        <p file_name class="mb-2 text-sm text-gray-500 font-semibold dark:text-gray-400"></p>
+                                                                                    </div>
+                                                                                    <input type="file" id="signature_picture_{{account.id}}" onchange="updateSignaturePictureInput('signature_picture_{{account.id}}')" value="{{account.pictureURL}}" name="account_signature_picture" accept=".png, .jpg, .jpeg" class="hidden">
                                                                                 </div>
                                                                             </label>
-                                                                            <input type="file" name="account_signature_picture" accept=".png, .jpg, .jpeg" class="hidden">
                                                                         </div>
                                                                     </div>
                                                                 </div>

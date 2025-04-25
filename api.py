@@ -47,21 +47,17 @@ def ResetPassword(email):
 ## ----------------------------------------------------------------
 ## /api/Admin/EditAccount
 ## ----------------------------------------------------------------
-
-def EditAccount(data, picture_file, signature_file):
-    response = requests.put(
-        f"{BASE_URL}/api/Admin/EditAccount?Email={data["email"]}&Name={data["name"]}&Role={data["role_id"]}&NationalId={data["national_id"]}&CollegeId={data["college_id"]}&DepartmentId={data["department_id"]}",
-        headers={
+def EditAccount(data, files):
+    response = requests.post(
+        url = f"{BASE_URL}/api/Admin/EditAccount",
+        headers = {
             "accept": "text/plain",
             "Authorization": f"Bearer {session.get("access_token")}",
-            "Content-Type": "multipart/form-data"
         },
-        files={
-            "Picture": picture_file,
-            "Signature": signature_file,
-        }
+        data=data,
+        files=files
     )
-    return response.json()
+    return response
 
 
 ## ----------------------------------------------------------------
@@ -85,7 +81,7 @@ def GetAccountByEmail(email):
 
 def Register(data, files):
     response = requests.post(
-        url = "https://emailingsystemapi.runasp.net/api/Auth/Register",
+        url = f"{BASE_URL}/api/Auth/Register",
         headers = {
             "accept": "text/plain",
             "Authorization": f"Bearer {session.get("access_token")}",
