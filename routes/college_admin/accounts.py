@@ -126,11 +126,13 @@ def accounts_reset_password(email):
         return redirect("/login")
     
     tools.update_token()
-    res = api.ResetPassowrd(email)
+    res = api.ResetPassword(email)
     
-    if res.status_code != 200:
-        flash("Error reseting  account password.", "red")
-        return redirect("/college_admin/accounts")
+    print(res.status_code)
     
-    flash("Account password reset successfully.", "green")
+    # if res.status_code != 200:
+    #     flash("Error reseting  account password.", "red")
+    #     return redirect("/college_admin/accounts")
+    
+    # flash("Account password reset successfully.", "green")
     return redirect("/college_admin/accounts")

@@ -33,11 +33,11 @@ def AllUsers():
 ## /api/Admin/ResetPassowrd/{Email}
 ## ----------------------------------------------------------------
 
-def ResetPassowrd(email):
+def ResetPassword(email):
     response = requests.get(
-        f"{BASE_URL}/api/Admin/ResetPassowrd/{email}",
+        f"{BASE_URL}/api/Admin/ResetPassword/{email}",
         headers={
-            "accept": "text/plain",
+            "accept": "*/*",
             "Authorization": f"Bearer {session.get("access_token")}",
         }
     )
