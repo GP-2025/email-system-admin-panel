@@ -12,7 +12,7 @@ login_bp = Blueprint("login", __name__, url_prefix="")
 @login_bp.route("/login", methods=["GET"])
 def login_get():
     if tools.check_session():
-        flash("You are already logged in.", "red")
+        flash("You are already logged in.", "orange")
         return redirect("/admin")
     
     return render_template(f"/main/{tools.get_lang()}/login.html")
@@ -43,9 +43,11 @@ def login_post():
         return redirect("/login")
     
     if tools.is_admin():
+        flash(f"Welcome back, {session["name"]}.", "green")
         return redirect("/admin/dashboard")
     
     if tools.is_college_admin():
+        flash(f"Welcome back, {session["name"]}.", "green")
         return redirect("/college_admin/dashboard")
     
     return redirect("/")

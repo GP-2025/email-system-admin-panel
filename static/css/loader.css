@@ -27,7 +27,50 @@
   animation: loading 0.75s ease infinite;
 }
 
+.form-submission-loader-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s, visibility 0.5s;
+  z-index: 9999;
+  opacity: 0.99;
+}
+
+.form-submission-loader-container {
+  background-color: #222;
+  
+}
+
+.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.form-submission-loader::after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border: 6px solid transparent;
+  border-radius: 100%;
+  animation: form-submission-loading 0.75s ease infinite;
+}
+
 @keyframes loading {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes form-submission-loading {
   from {
     transform: rotate(0turn);
   }
