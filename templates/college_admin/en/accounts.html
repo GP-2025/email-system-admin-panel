@@ -8,6 +8,7 @@
     <script src="/static/js/tailwind.js"></script>
     <title>Admin Panel</title>
 </head>
+<div class="loader after:border-r-indigo-500 after:border-l-indigo-500 after:border-b-indigo-500"></div>
 
 <div class="absolute top-20 right-5 flex-col w-full max-w-xs" alert-template-container>
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -290,8 +291,7 @@
                                 
                                     <!-- Update Main modal -->
                                     <div data-modal-row-id="{{account.id}}""
-                                        class="select-none  fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-200">
-                                        <!-- pointer-events-none opacity-0 -->
+                                        class="select-none pointer-events-none opacity-0 fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-200">
                                         <div data-modal="update-modal" class="relative p-4 w-full max-w-5xl max-h-full">
                                             <!-- Modal content -->
                                             <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-800">
@@ -330,10 +330,10 @@
                                                                 </div>
                                                                 <div>
                                                                     <p class="text-lg text-gray-900 dark:text-white font-bold">{{account.name}}</p>
-                                                                    <p class="text-md text-gray-900 dark:text-white font-medium">{{account.email}}</p>
-                                                                    <p class="text-md text-gray-900 dark:text-white font-medium">{{account.nationalId}}</p>
-                                                                    <p class="text-md text-gray-900 dark:text-white font-medium">{{account.role}}</p>
-                                                                    <p class="text-md text-gray-900 dark:text-white font-medium">{{account.departmentName}}</p>
+                                                                    <p class="text-md text-gray-900 dark:text-white">{{account.email}}</p>
+                                                                    <p class="text-md text-gray-900 dark:text-white">{{account.nationalId}}</p>
+                                                                    <p class="text-md text-gray-900 dark:text-white">{{account.role}}</p>
+                                                                    <p class="text-md text-gray-900 dark:text-white">{{account.departmentName}}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -495,7 +495,6 @@
         </footer>
     </main>
 
-    <div class="loader after:border-r-indigo-500 after:border-l-indigo-500 after:border-b-indigo-500"></div>
     <script src="/static/js/loader.js"></script>
     <script src="/static/js/all.js"></script>
     <script src="/static/js/accounts.js"></script>

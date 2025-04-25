@@ -8,6 +8,7 @@
     <script src="/static/js/tailwind.js"></script>
     <title>Admin Panel</title>
 </head>
+<div class="loader after:border-r-indigo-500 after:border-l-indigo-500 after:border-b-indigo-500"></div>
 
 <div class="absolute top-20 right-5 flex-col w-full max-w-xs" alert-template-container>
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -134,7 +135,6 @@
         </footer>
     </main>
 
-    <div class="loader after:border-r-indigo-500 after:border-l-indigo-500 after:border-b-indigo-500"></div>
     <script src="/static/js/loader.js"></script>
     <script src="/static/js/all.js"></script>
     <script src="/static/js/dashboard.js"></script>

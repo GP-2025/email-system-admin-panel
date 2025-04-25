@@ -58,6 +58,16 @@ function updateModalCloseButton(row_id) {
     updateModalBackdrop.classList.add('pointer-events-none', 'opacity-0');
 }
 
+function accountModalOpenButton(account_id) {
+    const accountModalBackdrop = document.querySelector(`[data-modal-account-id="${account_id}"]`);
+    accountModalBackdrop.classList.remove('pointer-events-none', 'opacity-0');
+}
+
+function accountModalCloseButton(account_id) {
+    const accountModalBackdrop = document.querySelector(`[data-modal-account-id="${account_id}"]`);
+    accountModalBackdrop.classList.add('pointer-events-none', 'opacity-0');
+}
+
 sortByInput.addEventListener("change", function (e) {
     const value = e.target.value;
     Rows.sort((a, b) => {
