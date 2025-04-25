@@ -8,14 +8,3 @@ window.addEventListener("load", () => {
     loader.remove();
   })
 });
-
-function reloadLoader() {
-  document.body.appendChild(loader);
-  loader.classList.remove("loader-hidden");
-}
-
-submitButtons.forEach(button => {
-  button.addEventListener("click", (e) => {
-    reloadLoader()
-  })
-});
