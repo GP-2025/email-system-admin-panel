@@ -83,18 +83,32 @@ def GetAccountByEmail(email):
 ## /api/Auth/Register
 ## ----------------------------------------------------------------
 
-def Register(data, picture_file, signature_file):
+def Register(data, submitted_files):
+        # f"{BASE_URL}/api/Auth/Register?Email={data["email"]}&Name={data["name"]}&Password={data["password"]}&Role={data["role_id"]}&NationalId={data["national_id"]}&CollegeId={data["college_id"]}&DepartmentId={data["department_id"]}",
+        # f"{BASE_URL}/api/Auth/Register?Email=testtest%40gmail.test&Password=testtest&Name=testtest&DepartmentId=6&CollegeId=7&Role=0&NationalId=30303030303030",
+        
+        # headers={
+        #     "accept": "text/plain",
+        #     "Authorization": f"Bearer {session.get("access_token")}",
+        #     "Content-Type": "multipart/form-data"
+        # },
+        
     response = requests.post(
-        f"{BASE_URL}/api/Auth/Register?Email={data["email"]}&Name={data["name"]}&Password={data["password"]}&Role={data["role_id"]}&NationalId={data["national_id"]}&CollegeId={data["college_id"]}&DepartmentId={data["department_id"]}",
-        headers={
+        url = (
+            "https://emailingsystemapi.runasp.net/api/Auth/Register"
+            f"?Email={data["email"]}"
+            f"&Password={data["password"]}"
+            f"&Name={data["name"]}"
+            f"&DepartmentId={data["department_id"]}"
+            f"&CollegeId={data["college_id"]}"
+            f"&Role={data["role_id"]}"
+            f"&NationalId={data["national_id"]}"
+        ),
+        headers = {
             "accept": "text/plain",
             "Authorization": f"Bearer {session.get("access_token")}",
-            "Content-Type": "multipart/form-data"
         },
-        files={
-            "Picture": picture_file,
-            "SignatureFile": signature_file,
-        }
+        files=submitted_files
     )
     return response
 

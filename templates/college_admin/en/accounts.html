@@ -137,12 +137,12 @@
                                         <div class="col-span-2 flex space-x-3">
                                             <div class="w-1/2">
                                                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                                <input type="text" name="account_name" id="name" placeholder="Type account name"
+                                                <input value="New Ismail Sherif" type="text" name="account_name" id="name" placeholder="Type account name"
                                                     class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500" required>
                                             </div>
                                             <div class="w-1/2">
                                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                                <input type="email" name="account_email" id="email" placeholder="Type account email"
+                                                <input value="ismailsherifnew@hotmail.com" type="email" name="account_email" id="email" placeholder="Type account email"
                                                     class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500" required>
                                             </div>
                                         </div>
@@ -150,12 +150,12 @@
                                         <div class="col-span-2 flex space-x-3">
                                             <div class="w-1/2">
                                                 <label for="national_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">National ID</label>
-                                                <input maxlength="14" type="text" name="account_national_id" id="national_id" placeholder="Type account national id"
+                                                <input value="30218374104237" maxlength="14" type="text" name="account_national_id" id="national_id" placeholder="Type account national id"
                                                     class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500" required>
                                             </div>
                                             <div class="w-1/2">
                                                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                                <input type="password" name="account_password" id="password" placeholder="Type account password"
+                                                <input value="helloworld" minlength="8" type="password" name="account_password" id="password" placeholder="Type account password"
                                                     class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500" required>
                                             </div>
                                         </div>
@@ -165,20 +165,20 @@
                                                 <label for="department" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
                                                 <select name="account_department_id" id="department" placeholder="Type account department"
                                                     class="dark:text-gray-400 appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500" required>
-                                                    <option value="">Choose department..</option>
                                                     {% for dep in departments %}
                                                     <option value="{{dep.id}}">{{dep.name}}</option>
                                                     {% endfor %}
+                                                    <option value="">Choose department..</option>
                                                 </select>
                                             </div>
                                             <div class="w-1/2">
                                                 <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
                                                 <select name="account_role_id" id="role" placeholder="Type account role"
                                                     class="dark:text-gray-400 appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500" required>
-                                                    <option value="">Choose role..</option>
                                                     {% for role in roles %}
                                                     <option value="{{role.id}}">{{role.name}}</option>
                                                     {% endfor %}
+                                                    <option value="">Choose role..</option>
                                                 </select>
                                             </div>
                                         </div>

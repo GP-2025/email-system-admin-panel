@@ -25,6 +25,7 @@ def departments_get():
     
     college = api.GetCollegeById(college_id)
     departments = college.get("departments")
+    print(departments)
     
     return render_template(
         f"/college_admin/{tools.get_lang()}/departments.html",
