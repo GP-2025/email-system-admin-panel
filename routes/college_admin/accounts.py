@@ -56,35 +56,30 @@ def accounts_post():
     if not tools.is_college_admin():
         flash("Your account is not authorized!", "red")
         return redirect("/login")
+     
+    account_email = request.form.get("account_email")
+    account_national_id = request.form.get("account_national_id")
+    account_department_id = int(request.form.get("account_department_id"))
+
+    accounts = api.AllUsers().get("data")
+    
+    department = api.GetDepartmentById(account_department_id)
+    if department.get("userId"):
+        flash("Department already has an account!", "red")
+        return redirect("/college_admin/accounts")
+    
+    for account in accounts:        
+        if account["email"] == account_email:
+            flash("Email already exists!", "red")
+            return redirect("/college_admin/accounts")
+        if account["nationalId"] == account_national_id:
+            flash("National ID already exists!", "red")
+            return redirect("/college_admin/accounts")
     
     college_id = session.get("college_id")
     tools.update_token()
     
-    # data = {
-    #     "email": request.form["account_email"],
-    #     "password": request.form["account_password"],
-    #     "name": request.form["account_name"],
-    #     "role_id": request.form["account_role_id"],
-    #     "national_id": request.form["account_national_id"],
-    #     "department_id": request.form["account_department_id"],
-    #     "college_id": college_id,
-    # }
-    # files = {
-    #     "Picture": (
-    #         request.files['account_profile_picture'].filename,
-    #         request.files['account_profile_picture'].stream,
-    #         request.files['account_profile_picture'].mimetype
-    #     ),
-    #     "SignatureFile": (
-    #         request.files['account_signature_picture'].filename,
-    #         request.files['account_signature_picture'].stream,
-    #         request.files['account_signature_picture'].mimetype
-    #     ),
-    # }
-    
-    
-    # Extract form data
-    form_data = {
+    data = {
         "Email": request.form.get("account_email"),
         "Password": request.form.get("account_password"),
         "Name": request.form.get("account_name"),
@@ -94,7 +89,6 @@ def accounts_post():
         "NationalId": request.form.get("account_national_id"),
     }
 
-    # Extract files
     files = {
         "Picture": (
             request.files['account_profile_picture'].filename,
@@ -107,25 +101,12 @@ def accounts_post():
             request.files['account_signature_picture'].mimetype
         ),
     }
-
-    # Headers
-    headers = {
-        "accept": "text/plain",
-        "Authorization": f"Bearer {session.get("access_token")}",
-        "Authorization": f"Bearer {session.get("access_token")}",
-    }
-
-    # Send POST request
-    import requests
-    url = "https://emailingsystemapi.runasp.net/api/Auth/Register"
-    response = requests.post(url, headers=headers, data=form_data, files=files)
-    print(response.json())
     
-    # res = api.Register(data, files)
-    # if res.status_code != 200:
-    #     print(res.json())
-    #     flash("error adding new account.", "red")
-    #     return redirect("/college_admin/accounts")
+    res = api.Register(data, files)
+    if res.status_code != 200:
+        print(res.json())
+        flash("error adding new account.", "red")
+        return redirect("/college_admin/accounts")
     
-    # flash("Account added successfully.", "green")
+    flash("Account added successfully.", "green")
     return redirect("/college_admin/accounts")
