@@ -20,13 +20,25 @@ def dashboard_get():
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
+    
     tools.update_token()
-    
     res = api.GetAllColleges()
-    colleges = res.get("data")
+    no_of_colleges = res.get("count")
     
+    res = api.AllUsers()
+    no_of_all_accounts = res.get("count")
+    
+    no_of_college_admins = 0
+    
+    accounts = res.get("data")
+    for acc in accounts:
+        if acc.get("role").lower() == "collegeadmin":
+            no_of_college_admins += 1
     
     return render_template(
         f"/admin/{tools.get_lang()}/dashboard.html",
-        colleges=colleges
+        no_of_colleges=no_of_colleges,
+        no_of_college_admins=no_of_college_admins,
+        no_of_all_accounts=no_of_all_accounts,
+        
     )
