@@ -20,15 +20,9 @@ def test():
 # ---------------------------------------
 # Main Routes Blueprints
 # ---------------------------------------
-from routes.main.admin import admin_bp
-from routes.main.home import home_bp
-from routes.main.login import login_bp
-from routes.main.logout import logout_bp
+from routes.main import main_bp
 
-app.register_blueprint(admin_bp)
-app.register_blueprint(home_bp)
-app.register_blueprint(login_bp)
-app.register_blueprint(logout_bp)
+app.register_blueprint(main_bp)
 
 
 # ---------------------------------------
@@ -40,7 +34,6 @@ app.register_blueprint(logout_bp)
 # ---------------------------------------
 # College Admin Routes Blueprints
 # ---------------------------------------
-
 from routes.college_admin.dashboard import college_admin_dashboard_bp
 from routes.college_admin.departments import college_admin_departments_bp
 from routes.college_admin.accounts import college_admin_accounts_bp
