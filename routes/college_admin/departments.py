@@ -4,7 +4,7 @@ import json
 import api
 import tools
 
-college_admin_departments_bp = Blueprint("departments", __name__, url_prefix="/college_admin")
+college_admin_departments_bp = Blueprint("college_admin_departments", __name__, url_prefix="/college_admin")
 
 
 # ---------------------------------------

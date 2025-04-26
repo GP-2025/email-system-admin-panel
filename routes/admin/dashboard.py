@@ -4,13 +4,13 @@ import json
 import api
 import tools
 
-college_admin_dashboard_bp = Blueprint("college_admin_dashboard", __name__, url_prefix="/college_admin")
+admin_dashboard_bp = Blueprint("admin_dashboard", __name__, url_prefix="/admin")
 
 
 # ---------------------------------------
 # GET METHOD
 # ---------------------------------------
-@college_admin_dashboard_bp.route("/dashboard", methods=["GET"])
+@admin_dashboard_bp.route("/dashboard", methods=["GET"])
 def dashboard_get():
     if not tools.check_session():
         flash("Your are not logged in!", "red")

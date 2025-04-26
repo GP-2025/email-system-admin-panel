@@ -5,7 +5,7 @@ import api
 import tools
 import tempfile
 
-college_admin_accounts_bp = Blueprint("accounts", __name__, url_prefix="/college_admin")
+college_admin_accounts_bp = Blueprint("college_admin_accounts", __name__, url_prefix="/college_admin")
 
 
 # ---------------------------------------

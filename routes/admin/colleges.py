@@ -4,13 +4,13 @@ import json
 import api
 import tools
 
-admin_departments_bp = Blueprint("colleges", __name__, url_prefix="/admin")
+admin_colleges_bp = Blueprint("admin_colleges", __name__, url_prefix="/admin")
 
 
 # ---------------------------------------
 # GET METHOD
 # ---------------------------------------
-@admin_departments_bp.route("/colleges", methods=["GET"])
+@admin_colleges_bp.route("/colleges", methods=["GET"])
 def departments_get():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
@@ -39,7 +39,7 @@ def departments_get():
 # ---------------------------------------
 # POST METHOD : ADD
 # ---------------------------------------
-@admin_departments_bp.route("/colleges/add_department", methods=["POST"])
+@admin_colleges_bp.route("/colleges/add_department", methods=["POST"])
 def departments_post():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
@@ -70,7 +70,7 @@ def departments_post():
 # ---------------------------------------
 # POST METHOD : UPDATE
 # ---------------------------------------
-@admin_departments_bp.route("/colleges/update_college/<int:college_id>", methods=["POST"])
+@admin_colleges_bp.route("/colleges/update_college/<int:college_id>", methods=["POST"])
 def departments_put(department_id):
     if not tools.check_session():
         flash("Your are not logged in!", "red")
