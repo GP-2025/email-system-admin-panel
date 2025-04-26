@@ -25,10 +25,11 @@ def college_admin_dashboard_get():
     
     college = api.GetCollegeById(college_id)
     departments = college.get("departments")
-    accounts = api.AllUsers().get("data")
+    
+    res = api.AllUsers()
+    no_of_accounts = res.get("count") # count the already logged-in account
     
     no_of_departments = len(departments)
-    no_of_accounts = len(accounts)
     
     return render_template(
         f"/college_admin/{tools.get_lang()}/dashboard.html",
