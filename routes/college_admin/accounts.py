@@ -156,9 +156,8 @@ def accounts_edit_account(account_id):
     
     data = {
         "Email": request.form.get("account_email"),
-        "Password": request.form.get("account_password"),
         "Name": request.form.get("account_name"),
-        "DepartmentId": int(account_department_id) if account_department_id else 0,
+        "DepartmentId": int(account_department_id) if account_department_id else None,
         "CollegeId": int(college_id),
         "Role": int(request.form.get("account_role_id")),
         "NationalId": request.form.get("account_national_id"),
@@ -213,10 +212,13 @@ def accounts_edit_account(account_id):
             temp_signature_file.seek(0)
             files["Signature"] = ("signature-default.jpg", temp_signature_file, "image/jpg")
         
+    print(json.dumps(data, indent=2))        
+
     tools.update_token()
     res = api.EditAccount(data, files)
     
     if res.status_code != 200:
+        print(json.dumps(res.json(), indent=2))
         flash(res.json().get("message", "Error editing account!"), "red")
         return redirect("/college_admin/accounts")
     

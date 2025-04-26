@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function closeAlertTemplate (message) {
-    var alertTemplate = document.querySelector(`[alert-message='${message}']`)
+    var alertTemplate = document.querySelector(`[alert-message="${message}"]`)
     alertTemplate.remove()
 }
 
