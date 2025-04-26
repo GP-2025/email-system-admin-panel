@@ -26,7 +26,7 @@ def AllUsers():
             "Authorization": f"Bearer {session.get("access_token")}",
         }
     )
-    return response.json()
+    return response
 
 
 ## ----------------------------------------------------------------
@@ -153,7 +153,7 @@ def GetAllColleges():
             "Authorization": f"Bearer {session.get("access_token")}",
         }
     )
-    return response.json()
+    return response
 
 
 ## ----------------------------------------------------------------

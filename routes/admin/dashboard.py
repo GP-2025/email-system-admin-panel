@@ -23,15 +23,15 @@ def admin_dashboard_get():
     
     tools.update_token()
     res = api.GetAllColleges()
-    no_of_colleges = res.get("count")
+    no_of_colleges = res.json().get("count")
     
     res = api.AllUsers()
-    no_of_all_accounts = res.get("count")
+    no_of_all_accounts = res.json().get("count")
     
     no_of_college_admins = 0
     no_of_admins = 1 # counting the already logged-in user
     
-    accounts = res.get("data")
+    accounts = res.json().get("data")
     for acc in accounts:
         if acc.get("role").lower() == "collegeadmin":
             no_of_college_admins += 1

@@ -31,7 +31,7 @@ def admin_college_dashboard_get(college_id):
     
     res = api.AllUsers()
     accounts = []
-    for account in res.get("data", []):
+    for account in res.json().get("data", []):
         if account.get("collegeId") == college_id:
             accounts.append(account)
     

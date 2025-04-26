@@ -22,7 +22,7 @@ def admin_colleges_get():
     
     tools.update_token()
     res = api.GetAllColleges()
-    colleges = res.get("data")
+    colleges = res.json().get("data")
     if colleges:
         colleges = list(reversed(colleges))
         
@@ -86,7 +86,6 @@ def admin_colleges_put(college_id):
     }
     print(json.dumps(data, indent=2))
     res = api.UpdateCollege(data)
-    print(res.text)
     
     if res.status_code != 200:
         flash(res.json().get("message"), "red")

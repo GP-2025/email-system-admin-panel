@@ -23,15 +23,13 @@ from routes.admin.dashboard import admin_dashboard_bp
 from routes.admin.colleges import admin_colleges_bp
 from routes.admin.college_dashboard import admin_college_dashboard_bp
 from routes.admin.college_departments import admin_college_departments_bp
-# from routes.admin.departments import admin_departments_bp
-# from routes.admin.accounts import admin_accounts_bp
+from routes.admin.college_accounts import admin_college_accounts_bp
 
 app.register_blueprint(admin_dashboard_bp)
 app.register_blueprint(admin_colleges_bp)
 app.register_blueprint(admin_college_dashboard_bp)
 app.register_blueprint(admin_college_departments_bp)
-# app.register_blueprint(admin_departments_bp)
-# app.register_blueprint(admin_accounts_bp)
+app.register_blueprint(admin_college_accounts_bp)
 
 
 
