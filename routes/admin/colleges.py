@@ -23,7 +23,9 @@ def admin_colleges_get():
     tools.update_token()
     res = api.GetAllColleges()
     colleges = res.get("data")
-    
+    if colleges:
+        colleges = list(reversed(colleges))
+        
     return render_template(
         f"/admin/{tools.get_lang()}/colleges.html",
         colleges=colleges,
@@ -33,7 +35,7 @@ def admin_colleges_get():
 # ---------------------------------------
 # POST METHOD : ADD
 # ---------------------------------------
-@admin_colleges_bp.route("/colleges/add_department", methods=["POST"])
+@admin_colleges_bp.route("/colleges/add_college", methods=["POST"])
 def admin_colleges_post():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
@@ -43,29 +45,28 @@ def admin_colleges_post():
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
-    department_name = request.form.get("department_name")
-    department_abbreviation = request.form.get("department_abbreviation")
+    college_name = request.form.get("college_name")
+    college_abbreviation = request.form.get("college_abbreviation")
     
     tools.update_token()
     data = {
-        "name": department_name,
-        "abbreviation": department_abbreviation,
-        "college_id": session.get("college_id")
+        "name": college_name,
+        "abbreviation": college_abbreviation
     }
-    res = api.AddDepartment(data)
+    res = api.AddCollege(data)
     if res.status_code != 200:
-        flash("Department name or abbreviation already exists.", "red")
-        return redirect("/admin/departments")
+        flash("College name or abbreviation already exists.", "red")
+        return redirect("/admin/colleges")
     
-    flash("Department added successfully.", "green")
-    return redirect("/admin/departments")
+    flash("College added successfully.", "green")
+    return redirect("/admin/colleges")
 
 
 # ---------------------------------------
 # POST METHOD : UPDATE
 # ---------------------------------------
 @admin_colleges_bp.route("/colleges/update_college/<int:college_id>", methods=["POST"])
-def departments_put(department_id):
+def colleges_put(college_id):
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -74,22 +75,22 @@ def departments_put(department_id):
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
-    department_name = request.form.get("department_name")
-    department_abbreviation = request.form.get("department_abbreviation")
+    college_name = request.form.get("college_name")
+    college_abbreviation = request.form.get("college_abbreviation")
     
     tools.update_token()
     data = {
-        "id": int(department_id),
-        "name": department_name,
-        "abbreviation": department_abbreviation,
-        "college_id": session.get("college_id")
+        "Id": int(college_id),
+        "Name": college_name,
+        "Abbreviation": college_abbreviation,
     }
     print(json.dumps(data, indent=2))
-    res = api.EditDepartment(data)
+    res = api.UpdateCollege(data)
+    print(res.text)
     
     if res.status_code != 200:
         flash(res.json().get("message"), "red")
-        return redirect("/admin/departments")
+        return redirect("/admin/colleges")
     
-    flash("Department updated successfully.", "green")
-    return redirect("/admin/departments")
+    flash("college updated successfully.", "green")
+    return redirect("/admin/colleges")

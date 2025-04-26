@@ -162,19 +162,14 @@ def GetAllColleges():
 
 def UpdateCollege(data):
     response = requests.post(
-        f"{BASE_URL}/api/College/UpdateCollege?Id={data["id"]}",
+        f"{BASE_URL}/api/College/UpdateCollege?Id={data["Id"]}",
         headers={
-            "accept": "text/plain",
+            "accept": "*/*",
             "Authorization": f"Bearer {session.get("access_token")}",
-            "Content-Type": "multipart/form-data"
         },
-        files={
-            "name": data["name"],
-            "id": data["id"],
-            "abbreviation": data["abbreviation"],
-        }
+        data=data,
     )
-    return response.json()
+    return response
 
 
 ## ----------------------------------------------------------------
@@ -194,7 +189,7 @@ def AddCollege(data):
             "abbreviation": data["abbreviation"]
         }
     )
-    return response.json()
+    return response
 
 
 ## ----------------------------------------------------------------
