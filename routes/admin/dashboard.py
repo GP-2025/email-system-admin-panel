@@ -29,16 +29,20 @@ def dashboard_get():
     no_of_all_accounts = res.get("count")
     
     no_of_college_admins = 0
+    no_of_admins = 1 # counting the already logged-in user
     
     accounts = res.get("data")
     for acc in accounts:
         if acc.get("role").lower() == "collegeadmin":
             no_of_college_admins += 1
+        if acc.get("role").lower() == "admin":
+            no_of_admins += 1
     
     return render_template(
         f"/admin/{tools.get_lang()}/dashboard.html",
         no_of_colleges=no_of_colleges,
         no_of_college_admins=no_of_college_admins,
         no_of_all_accounts=no_of_all_accounts,
-        
+        no_of_admins=no_of_admins,
+           
     )
