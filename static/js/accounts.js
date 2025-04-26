@@ -29,7 +29,7 @@ searchInput.addEventListener("input", function (e) {
 });
 
 function checkFileSize(file) {
-    const maxSizeInMB = 2; // Maximum file size in MB
+    const maxSizeInMB = 1; // Maximum file size in MB
     if (file.size > maxSizeInMB * 1024 * 1024)
         return false
     return true
