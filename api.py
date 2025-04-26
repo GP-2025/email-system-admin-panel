@@ -204,7 +204,7 @@ def GetCollegeById(college_id):
             "Content-Type": "application/json"
         }
     )
-    return response.json()
+    return response
 
 
 ## ----------------------------------------------------------------

@@ -1,20 +1,11 @@
-import flask
+from flask import Flask, render_template
 import os
 
 import config
 import api
 
-app = flask.Flask(__name__, static_folder='static')
+app = Flask(__name__, static_folder='static')
 app.config['SECRET_KEY'] = 'secret_key'
-
-
-# ---------------------------------------
-# test
-# ---------------------------------------
-
-@app.route("/test")
-def test():
-    return flask.render_template('/test.html')
 
 
 # ---------------------------------------
@@ -30,11 +21,15 @@ app.register_blueprint(main_bp)
 # ---------------------------------------
 from routes.admin.dashboard import admin_dashboard_bp
 from routes.admin.colleges import admin_colleges_bp
+from routes.admin.college_dashboard import admin_college_dashboard_bp
+from routes.admin.college_departments import admin_college_departments_bp
 # from routes.admin.departments import admin_departments_bp
 # from routes.admin.accounts import admin_accounts_bp
 
 app.register_blueprint(admin_dashboard_bp)
 app.register_blueprint(admin_colleges_bp)
+app.register_blueprint(admin_college_dashboard_bp)
+app.register_blueprint(admin_college_departments_bp)
 # app.register_blueprint(admin_departments_bp)
 # app.register_blueprint(admin_accounts_bp)
 
@@ -58,7 +53,7 @@ app.register_blueprint(college_admin_accounts_bp)
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return flask.render_template('/main/en/404.html'), 404
+    return render_template('/main/en/404.html'), 404
 
 
 # ---------------------------------------

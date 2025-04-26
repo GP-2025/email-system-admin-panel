@@ -4,40 +4,44 @@ import json
 import api
 import tools
 
-college_admin_dashboard_bp = Blueprint("college_admin_dashboard", __name__, url_prefix="/college_admin")
+admin_college_dashboard_bp = Blueprint("admin_college_dashboard", __name__, url_prefix="/admin")
 
 
 # ---------------------------------------
 # GET METHOD
 # ---------------------------------------
-@college_admin_dashboard_bp.route("/dashboard", methods=["GET"])
-def college_admin_dashboard_get():
+@admin_college_dashboard_bp.route("/colleges/<int:college_id>", methods=["GET"])
+def admin_college_dashboard_get(college_id):
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
     
-    if not tools.is_college_admin():
+    if not tools.is_admin():
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
-    college_id = session.get("college_id")
     tools.update_token()
     
     res = api.GetCollegeById(college_id)
     if res.status_code != 200:
         return render_template('/main/en/404.html'), 404
-    
+        
     college = res.json()
     departments = college.get("departments")
     
     res = api.AllUsers()
-    no_of_accounts = res.get("count") # count the already logged-in account
+    accounts = []
+    for account in res.get("data", []):
+        if account.get("collegeId") == college_id:
+            accounts.append(account)
     
     no_of_departments = len(departments)
+    no_of_accounts = len(accounts)
     
     return render_template(
-        f"/college_admin/{tools.get_lang()}/dashboard.html",
+        f"/admin/{tools.get_lang()}/college_dashboard.html",
         no_of_departments=no_of_departments,
         no_of_accounts=no_of_accounts,
         college=college
     )
+
