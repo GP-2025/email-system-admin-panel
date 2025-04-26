@@ -3,9 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let row_element = rowsContainer.children[i]
         let row_name = row_element.querySelector("[data-name]").textContent
         let row_email = row_element.querySelector("[data-email]").textContent
+        let row_role = row_element.querySelector("[data-role]").textContent
         let row_national_id = row_element.querySelector("[data-national-id]").textContent
         Rows.push({
             name: row_name,
+            role: row_role,
             email: row_email,
             national_id: row_national_id,
             element: row_element,

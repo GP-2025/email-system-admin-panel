@@ -202,7 +202,7 @@ def admin_college_accounts_edit_account(college_id, account_id):
 # ---------------------------------------
 # POST METHOD
 # ---------------------------------------
-@admin_college_accounts_bp.route("/college/<int:college_id>/accounts/reset_password/<string:email>", methods=["POST"])
+@admin_college_accounts_bp.route("/colleges/<int:college_id>/accounts/reset_password/<string:email>", methods=["POST"])
 def admin_college_accounts_reset_password(college_id, email):
     if not tools.check_session():
         flash("Your are not logged in!", "red")

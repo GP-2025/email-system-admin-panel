@@ -71,10 +71,14 @@ function accountModalCloseButton(account_id) {
 sortByInput.addEventListener("change", function (e) {
     const value = e.target.value;
     Rows.sort((a, b) => {
-        if (value === "asc") {
+        if (value === "name_asc") {
             return a.name.localeCompare(b.name);
-        } else if (value === "desc") {
+        } else if (value === "name_desc") {
             return b.name.localeCompare(a.name);
+        } else if (value === "role_asc") {
+            return a.role.localeCompare(b.role);
+        } else if (value === "role_desc") {
+            return b.role.localeCompare(a.role);
         }
     });
     Rows.forEach(row => rowsContainer.appendChild(row.element));
