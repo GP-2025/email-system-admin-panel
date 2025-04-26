@@ -11,7 +11,7 @@ admin_colleges_bp = Blueprint("admin_colleges", __name__, url_prefix="/admin")
 # GET METHOD
 # ---------------------------------------
 @admin_colleges_bp.route("/colleges", methods=["GET"])
-def departments_get():
+def admin_colleges_get():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -20,19 +20,13 @@ def departments_get():
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
-    college_id = session.get("college_id")
-    
     tools.update_token()
-    college = api.GetCollegeById(college_id)
-    
-    departments = college.get("departments")
-    if departments:
-        departments = list(reversed(departments))
+    res = api.GetAllColleges()
+    colleges = res.get("data")
     
     return render_template(
-        f"/admin/{tools.get_lang()}/departments.html",
-        departments=departments,
-        college=college
+        f"/admin/{tools.get_lang()}/colleges.html",
+        colleges=colleges,
     )
 
 
@@ -40,7 +34,7 @@ def departments_get():
 # POST METHOD : ADD
 # ---------------------------------------
 @admin_colleges_bp.route("/colleges/add_department", methods=["POST"])
-def departments_post():
+def admin_colleges_post():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")

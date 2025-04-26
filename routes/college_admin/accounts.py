@@ -12,7 +12,7 @@ college_admin_accounts_bp = Blueprint("college_admin_accounts", __name__, url_pr
 # GET METHOD
 # ---------------------------------------
 @college_admin_accounts_bp.route("/accounts", methods=["GET"])
-def accounts_get():
+def college_admin_accounts_get():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -49,7 +49,7 @@ def accounts_get():
 # POST METHOD
 # ---------------------------------------
 @college_admin_accounts_bp.route("/accounts/add_account", methods=["POST"])
-def accounts_post():
+def college_admin_accounts_post():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -120,7 +120,7 @@ def accounts_post():
 # POST METHOD
 # ---------------------------------------
 @college_admin_accounts_bp.route("/accounts/edit_account/<int:account_id>", methods=["POST"])
-def accounts_edit_account(account_id):
+def college_admin_accounts_edit_account(account_id):
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -200,7 +200,7 @@ def accounts_edit_account(account_id):
 # POST METHOD
 # ---------------------------------------
 @college_admin_accounts_bp.route("/accounts/reset_password/<string:email>", methods=["POST"])
-def accounts_reset_password(email):
+def college_admin_accounts_reset_password(email):
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")

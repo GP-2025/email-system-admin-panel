@@ -11,7 +11,7 @@ admin_dashboard_bp = Blueprint("admin_dashboard", __name__, url_prefix="/admin")
 # GET METHOD
 # ---------------------------------------
 @admin_dashboard_bp.route("/dashboard", methods=["GET"])
-def dashboard_get():
+def admin_dashboard_get():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")

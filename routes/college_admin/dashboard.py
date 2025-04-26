@@ -11,7 +11,7 @@ college_admin_dashboard_bp = Blueprint("college_admin_dashboard", __name__, url_
 # GET METHOD
 # ---------------------------------------
 @college_admin_dashboard_bp.route("/dashboard", methods=["GET"])
-def dashboard_get():
+def college_admin_dashboard_get():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")

@@ -11,7 +11,7 @@ college_admin_departments_bp = Blueprint("college_admin_departments", __name__, 
 # GET METHOD
 # ---------------------------------------
 @college_admin_departments_bp.route("/departments", methods=["GET"])
-def departments_get():
+def college_admin_departments_get():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -40,7 +40,7 @@ def departments_get():
 # POST METHOD : ADD
 # ---------------------------------------
 @college_admin_departments_bp.route("/departments/add_department", methods=["POST"])
-def departments_post():
+def college_admin_departments_post():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -71,7 +71,7 @@ def departments_post():
 # POST METHOD : UPDATE
 # ---------------------------------------
 @college_admin_departments_bp.route("/departments/update_department/<int:department_id>", methods=["POST"])
-def departments_put(department_id):
+def college_admin_departments_put(department_id):
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
