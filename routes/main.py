@@ -46,18 +46,22 @@ def main_login_post():
         flash("Error setting account session.", "red")
         return redirect("/login")
     
+    print(session)
+    
     # checking if the logged in user is not a college admin or an admin
     if not tools.is_admin() and not tools.is_college_admin():
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
     if tools.is_admin():
+        print("yes he is admin")
         flash(f"Welcome back, {session["name"]}.", "green")
         return redirect("/admin/dashboard")
     
     if tools.is_college_admin():
         flash(f"Welcome back, {session["name"]}.", "green")
         return redirect("/college_admin/dashboard")
+    
     
     return redirect("/")
 

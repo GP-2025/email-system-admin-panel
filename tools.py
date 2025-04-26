@@ -106,7 +106,7 @@ def set_session(data):
     
     for key in required_keys:
         if key not in data:
-            raise ValueError(f"Missing required         {key}")
+            raise ValueError(f"Missing required {key}")
     
     session.update({
         "id": data["userId"],
@@ -117,7 +117,7 @@ def set_session(data):
         "picture_url": data["pictureURL"],
         "signature_url": data["signatureURL"],
         "college_name": data["collegeName"],
-        "college_id": data["collegeId"],
+        "college_id": data["collegeId"] ,
         "access_token": data["accessToken"],
         "token_expiration_time": data["refreshTokenExpirationTime"]
     })
