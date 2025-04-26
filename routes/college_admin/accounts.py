@@ -165,12 +165,6 @@ def accounts_edit_account(account_id):
     
     files = {}
     
-    current_profile_picture_url = request.form.get('account_profile_picture_url')
-    current_profile_picture_file = tools.download_file_from_url(current_profile_picture_url)
-    
-    current_signature_picture_url = request.form.get('account_signature_picture_url')
-    current_signature_picture_file = tools.download_file_from_url(current_signature_picture_url)
-    
     # Picture File
     if request.files['account_profile_picture']:
         files["Picture"] = (
@@ -178,20 +172,6 @@ def accounts_edit_account(account_id):
             request.files['account_profile_picture'].stream,
             request.files['account_profile_picture'].mimetype
         )
-        
-    elif current_profile_picture_file:
-        files["Picture"] = (
-            current_profile_picture_file["filename"],
-            current_profile_picture_file["stream"],
-            current_profile_picture_file["mimetype"]
-        )
-    else:
-        with open("static\images\profile-default.jpg", "rb") as default_picture_file:
-            temp_picture_file = tempfile.SpooledTemporaryFile()
-            temp_picture_file.write(default_picture_file.read())
-            temp_picture_file.seek(0)
-            files["Picture"] = ("profile-default.jpg", temp_picture_file, "image/jpg")
-    
     # Signature File
     if request.files['account_signature_picture']:
         files["Signature"] = (
@@ -199,19 +179,7 @@ def accounts_edit_account(account_id):
             request.files['account_signature_picture'].stream,
             request.files['account_signature_picture'].mimetype
         )
-    elif current_signature_picture_file:
-        files["Signature"] = (
-            current_signature_picture_file["filename"],
-            current_signature_picture_file["stream"],
-            current_signature_picture_file["mimetype"]
-        )
-    else:
-        with open("static\images\signature-default.jpg", "rb") as default_signature_file:
-            temp_signature_file = tempfile.SpooledTemporaryFile()
-            temp_signature_file.write(default_signature_file.read())
-            temp_signature_file.seek(0)
-            files["Signature"] = ("signature-default.jpg", temp_signature_file, "image/jpg")
-        
+    
     print(json.dumps(data, indent=2))
     print(files)
 

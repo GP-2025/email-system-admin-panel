@@ -28,6 +28,13 @@ app.register_blueprint(main_bp)
 # ---------------------------------------
 # Admin Routes Blueprints
 # ---------------------------------------
+from routes.admin.dashboard import admin_dashboard_bp
+# from routes.admin.departments import admin_departments_bp
+# from routes.admin.accounts import admin_accounts_bp
+
+app.register_blueprint(admin_dashboard_bp)
+# app.register_blueprint(admin_departments_bp)
+# app.register_blueprint(admin_accounts_bp)
 
 
 

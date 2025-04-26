@@ -259,7 +259,7 @@
                                     <div class="flex items-center space-x-3 py-1 px-2 rounded-md hover:bg-indigo-100 cursor-pointer">
                                         <div class="inline-flex w-10 h-10">
                                             {% if account.pictureURL == "Empty" or not account.pictureURL%}
-                                            <!-- <img class="w-10 h-10 object-cover rounded-full" src="/static/images/profile-default.jpg"> -->
+                                            <img class="w-10 h-10 object-cover rounded-full" src="/static/images/profile-default.jpg">
                                             {% else %}
                                             <img class="w-10 h-10 object-cover rounded-full" alt="User avatar" src="{{account.pictureURL}}">
                                             {% endif %}
@@ -312,7 +312,7 @@
                                                                 <div class="flex space-x-4 mb-4">
                                                                     <div class="w-20 h-20">
                                                                         {% if account.pictureURL == "Empty" or not account.pictureURL %}
-                                                                        <!-- <img class="w-20 h-20 object-cover rounded-lg" src="/static/images/profile-default.jpg" alt="Profile Picture"> -->
+                                                                        <img class="w-20 h-20 object-cover rounded-lg" src="/static/images/profile-default.jpg" alt="Profile Picture">
                                                                         {% else %}
                                                                         <img class="w-20 h-20 object-cover rounded-lg" src="{{account.pictureURL}}" alt="Profile Picture">
                                                                         {% endif %}
