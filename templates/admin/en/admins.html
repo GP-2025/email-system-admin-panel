@@ -259,7 +259,7 @@
                                     <div class="flex items-center space-x-3 py-1 px-2 rounded-md hover:bg-indigo-100 cursor-pointer">
                                         <div class="inline-flex w-10 h-10">
                                             {% if account.pictureURL == "Empty" or not account.pictureURL%}
-                                            <!-- <img class="w-10 h-10 object-cover rounded-full" src="/static/images/profile-default.jpg"> -->
+                                            <img class="w-10 h-10 object-cover rounded-full" src="/static/images/profile.jpg">
                                             {% else %}
                                             <img class="w-10 h-10 object-cover rounded-full" alt="User avatar" src="{{account.pictureURL}}">
                                             {% endif %}
@@ -288,7 +288,7 @@
                                 
                                     <!-- Update Main modal -->
                                     <div data-modal-row-id="{{account.id}}""
-                                        class="pointer-events-none opacity-0 fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-200">
+                                        class="select-none pointer-events-none opacity-0 fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-200">
                                         <div data-modal="update-modal" class="relative p-4 w-full max-w-5xl max-h-full">
                                             <!-- Modal content -->
                                             <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-800">
@@ -312,25 +312,25 @@
                                                                 <div class="flex space-x-4 mb-4">
                                                                     <div class="w-20 h-20">
                                                                         {% if account.pictureURL == "Empty" or not account.pictureURL %}
-                                                                        <!-- <img class="w-20 h-20 object-cover rounded-lg" src="/static/images/profile-default.jpg" alt="Profile Picture"> -->
+                                                                        <img class="w-20 h-20 object-cover rounded-lg" src="/static/images/profile.jpg" alt="Profile Picture">
                                                                         {% else %}
                                                                         <img class="w-20 h-20 object-cover rounded-lg" src="{{account.pictureURL}}" alt="Profile Picture">
                                                                         {% endif %}
                                                                     </div>
                                                                     <div class="w-32 h-20">
                                                                         {% if account.signatureURL == "Empty" or not account.signatureURL %}
-                                                                        <img class="w-32 h-20 object-cover rounded-lg" src="/static/images/signature-default.jpg" alt="Signature Picture">
+                                                                        <img class="w-32 h-20 object-cover rounded-lg" src="/static/images/signature-default.png" alt="Signature Picture">
                                                                         {% else %}
                                                                         <img class="w-32 h-20 object-cover rounded-lg" src="{{account.signatureURL}}" alt="Signature Picture">
                                                                         {% endif %}
                                                                     </div>
                                                                 </div>
                                                                 <div>
-                                                                    <p class="text-lg text-gray-900 dark:text-white font-bold"><span class="font-semibold">Name:</span> {{account.name}}</p>
-                                                                    <p class="text-md text-gray-900 dark:text-white"><span class="font-semibold">Email:</span> {{account.email}}</p>
-                                                                    <p class="text-md text-gray-900 dark:text-white"><span class="font-semibold">National ID:</span> {{account.nationalId}}</p>
-                                                                    <p class="text-md text-gray-900 dark:text-white"><span class="font-semibold">Role:</span> {{account.role}}</p>
-                                                                    <p class="text-md text-gray-900 dark:text-white"><span class="font-semibold">Department:</span> {{account.departmentName}}</p>
+                                                                    <p class="text-lg text-gray-900 dark:text-white font-bold">{{account.name}}</p>
+                                                                    <p class="text-md text-gray-900 dark:text-white">{{account.email}}</p>
+                                                                    <p class="text-md text-gray-900 dark:text-white">{{account.nationalId}}</p>
+                                                                    <p class="text-md text-gray-900 dark:text-white">{{account.role}}</p>
+                                                                    <p class="text-md text-gray-900 dark:text-white">{{account.departmentName}}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -358,8 +358,8 @@
                                                                     </div>
                                                                     <div class="w-1/2">
                                                                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                                                        <input value="{{account.email}}" type="email" name="account_email" placeholder="Type account email"
-                                                                            class="hidden bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500" required>
+                                                                        <input hidden value="{{account.email}}" type="email" name="account_email" placeholder="Type account email"
+                                                                            class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500" required>
                                                                     </div>
                                                                 </div>
         
@@ -374,7 +374,7 @@
                                                                         <label for="department" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
                                                                         <select name="account_department_id" placeholder="Type account department"
                                                                             class="dark:text-gray-400 appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500">
-                                                                            <option value="">None..</option>
+                                                                            <option value="">Choose department..</option>
                                                                             {% for dep in departments %}
                                                                                 {% if account.departmentName == dep.name %}
                                                                                 <option value="{{dep.id}}" selected>{{dep.name}}</option>
@@ -388,7 +388,7 @@
                                                                         <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
                                                                         <select name="account_role_id" placeholder="Type account role"
                                                                             class="dark:text-gray-400 appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500" required>
-                                                                            <option value="">None..</option>
+                                                                            <option value="">Choose role..</option>
                                                                             {% for role in roles %}
                                                                                 {% if account.role == role.name_id %}
                                                                                 <option value="{{role.id}}" selected>{{role.name}}</option>

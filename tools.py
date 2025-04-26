@@ -15,8 +15,8 @@ def get_roles(lang):
         {"id": 0, "name_id": "NormalUser", "name": "Normal User"},
         {"id": 1, "name_id": "Secretary", "name": "Secretary"},
         {"id": 2, "name_id": "ViceDeanForEnvironment", "name": "Vice Dean For Environment"},
-        {"id": 3, "name_id": "ViceDeanStudentsAffairs", "name": "Vice Dean Students Affairs"},
-        {"id": 4, "name_id": "ViceDeanPostgraduateStudies", "name": "Vice Dean Postgraduate Studies"},
+        {"id": 3, "name_id": "ViceDeanForStudentsAffairs", "name": "Vice Dean For Students Affairs"},
+        {"id": 4, "name_id": "ViceDeanForPostgraduatStudies", "name": "Vice Dean Postgraduate Studies"},
         {"id": 5, "name_id": "Dean", "name": "Dean"},
         
         {"id": 6, "name_id": "VicePresidentForEnvironment", "name": "Vice President For Environment"},
@@ -30,8 +30,8 @@ def get_roles(lang):
         {"id": 0, "name_id": "NormalUser", "name": "عادي"},
         {"id": 1, "name_id": "Secretary", "name": "سكرتير"},
         {"id": 2, "name_id": "ViceDeanForEnvironment", "name": "وكيل الكلية لشؤون البيئة"},
-        {"id": 3, "name_id": "ViceDeanStudentsAffairs", "name": "وكيل الكلية لشؤون الطلاب"},
-        {"id": 4, "name_id": "ViceDeanPostgraduateStudies", "name": "وكيل الكلية للدراسات العليا"},
+        {"id": 3, "name_id": "ViceDeanForStudentsAffairs", "name": "وكيل الكلية لشؤون الطلاب"},
+        {"id": 4, "name_id": "ViceDeanForPostgraduatStudies", "name": "وكيل الكلية للدراسات العليا"},
         {"id": 5, "name_id": "Dean", "name": "عميد"},
         
         {"id": 6, "name_id": "VicePresidentForEnvironment", "name": "نائب رئيس الجامعة لشؤون البيئة"},
@@ -165,11 +165,12 @@ def update_lang(lang):
 # ---------------------------------------
 
 def download_file_from_url(url):
-    if url == "Empty":
+    if not url or url == "Empty":
         return None
     res = requests.get(url)
     if res.status_code != 200:
         return None
+    print(res)
     file_name = url.split("/")[-1]
     mime_type = get_mime_type_from_url(url)
     temp_file = tempfile.SpooledTemporaryFile()
@@ -180,7 +181,7 @@ def download_file_from_url(url):
         "stream": temp_file,
         "mimetype": mime_type
     }
-    return file or None
+    return file
 
 
 # ---------------------------------------

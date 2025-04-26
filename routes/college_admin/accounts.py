@@ -186,11 +186,11 @@ def accounts_edit_account(account_id):
             current_profile_picture_file["mimetype"]
         )
     else:
-        with open("static\images\profile.jpg", "rb") as default_picture_file:
+        with open("static\images\profile-default.jpg", "rb") as default_picture_file:
             temp_picture_file = tempfile.SpooledTemporaryFile()
             temp_picture_file.write(default_picture_file.read())
             temp_picture_file.seek(0)
-            files["Picture"] = ("profile.jpg", temp_picture_file, "image/jpg")
+            files["Picture"] = ("profile-default.jpg", temp_picture_file, "image/jpg")
     
     # Signature File
     if request.files['account_signature_picture']:
@@ -206,13 +206,14 @@ def accounts_edit_account(account_id):
             current_signature_picture_file["mimetype"]
         )
     else:
-        with open("static\images\signature-default.png", "rb") as default_signature_file:
+        with open("static\images\signature-default.jpg", "rb") as default_signature_file:
             temp_signature_file = tempfile.SpooledTemporaryFile()
             temp_signature_file.write(default_signature_file.read())
             temp_signature_file.seek(0)
             files["Signature"] = ("signature-default.jpg", temp_signature_file, "image/jpg")
         
-    print(json.dumps(data, indent=2))        
+    print(json.dumps(data, indent=2))
+    print(files)
 
     tools.update_token()
     res = api.EditAccount(data, files)
