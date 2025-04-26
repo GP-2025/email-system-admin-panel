@@ -99,7 +99,7 @@
     
     <header class="shadow-sm fixed top-0 w-full z-40 select-none">
         <nav class="bg-white p-4 lg:px-6 flex items-center justify-between" aria-label="Global">
-            <div class="w-48"></div>
+            <div class="w-48 -mr-2"></div>
             <div class="">
                 <span class="sr-only">Admin Panel</span>
                 <img class="h-8 w-auto" src="/static/images/uni-logo.png" alt="">
@@ -116,15 +116,15 @@
     <main class="flex-1 ml-48 select-none">
         <section class="flex mt-16">
             <div class="overflow-x-auto w-full p-4">
-                <div class="flex flex-wrap">
-                    <a href="/admin/colleges/{{college.id}}/departments" class="mx-3 bg-white shadow-md rounded-lg p-6 flex-1">
+                <div class="flex flex-wrap space-x-4">
+                    <a href="/admin/colleges/{{college.id}}/departments" class="bg-white shadow-md rounded-lg p-6 flex-1">
                         <div class="">
                             <h2 class="text-lg font-semibold text-gray-700">Departments</h2>
                             <p class="text-4xl font-bold text-gray-900 mt-4">{{ no_of_departments }}</p>
                             <p class="text-sm text-gray-500 mt-2">Total number of departments</p>
                         </div>
                     </a>
-                    <a href="/admin/colleges/{{college.id}}/accounts" class="mx-3 bg-white shadow-md rounded-lg p-6 flex-1">
+                    <a href="/admin/colleges/{{college.id}}/accounts" class="bg-white shadow-md rounded-lg p-6 flex-1">
                         <div class="">
                             <h2 class="text-lg font-semibold text-gray-700">Accounts</h2>
                             <p class="text-4xl font-bold text-gray-900 mt-4">{{ no_of_accounts }}</p>
