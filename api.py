@@ -48,13 +48,13 @@ def ResetPassword(email):
 ## /api/Admin/EditAccount
 ## ----------------------------------------------------------------
 def EditAccount(data, files):
-    response = requests.post(
+    response = requests.put(
         url = f"{BASE_URL}/api/Admin/EditAccount",
         headers = {
-            "accept": "text/plain",
+            "accept": "*/*",
             "Authorization": f"Bearer {session.get("access_token")}",
         },
-        data=data,
+        params=data,
         files=files
     )
     return response
@@ -266,7 +266,7 @@ def GetDepartmentById(id):
             "Authorization": f"Bearer {session.get("access_token")}",
         }
     )
-    return response.json()
+    return response
 
 
 ## ----------------------------------------------------------------

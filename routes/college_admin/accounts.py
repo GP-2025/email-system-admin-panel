@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, session, jsonify, redirec
 import json
 import api
 import tools
+import tempfile
 
 college_admin_accounts_bp = Blueprint("accounts", __name__, url_prefix="/college_admin")
 
@@ -56,18 +57,21 @@ def accounts_post():
     if not tools.is_college_admin():
         flash("Your account is not authorized!", "red")
         return redirect("/login")
-     
+    
+    account_department_id = request.form.get("account_department_id", None)
     account_email = request.form.get("account_email")
     account_national_id = request.form.get("account_national_id")
-    account_department_id = int(request.form.get("account_department_id"))
 
+    if account_department_id:
+        res = api.GetDepartmentById(account_department_id)
+        if res.status_code != 200:
+            flash("Error checking for chosen department!", "red")
+        department = res.json()
+        if department.get("userId"):
+            flash("Department already has an account!", "red")
+            return redirect("/college_admin/accounts")
+    
     accounts = api.AllUsers().get("data")
-    
-    department = api.GetDepartmentById(account_department_id)
-    if department.get("userId"):
-        flash("Department already has an account!", "red")
-        return redirect("/college_admin/accounts")
-    
     for account in accounts:        
         if account["email"] == account_email:
             flash("Email already exists!", "red")
@@ -83,7 +87,7 @@ def accounts_post():
         "Email": request.form.get("account_email"),
         "Password": request.form.get("account_password"),
         "Name": request.form.get("account_name"),
-        "DepartmentId": int(request.form.get("account_department_id")),
+        "DepartmentId": account_department_id,
         "CollegeId": int(college_id),
         "Role": int(request.form.get("account_role_id")),
         "NationalId": request.form.get("account_national_id"),
@@ -104,7 +108,7 @@ def accounts_post():
     
     res = api.Register(data, files)
     if res.status_code != 200:
-        flash("error adding new account.", "red")
+        flash(res.json().get("message", "Error registering account!"), "red")
         return redirect("/college_admin/accounts")
     
     flash("Account added successfully.", "green")
@@ -125,30 +129,25 @@ def accounts_edit_account(account_id):
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
-    print(account_id)
-    print(json.dumps(request.form, indent=2))
-    print(request.files["account_profile_picture"])
-    print(request.files["account_signature_picture"])
-    return redirect("/college_admin/accounts")
-    
+    account_department_id = request.form.get("account_department_id", "")
     account_email = request.form.get("account_email")
     account_national_id = request.form.get("account_national_id")
-    account_department_id = int(request.form.get("account_department_id"))
 
+    if account_department_id:
+        res = api.GetDepartmentById(account_department_id)
+        if res.status_code != 200:
+            flash("Error checking for chosen department!", "red")
+        department = res.json()
+        if department.get("userId") and department.get("userId") != account_id:
+            flash("Department already has an account!", "red")
+            return redirect("/college_admin/accounts")
+    
     accounts = api.AllUsers().get("data")
-    
-    department = api.GetDepartmentById(account_department_id)
-    if department.get("userId"):
-        flash("Department already has an account!", "red")
-        return redirect("/college_admin/accounts")
-    
     for account in accounts:
-        if account["id"] == account_id:
-            continue
-        if account["email"] == account_email:
+        if account["email"] == account_email and account.get("id") != account_id:
             flash("Email already exists!", "red")
             return redirect("/college_admin/accounts")
-        if account["nationalId"] == account_national_id:
+        if account["nationalId"] == account_national_id and account.get("id") != account_id:
             flash("National ID already exists!", "red")
             return redirect("/college_admin/accounts")
     
@@ -159,28 +158,68 @@ def accounts_edit_account(account_id):
         "Email": request.form.get("account_email"),
         "Password": request.form.get("account_password"),
         "Name": request.form.get("account_name"),
-        "DepartmentId": int(request.form.get("account_department_id")),
+        "DepartmentId": account_department_id,
         "CollegeId": int(college_id),
         "Role": int(request.form.get("account_role_id")),
         "NationalId": request.form.get("account_national_id"),
     }
-
-    files = {
-        "Picture": (
+    
+    files = {}
+    
+    current_profile_picture_url = request.form.get('account_profile_picture_url')
+    current_profile_picture_file = tools.download_file_from_url(current_profile_picture_url)
+    
+    current_signature_picture_url = request.form.get('account_signature_picture_url')
+    current_signature_picture_file = tools.download_file_from_url(current_signature_picture_url)
+    
+    # Picture File
+    if request.files['account_profile_picture']:
+        files["Picture"] = (
             request.files['account_profile_picture'].filename,
             request.files['account_profile_picture'].stream,
             request.files['account_profile_picture'].mimetype
-        ),
-        "SignatureFile": (
+        )
+        
+    elif current_profile_picture_file:
+        files["Picture"] = (
+            current_profile_picture_file["filename"],
+            current_profile_picture_file["stream"],
+            current_profile_picture_file["mimetype"]
+        )
+    else:
+        with open("static\images\profile.jpg", "rb") as default_picture_file:
+            temp_picture_file = tempfile.SpooledTemporaryFile()
+            temp_picture_file.write(default_picture_file.read())
+            temp_picture_file.seek(0)
+            files["Picture"] = ("profile.jpg", temp_picture_file, "image/jpg")
+    
+    # Signature File
+    if request.files['account_signature_picture']:
+        files["Signature"] = (
             request.files['account_signature_picture'].filename,
             request.files['account_signature_picture'].stream,
             request.files['account_signature_picture'].mimetype
-        ),
-    }
+        )
+    elif current_signature_picture_file:
+        files["Signature"] = (
+            current_signature_picture_file["filename"],
+            current_signature_picture_file["stream"],
+            current_signature_picture_file["mimetype"]
+        )
+    else:
+        with open("static\images\signature-default.png", "rb") as default_signature_file:
+            temp_signature_file = tempfile.SpooledTemporaryFile()
+            temp_signature_file.write(default_signature_file.read())
+            temp_signature_file.seek(0)
+            files["Signature"] = ("signature-default.jpg", temp_signature_file, "image/jpg")
+        
+    print(files)
     
-    res = api.Register(data, files)
+    tools.update_token()
+    res = api.EditAccount(data, files)
+    
     if res.status_code != 200:
-        flash("error adding new account.", "red")
+        flash(f"Error editing {request.form.get("account_name")} account!", "red")
         return redirect("/college_admin/accounts")
     
     flash("Account updated successfully.", "green")

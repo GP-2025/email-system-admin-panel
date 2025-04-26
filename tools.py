@@ -1,6 +1,10 @@
 
 from flask import session
 import api
+import requests
+from io import BytesIO
+import os
+import tempfile
 
 # ---------------------------------------
 # Roles Function
@@ -154,3 +158,39 @@ def get_lang():
 
 def update_lang(lang):
     session["lang"] = lang
+
+
+# ---------------------------------------
+# Download File From URL Function
+# ---------------------------------------
+
+def download_file_from_url(url):
+    if url == "Empty":
+        return None
+    res = requests.get(url)
+    if res.status_code != 200:
+        return None
+    file_name = url.split("/")[-1]
+    mime_type = get_mime_type_from_url(url)
+    temp_file = tempfile.SpooledTemporaryFile()
+    temp_file.write(res.content)
+    temp_file.seek(0)
+    file = {
+        "filename": file_name,
+        "stream": temp_file,
+        "mimetype": mime_type
+    }
+    return file or None
+
+
+# ---------------------------------------
+# Get Mine Type Function
+# ---------------------------------------
+
+def get_mime_type_from_url(url):
+    try:
+        response = requests.head(url, allow_redirects=True)
+        response.raise_for_status()
+        return response.headers.get('Content-Type', None)
+    except requests.RequestException as e:
+        raise ValueError(f"Failed to get MIME type from URL: {e}")
