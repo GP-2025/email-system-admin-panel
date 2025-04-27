@@ -16,7 +16,24 @@ def main_home_get():
 
 
 # ---------------------------------------
-# GET METHOD
+# POST METHOD : language
+# ---------------------------------------
+@main_bp.route("/language", methods=["POST"])
+def main_language_post():
+    lang = request.form.get("lang")
+    url = request.referrer
+    
+    print(lang)
+    print(url)
+    
+    if lang not in ["en", "ar"]:
+        lang = "en"
+    tools.update_lang(lang)
+    return redirect(url)
+
+
+# ---------------------------------------
+# GET METHOD : login
 # ---------------------------------------
 @main_bp.route("/login", methods=["GET"])
 def main_login_get():
@@ -28,7 +45,7 @@ def main_login_get():
 
 
 # ---------------------------------------
-# POST METHOD
+# POST METHOD : login
 # ---------------------------------------
 @main_bp.route("/login", methods=["POST"])
 def main_login_post():    
@@ -64,7 +81,7 @@ def main_login_post():
 
 
 # ---------------------------------------
-# GET METHOD
+# GET METHOD : admin
 # ---------------------------------------
 @main_bp.route("/admin", methods=["GET"])
 def main_admin_get():
@@ -81,7 +98,7 @@ def main_admin_get():
 
 
 # ---------------------------------------
-# GET METHOD
+# GET METHOD : college_admin
 # ---------------------------------------
 @main_bp.route("/college_admin", methods=["GET"])
 def main_college_admin_get():
@@ -104,3 +121,4 @@ def main_college_admin_get():
 def main_logout_get():
     tools.delete_session()
     return redirect("/login")
+

@@ -141,7 +141,7 @@ def is_logged_in():
 
 
 # ---------------------------------------
-# Update Language Function
+# Get Language Function
 # ---------------------------------------
 
 def get_lang():
