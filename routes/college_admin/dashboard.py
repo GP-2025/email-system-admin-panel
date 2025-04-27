@@ -31,7 +31,14 @@ def college_admin_dashboard_get():
     departments = college.get("departments")
     
     res = api.AllUsers()
-    no_of_accounts = res.json().get("count") # count the already logged-in account
+    
+    no_of_accounts = 0
+    
+    # getting only the accounts that are not college admins
+    for account in res.json().get("data"):
+        if account.get("role") == "CollegeAdmin":
+            continue
+        no_of_accounts += 1
     
     no_of_departments = len(departments)
     

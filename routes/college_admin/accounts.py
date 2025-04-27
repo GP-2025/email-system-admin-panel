@@ -27,7 +27,14 @@ def college_admin_accounts_get():
     college = api.GetCollegeById(college_id)
     
     res = api.AllUsers()
-    accounts = res.json().get("data")
+    accounts = []
+    
+    # getting only the accounts that are not college admins
+    for account in res.json().get("data"):
+        if account.get("role") == "CollegeAdmin":
+            continue
+        accounts.append(account)
+        
     if accounts:
         accounts = list(reversed(accounts))
     
