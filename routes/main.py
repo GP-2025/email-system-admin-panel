@@ -36,11 +36,10 @@ def main_language_post():
 @main_bp.route("/login", methods=["GET"])
 def main_login_get():
     if tools.check_session():
-        flash("You are already logged in.", "orange")
+        flash("You are already logged in." if tools.get_lang() == "en" else "أنت مسجل دخول بالفعل.", "orange")
         return redirect("/admin")
     
-    # return render_template(f"/main/{tools.get_lang()}/login.html")
-    return render_template("/main/ar/login.html")
+    return render_template(f"/main/{tools.get_lang()}/login.html")
 
 
 # ---------------------------------------
@@ -59,20 +58,20 @@ def main_login_post():
     res["password"] = password
     is_session_set = tools.set_session(res)
     if not is_session_set:
-        flash("Error setting account session.", "red")
+        flash("Error setting account session." if tools.get_lang() == "en" else "خطأ في تسجيل جلسة الحساب.", "red")
         return redirect("/login")
     
     # checking if the logged in user is not a college admin or an admin
     if not tools.is_admin() and not tools.is_college_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized!" if tools.get_lang() == "en" else "حسابك غير مصرح به!", "red")
         return redirect("/login")
     
     if tools.is_admin():
-        flash(f"Welcome back, {session["name"]}.", "green")
+        flash(f"Welcome back, {session['name']}." if tools.get_lang() == "en" else f"مرحباً بعودتك, {session['name']}.", "green")
         return redirect("/admin/dashboard")
     
     if tools.is_college_admin():
-        flash(f"Welcome back, {session["name"]}.", "green")
+        flash(f"Welcome back, {session['name']}." if tools.get_lang() == "en" else f"مرحباً بعودتك, {session['name']}.", "green")
         return redirect("/college_admin/dashboard")
     
     
@@ -85,7 +84,7 @@ def main_login_post():
 @main_bp.route("/admin", methods=["GET"])
 def main_admin_get():
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("Your are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if tools.is_admin():
@@ -102,7 +101,7 @@ def main_admin_get():
 @main_bp.route("/college_admin", methods=["GET"])
 def main_college_admin_get():
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("Your are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if tools.is_admin():
