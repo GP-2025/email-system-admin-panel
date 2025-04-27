@@ -63,7 +63,7 @@ def main_login_post():
     
     # checking if the logged in user is not a college admin or an admin
     if not tools.is_admin() and not tools.is_college_admin():
-        flash("Your account is not authorized!" if tools.get_lang() == "en" else "حسابك غير مصرح به!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح به!", "red")
         return redirect("/login")
     
     if tools.is_admin():

@@ -14,11 +14,11 @@ college_admin_accounts_bp = Blueprint("college_admin_accounts", __name__, url_pr
 @college_admin_accounts_bp.route("/accounts", methods=["GET"])
 def college_admin_accounts_get():
     if not tools.check_session():
-        flash("You are not logged in!" if tools.get_lang() == "en" else "لم يتم تسجيل دخول!", "red")
+        flash("You are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_college_admin():
-        flash("Your account is not authorized!" if tools.get_lang() == "en" else "أنت غير مصرح بالدخول!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     college_id = session.get("college_id")
@@ -74,11 +74,11 @@ def college_admin_accounts_get():
 @college_admin_accounts_bp.route("/accounts/add_account", methods=["POST"])
 def college_admin_accounts_post():
     if not tools.check_session():
-        flash("You are not logged in!" if tools.get_lang() == "en" else "لم يتم تسجيل دخول!", "red")
+        flash("You are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_college_admin():
-        flash("Your account is not authorized!" if tools.get_lang() == "en" else "أنت غير مصرح بالدخول!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     tools.update_token()
@@ -147,11 +147,11 @@ def college_admin_accounts_post():
 @college_admin_accounts_bp.route("/accounts/edit_account/<int:account_id>", methods=["POST"])
 def college_admin_accounts_edit_account(account_id):
     if not tools.check_session():
-        flash("You are not logged in!" if tools.get_lang() == "en" else "لم يتم تسجيل دخول!", "red")
+        flash("You are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_college_admin():
-        flash("Your account is not authorized!" if tools.get_lang() == "en" else "أنت غير مصرح بالدخول!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     tools.update_token()
@@ -226,11 +226,11 @@ def college_admin_accounts_edit_account(account_id):
 @college_admin_accounts_bp.route("/accounts/reset_password/<string:email>", methods=["POST"])
 def college_admin_accounts_reset_password(email):
     if not tools.check_session():
-        flash("You are not logged in!" if tools.get_lang() == "en" else "لم يتم تسجيل دخول!", "red")
+        flash("You are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_college_admin():
-        flash("Your account is not authorized!" if tools.get_lang() == "en" else "أنت غير مصرح بالدخول!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     tools.update_token()

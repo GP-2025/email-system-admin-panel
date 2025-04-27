@@ -13,11 +13,11 @@ admin_college_departments_bp = Blueprint("admin_college_departments", __name__, 
 @admin_college_departments_bp.route("/colleges/<int:college_id>/departments", methods=["GET"])
 def admin_college_departments_get(college_id):
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("Your are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     tools.update_token()    
@@ -67,11 +67,11 @@ def admin_college_departments_get(college_id):
 @admin_college_departments_bp.route("/colleges/<int:college_id>/departments/add_department", methods=["POST"])
 def admin_college_departments_post(college_id):
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("Your are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     tools.update_token()
@@ -89,10 +89,10 @@ def admin_college_departments_post(college_id):
     }
     res = api.AddDepartment(data)
     if res.status_code != 200:
-        flash("Department name or abbreviation already exists.", "red")
+        flash("Department name or abbreviation already exists." if tools.get_lang() == "en" else "اسم القسم أو الاختصار موجود بالفعل.", "red")
         return redirect(f"/admin/colleges/{college_id}/departments")
     
-    flash("Department added successfully.", "green")
+    flash("Department added successfully." if tools.get_lang() == "en" else "تمت إضافة القسم بنجاح.", "green")
     return redirect(f"/admin/colleges/{college_id}/departments")
 
 
@@ -102,11 +102,11 @@ def admin_college_departments_post(college_id):
 @admin_college_departments_bp.route("/colleges/<int:college_id>/departments/update_department/<int:department_id>", methods=["POST"])
 def admin_college_departments_put(college_id, department_id):
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("Your are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     tools.update_token()
@@ -134,5 +134,5 @@ def admin_college_departments_put(college_id, department_id):
         flash(res.json().get("message"), "red")
         return redirect(f"/admin/colleges/{college_id}/departments")
     
-    flash("Department updated successfully.", "green")
+    flash("Department updated successfully." if tools.get_lang() == "en" else "تم تحديث القسم بنجاح.", "green")
     return redirect(f"/admin/colleges/{college_id}/departments")

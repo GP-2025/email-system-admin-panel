@@ -13,11 +13,11 @@ admin_colleges_admins_bp = Blueprint("admin_colleges_admins", __name__, url_pref
 @admin_colleges_admins_bp.route("/colleges_admins", methods=["GET"])
 def admin_colleges_admins_get():
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("Your are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     tools.update_token()
@@ -68,11 +68,11 @@ def admin_colleges_admins_get():
 @admin_colleges_admins_bp.route("/colleges_admins/add_account", methods=["POST"])
 def admin_colleges_admins_post():
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("Your are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
 
     tools.update_token()
@@ -83,20 +83,20 @@ def admin_colleges_admins_post():
     if account_department_id:
         res = api.GetDepartmentById(account_department_id)
         if res.status_code != 200:
-            flash("Error checking for chosen department!", "red")
+            flash("Error checking for chosen department!" if tools.get_lang() == "en" else "خطأ في التحقق من القسم المختار!", "red")
         department = res.json()
         if department.get("userId"):
-            flash("Department already has an account!", "red")
+            flash("Department already has an account!" if tools.get_lang() == "en" else "القسم لديه حساب بالفعل!", "red")
             return redirect(f"/admin/colleges_admins")
     
     res = api.AllUsers()
     accounts = res.json().get("data")
     for account in accounts:        
         if account["email"] == account_email:
-            flash("Email already exists!", "red")
+            flash("Email already exists!" if tools.get_lang() == "en" else "البريد الإلكتروني موجود بالفعل!", "red")
             return redirect(f"/admin/colleges_admins")
         if account["nationalId"] == account_national_id:
-            flash("National ID already exists!", "red")
+            flash("National ID already exists!" if tools.get_lang() == "en" else "رقم الهوية موجود بالفعل!", "red")
             return redirect(f"/admin/colleges_admins")
     
     data = {
@@ -123,10 +123,10 @@ def admin_colleges_admins_post():
     
     res = api.Register(data, files)
     if res.status_code != 200:
-        flash(res.json().get("message", "Error registering account!"), "red")
+        flash(res.json().get("message", "Error registering account!" if tools.get_lang() == "en" else "خطأ في تسجيل الحساب!"), "red")
         return redirect(f"/admin/colleges_admins")
     
-    flash("Account added successfully.", "green")
+    flash("Account added successfully." if tools.get_lang() == "en" else "تمت إضافة الحساب بنجاح.", "green")
     return redirect(f"/admin/colleges_admins")
 
 
@@ -137,11 +137,11 @@ def admin_colleges_admins_post():
 @admin_colleges_admins_bp.route("/colleges_admins/edit_account/<int:account_id>", methods=["POST"])
 def admin_colleges_admins_edit_account(account_id):
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("Your are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     tools.update_token()
@@ -153,20 +153,20 @@ def admin_colleges_admins_edit_account(account_id):
     if account_department_id:
         res = api.GetDepartmentById(account_department_id)
         if res.status_code != 200:
-            flash("Error checking for chosen department!", "red")
+            flash("Error checking for chosen department!" if tools.get_lang() == "en" else "خطأ في التحقق من القسم المختار!", "red")
         department = res.json()
         if department.get("userId") and department.get("userId") != account_id:
-            flash("Department already has an account!", "red")
+            flash("Department already has an account!" if tools.get_lang() == "en" else "القسم لديه حساب بالفعل!", "red")
             return redirect(f"/admin/colleges_admins")
     
     res = api.AllUsers()
     accounts = res.json().get("data")
     for account in accounts:
         if account["email"] == account_email and account.get("id") != account_id:
-            flash("Email already exists!", "red")
+            flash("Email already exists!" if tools.get_lang() == "en" else "البريد الإلكتروني موجود بالفعل!", "red")
             return redirect(f"/admin/colleges_admins")
         if account["nationalId"] == account_national_id and account.get("id") != account_id:
-            flash("National ID already exists!", "red")
+            flash("National ID already exists!" if tools.get_lang() == "en" else "رقم الهوية موجود بالفعل!", "red")
             return redirect(f"/admin/colleges_admins")
     
     data = {
@@ -200,10 +200,10 @@ def admin_colleges_admins_edit_account(account_id):
     
     if res.status_code != 200:
         print(json.dumps(res.json(), indent=2))
-        flash(res.json().get("message", "Error editing account!"), "red")
+        flash(res.json().get("message", "Error editing account!" if tools.get_lang() == "en" else "خطأ في تعديل الحساب!"), "red")
         return redirect(f"/admin/colleges_admins")
     
-    flash("Account updated successfully.", "green")
+    flash("Account updated successfully." if tools.get_lang() == "en" else "تم تحديث الحساب بنجاح.", "green")
     return redirect(f"/admin/colleges_admins")
 
 
@@ -213,19 +213,19 @@ def admin_colleges_admins_edit_account(account_id):
 @admin_colleges_admins_bp.route("/colleges_admins/reset_password/<string:email>", methods=["POST"])
 def admin_colleges_admins_reset_password(email):
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("Your are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     tools.update_token()
     res = api.ResetPassword(email)
     
     if res.status_code != 200:
-        flash("Error reseting  account password!", "red")
+        flash("Error reseting account password!" if tools.get_lang() == "en" else "خطأ في إعادة تعيين كلمة مرور الحساب!", "red")
         return redirect(f"/admin/colleges_admins")
     
-    flash("Account password reset successfully.", "green")
+    flash("Account password reset successfully." if tools.get_lang() == "en" else "تم إعادة تعيين كلمة مرور الحساب بنجاح.", "green")
     return redirect(f"/admin/colleges_admins")

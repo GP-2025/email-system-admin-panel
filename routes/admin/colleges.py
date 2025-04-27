@@ -13,11 +13,11 @@ admin_colleges_bp = Blueprint("admin_colleges", __name__, url_prefix="/admin")
 @admin_colleges_bp.route("/colleges", methods=["GET"])
 def admin_colleges_get():
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("Your are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     tools.update_token()
@@ -52,11 +52,11 @@ def admin_colleges_get():
 @admin_colleges_bp.route("/colleges/add_college", methods=["POST"])
 def admin_colleges_post():
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("Your are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     college_name = request.form.get("college_name")
@@ -69,10 +69,10 @@ def admin_colleges_post():
     }
     res = api.AddCollege(data)
     if res.status_code != 200:
-        flash("College name or abbreviation already exists.", "red")
+        flash("College name or abbreviation already exists!" if tools.get_lang() == "en" else "اسم الكلية أو الاختصار موجود بالفعل!", "red")
         return redirect("/admin/colleges")
     
-    flash("College added successfully.", "green")
+    flash("College added successfully." if tools.get_lang() == "en" else "تمت إضافة الكلية بنجاح.", "green")
     return redirect("/admin/colleges")
 
 
@@ -82,11 +82,11 @@ def admin_colleges_post():
 @admin_colleges_bp.route("/colleges/update_college/<int:college_id>", methods=["POST"])
 def admin_colleges_put(college_id):
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("Your are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     college_name = request.form.get("college_name")
@@ -105,5 +105,5 @@ def admin_colleges_put(college_id):
         flash(res.json().get("message"), "red")
         return redirect("/admin/colleges")
     
-    flash("college updated successfully.", "green")
+    flash("College updated successfully." if tools.get_lang() == "en" else "تم تحديث الكلية بنجاح.", "green")
     return redirect("/admin/colleges")

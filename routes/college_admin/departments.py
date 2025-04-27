@@ -13,11 +13,11 @@ college_admin_departments_bp = Blueprint("college_admin_departments", __name__, 
 @college_admin_departments_bp.route("/departments", methods=["GET"])
 def college_admin_departments_get():
     if not tools.check_session():
-        flash("You are not logged in!" if tools.get_lang() == "en" else "لم يتم تسجيل دخول!", "red")
+        flash("You are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_college_admin():
-        flash("Your account is not authorized!" if tools.get_lang() == "en" else "أنت غير مصرح بالدخول!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     college_id = session.get("college_id")
@@ -59,11 +59,11 @@ def college_admin_departments_get():
 @college_admin_departments_bp.route("/departments/add_department", methods=["POST"])
 def college_admin_departments_post():
     if not tools.check_session():
-        flash("You are not logged in!" if tools.get_lang() == "en" else "لم يتم تسجيل دخول!", "red")
+        flash("You are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_college_admin():
-        flash("Your account is not authorized!" if tools.get_lang() == "en" else "أنت غير مصرح بالدخول!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     department_name = request.form.get("department_name")
@@ -90,11 +90,11 @@ def college_admin_departments_post():
 @college_admin_departments_bp.route("/departments/update_department/<int:department_id>", methods=["POST"])
 def college_admin_departments_put(department_id):
     if not tools.check_session():
-        flash("You are not logged in!" if tools.get_lang() == "en" else "لم يتم تسجيل دخول!", "red")
+        flash("You are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_college_admin():
-        flash("Your account is not authorized!" if tools.get_lang() == "en" else "أنت غير مصرح بالدخول!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     department_name = request.form.get("department_name")

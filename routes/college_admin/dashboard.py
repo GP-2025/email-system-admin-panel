@@ -12,11 +12,11 @@ college_admin_dashboard_bp = Blueprint("college_admin_dashboard", __name__, url_
 @college_admin_dashboard_bp.route("/dashboard", methods=["GET"])
 def college_admin_dashboard_get():
     if not tools.check_session():
-        flash("You are not logged in!" if tools.get_lang() == "en" else "لم يتم تسجيل دخول!", "red")
+        flash("You are not logged in!" if tools.get_lang() == "en" else "أنت غير مسجل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_college_admin():
-        flash("Your account is not authorized!" if tools.get_lang() == "en" else "أنت غير مصرح بالدخول!", "red")
+        flash("Your account is not authorized to enter this page!" if tools.get_lang() == "en" else "حسابك غير مصرح له بالدخول إلى هذه الصفحة!", "red")
         return redirect("/login")
     
     college_id = session.get("college_id")
