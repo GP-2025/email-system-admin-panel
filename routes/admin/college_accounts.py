@@ -135,7 +135,9 @@ def admin_college_accounts_edit_account(college_id, account_id):
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
-    account_department_id = request.form.get("account_department_id", "")
+    tools.update_token()
+    
+    account_department_id = request.form.get("account_department_id", None)
     account_email = request.form.get("account_email")
     account_national_id = request.form.get("account_national_id")
     
@@ -157,8 +159,6 @@ def admin_college_accounts_edit_account(college_id, account_id):
         if account["nationalId"] == account_national_id and account.get("id") != account_id:
             flash("National ID already exists!", "red")
             return redirect(f"/admin/colleges/{college_id}/accounts")
-    
-    tools.update_token()
     
     data = {
         "Email": request.form.get("account_email"),

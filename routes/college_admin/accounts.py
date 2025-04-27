@@ -59,6 +59,8 @@ def college_admin_accounts_post():
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
+    tools.update_token()
+    
     account_department_id = request.form.get("account_department_id", None)
     account_email = request.form.get("account_email")
     account_national_id = request.form.get("account_national_id")
@@ -83,7 +85,6 @@ def college_admin_accounts_post():
             return redirect("/college_admin/accounts")
     
     college_id = session.get("college_id")
-    tools.update_token()
     
     data = {
         "Email": request.form.get("account_email"),
@@ -131,6 +132,8 @@ def college_admin_accounts_edit_account(account_id):
         flash("Your account is not authorized!", "red")
         return redirect("/login")
     
+    tools.update_token()
+    
     account_department_id = request.form.get("account_department_id", "")
     account_email = request.form.get("account_email")
     account_national_id = request.form.get("account_national_id")
@@ -155,7 +158,6 @@ def college_admin_accounts_edit_account(account_id):
             return redirect("/college_admin/accounts")
     
     college_id = session.get("college_id")
-    tools.update_token()
     
     data = {
         "Email": request.form.get("account_email"),
@@ -182,9 +184,6 @@ def college_admin_accounts_edit_account(account_id):
             request.files['account_signature_picture'].stream,
             request.files['account_signature_picture'].mimetype
         )
-    
-    print(json.dumps(data, indent=2))
-    print(files)
 
     tools.update_token()
     res = api.EditAccount(data, files)
