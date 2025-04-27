@@ -43,7 +43,7 @@ def college_admin_accounts_get():
     if departments:
         departments = list(reversed(departments))
     
-    roles = tools.get_roles({tools.get_lang()})
+    roles = tools.get_roles(tools.get_lang())
     
     breadcrumbs = [
         {

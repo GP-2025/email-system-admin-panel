@@ -46,7 +46,7 @@ def admin_college_accounts_get(college_id):
     if colleges:
         colleges = list(reversed(colleges))
         
-    roles = tools.get_roles({tools.get_lang()})
+    roles = tools.get_roles(tools.get_lang())
     
     return render_template(
         f"/admin/{tools.get_lang()}/college_accounts.html",

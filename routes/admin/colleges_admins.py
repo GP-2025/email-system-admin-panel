@@ -38,7 +38,7 @@ def admin_colleges_admins_get():
     if colleges:
         colleges = list(reversed(colleges))
         
-    roles = tools.get_roles({tools.get_lang()})
+    roles = tools.get_roles(tools.get_lang())
     
     return render_template(
         f"/admin/{tools.get_lang()}/colleges_admins.html",
