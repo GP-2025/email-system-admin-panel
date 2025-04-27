@@ -109,16 +109,16 @@
         <section class="flex mt-16">
             <div class="overflow-x-auto w-full p-4">
                 <div class="flex flex-wrap space-x-4">
-                    <a href="/admin/colleges/{{college.id}}/departments" class="bg-white shadow-md rounded-lg p-6 flex-1">
+                    <a href="/admin/colleges/{{college.id}}/departments" class="bg-white shadow-md rounded-lg p-6 flex-1 hover:underline">
                         <div class="">
-                            <h2 class="text-lg font-semibold text-gray-700">Departments</h2>
+                            <h2 class="text-lg font-semibold text-gray-700">Go To Departments</h2>
                             <p class="text-4xl font-bold text-gray-900 mt-4">{{ no_of_departments }}</p>
                             <p class="text-sm text-gray-500 mt-2">Total number of departments</p>
                         </div>
                     </a>
-                    <a href="/admin/colleges/{{college.id}}/accounts" class="bg-white shadow-md rounded-lg p-6 flex-1">
+                    <a href="/admin/colleges/{{college.id}}/accounts" class="bg-white shadow-md rounded-lg p-6 flex-1 hover:underline">
                         <div class="">
-                            <h2 class="text-lg font-semibold text-gray-700">Accounts</h2>
+                            <h2 class="text-lg font-semibold text-gray-700">Go To Accounts</h2>
                             <p class="text-4xl font-bold text-gray-900 mt-4">{{ no_of_accounts }}</p>
                             <p class="text-sm text-gray-500 mt-2">Total number of accounts</p>
                         </div>
@@ -135,8 +135,8 @@
     </main>
 
     <script src="/static/js/loader.js"></script>
-    <script src="/static/js/all.js"></script>
-    <script src="/static/js/dashboard.js"></script>
+    <script src="/static/js/alert_template_handler.js"></script>
+    <script src="/static/js/language.js"></script>
 </body>
 
 </html>
