@@ -13,11 +13,11 @@ college_admin_departments_bp = Blueprint("college_admin_departments", __name__, 
 @college_admin_departments_bp.route("/departments", methods=["GET"])
 def college_admin_departments_get():
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("You are not logged in!" if tools.get_lang() == "en" else "لم يتم تسجيل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_college_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized!" if tools.get_lang() == "en" else "أنت غير مصرح بالدخول!", "red")
         return redirect("/login")
     
     college_id = session.get("college_id")
@@ -59,11 +59,11 @@ def college_admin_departments_get():
 @college_admin_departments_bp.route("/departments/add_department", methods=["POST"])
 def college_admin_departments_post():
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("You are not logged in!" if tools.get_lang() == "en" else "لم يتم تسجيل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_college_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized!" if tools.get_lang() == "en" else "أنت غير مصرح بالدخول!", "red")
         return redirect("/login")
     
     department_name = request.form.get("department_name")
@@ -77,10 +77,10 @@ def college_admin_departments_post():
     }
     res = api.AddDepartment(data)
     if res.status_code != 200:
-        flash("Department name or abbreviation already exists.", "red")
+        flash("Department name or abbreviation already exists!" if tools.get_lang() == "en" else "اسم القسم أو الاختصار موجود بالفعل!", "red")
         return redirect("/college_admin/departments")
     
-    flash("Department added successfully.", "green")
+    flash("Department added successfully!" if tools.get_lang() == "en" else "تمت إضافة القسم بنجاح!", "green")
     return redirect("/college_admin/departments")
 
 
@@ -90,11 +90,11 @@ def college_admin_departments_post():
 @college_admin_departments_bp.route("/departments/update_department/<int:department_id>", methods=["POST"])
 def college_admin_departments_put(department_id):
     if not tools.check_session():
-        flash("Your are not logged in!", "red")
+        flash("You are not logged in!" if tools.get_lang() == "en" else "لم يتم تسجيل دخول!", "red")
         return redirect("/login")
     
     if not tools.is_college_admin():
-        flash("Your account is not authorized!", "red")
+        flash("Your account is not authorized!" if tools.get_lang() == "en" else "أنت غير مصرح بالدخول!", "red")
         return redirect("/login")
     
     department_name = request.form.get("department_name")
@@ -113,5 +113,5 @@ def college_admin_departments_put(department_id):
         flash(res.json().get("message"), "red")
         return redirect("/college_admin/departments")
     
-    flash("Department updated successfully.", "green")
+    flash("Department updated successfully!" if tools.get_lang() == "en" else "تم تحديث القسم بنجاح!", "green")
     return redirect("/college_admin/departments")
