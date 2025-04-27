@@ -18,7 +18,7 @@ def main_home_get():
 # ---------------------------------------
 # POST METHOD : language
 # ---------------------------------------
-@main_bp.route("/language", methods=["POST"])
+@main_bp.route("/lang", methods=["POST"])
 def main_language_post():
     lang = request.form.get("lang")
     url = request.referrer

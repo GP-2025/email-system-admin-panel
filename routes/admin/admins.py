@@ -31,6 +31,19 @@ def admin_admins_get():
     
     if accounts:
         accounts = list(reversed(accounts))
+        
+    breadcrumbs = [
+        {
+            "en_name": "Hurghada University | Dashboard",
+            "ar_name": "[جامعة الغردقة] | الرئيسية",
+            "url": "/admin/dashboard"
+        },
+        {
+            "en_name": "System Admins",
+            "ar_name": "المديرين المركزيين",
+            "url": "/admin/admins"
+        }
+    ]
     
     return render_template(
         f"/admin/{tools.get_lang()}/admins.html",
