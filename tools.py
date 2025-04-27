@@ -1,4 +1,4 @@
-from flask import session
+from flask import session, request
 import api
 import requests
 import tempfile
@@ -116,7 +116,8 @@ def set_session(data):
         "college_name": data["collegeName"],
         "college_id": data["collegeId"] ,
         "access_token": data["accessToken"],
-        "token_expiration_time": data["refreshTokenExpirationTime"]
+        "token_expiration_time": data["refreshTokenExpirationTime"],
+        "lang": "en"
     })
     
     return True

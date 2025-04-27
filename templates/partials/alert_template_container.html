@@ -1,4 +1,11 @@
-<div class="z-[99999] absolute top-20 {{ 'right-4' if session.lang == 'en' else 'left-4' }} flex-col w-full max-w-xs" alert-template-container>
+{% if session.lang == 'en' %}
+<div class="z-[99999] absolute top-20 right-4 flex-col w-full max-w-xs" alert-template-container>
+{% elif session.lang == 'ar' %}
+<div class="z-[99999] absolute top-20 left-4 flex-col w-full max-w-xs" alert-template-container>
+{% else %}
+<div class="z-[99999] absolute top-20 right-4 flex-col w-full max-w-xs" alert-template-container>
+{% endif %}
+
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     {% for color, message in messages %}

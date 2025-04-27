@@ -51,10 +51,10 @@ app.register_blueprint(college_admin_accounts_bp)
 # ---------------------------------------
 # 404 Error Handler
 # ---------------------------------------
-
+from tools import get_lang
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('/main/en/404.html'), 404
+    return render_template(f'/main/{get_lang()}/404.html'), 404
 
 
 # ---------------------------------------

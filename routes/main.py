@@ -23,11 +23,9 @@ def main_language_post():
     lang = request.form.get("lang")
     url = request.referrer
     
-    print(lang)
-    print(url)
-    
     if lang not in ["en", "ar"]:
         lang = "en"
+    
     tools.update_lang(lang)
     return redirect(url)
 
@@ -41,7 +39,8 @@ def main_login_get():
         flash("You are already logged in.", "orange")
         return redirect("/admin")
     
-    return render_template(f"/main/{tools.get_lang()}/login.html")
+    # return render_template(f"/main/{tools.get_lang()}/login.html")
+    return render_template("/main/ar/login.html")
 
 
 # ---------------------------------------
