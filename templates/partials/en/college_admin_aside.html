@@ -66,8 +66,11 @@
                         <div class="text-left p-5 border-b dark:border-gray-600 border-gray-200">
                             <div class="flex items-center space-x-6">
                                 <div class="flex items-center">
-                                    <img class="h-16 w-16 rounded-lg" src="/static/images/profile-default.jpg"
-                                        alt="Profile picture">
+                                    {% if session.picture_url and session.picture_url != "Empty" %}
+                                    <img class="h-16 w-16 rounded-lg" src="{{session.picture_url}}" alt="Profile picture">
+                                    {% else %}
+                                    <img class="h-16 w-16 rounded-lg" src="/static/images/profile-default.jpg" alt="Profile picture">
+                                    {% endif %}
                                 </div>
                                 <div class="space-y-1">
                                     <p class="text-sm text-gray-600 dark:text-gray-400">Name: <span
