@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="/static/css/all.css">
     <link rel="stylesheet" href="/static/css/loader.css">
     <script src="/static/js/tailwind.js"></script>
-    <title>لوحة الإدارة</title>
+    <!-- Favicons -->
+    {% include "/partials/favicons.html" %}
+    <title>لوحة التحكم</title>
 </head>
 
 <body class="bg-blue-100 h-screen flex">
@@ -17,7 +19,7 @@
     {% include "/partials/alert_template_container.html" %}
      
     <!-- Aside -->
-    {% include "/partials/ar/college_admin_aside.html" %}
+    {% include "/partials/ar/admin_aside.html" %}
     
     <!-- Header -->
     {% include "/partials/ar/header.html" %}
@@ -25,7 +27,6 @@
     <main class="flex-1 mr-48">
         <section class="mt-16">
             <div class="overflow-x-auto w-full p-4">
-
                 <div class="flex mx-auto max-w-8xl mb-4">
                     <input data-search type="text" id="searchBar" placeholder="بحث.."
                         class="ml-4 block w-96 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-600 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
@@ -59,10 +60,10 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <form action="/college_admin/accounts/add_account" method="POST" class="p-4 md:p-5" enctype="multipart/form-data">
+                                <form action="/admin/colleges/{{college.id}}/accounts/add_account" method="POST" class="p-4 md:p-5" enctype="multipart/form-data">
                                     <div class="grid gap-4 mb-4 grid-cols-2">
-                                        <div class="col-span-2 flex">
-                                            <div class="w-1/2 me-3">
+                                        <div class="col-span-2 flex space-x-3">
+                                            <div class="w-1/2">
                                                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">الاسم</label>
                                                 <input type="text" name="account_name" id="name" placeholder="أدخل اسم الحساب"
                                                     class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500" required>
@@ -74,8 +75,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-span-2 flex">
-                                            <div class="w-1/2 me-3">
+                                        <div class="col-span-2 flex space-x-3">
+                                            <div class="w-1/2">
                                                 <label for="national_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">الرقم القومي</label>
                                                 <input maxlength="14" type="text" name="account_national_id" id="national_id" placeholder="أدخل الرقم القومي"
                                                     class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500" required>
@@ -93,8 +94,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-span-2 flex">
-                                            <div class="w-1/2 me-3">
+                                        <div class="col-span-2 flex space-x-3">
+                                            <div class="w-1/2">
                                                 <label for="department" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">القسم</label>
                                                 <select name="account_department_id" id="department" placeholder="اختر القسم"
                                                     class="dark:text-gray-400 appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500">
@@ -109,15 +110,15 @@
                                                 <select name="account_role_id" id="role" placeholder="اختر الدور"
                                                     class="dark:text-gray-400 appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500" required>
                                                     <option value="">اختر الدور..</option>
-                                                    {% for role in roles %}
+                                                    {% for role in roles[:-5] %}
                                                     <option value="{{role.id}}">{{role.name}}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
                                         </div>
 
-                                        <div class="col-span-2 flex">
-                                            <div class="w-1/2 me-3">
+                                        <div class="col-span-2 flex space-x-3">
+                                            <div class="w-1/2">
                                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">الصورة الشخصية</label>
                                                 <div class="flex items-center justify-center">
                                                     <label for="profile_picture" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -185,16 +186,15 @@
                         </div>
 
                         <div data-rows-container class="divide-gray-200 overflow-y-auto" style="height: 615px;">
-
                             {% for account in accounts %}
                             <div data-row class="border border-b-1 border-r-0 border-t-0 border-l-0 flex items-center" data-row-template data-row-id="{{account.id}}">
                                 <div class="px-6 py-1 w-1/3">
-                                    <div class="flex items-center py-1 px-2 rounded-md hover:bg-indigo-100 cursor-pointer">
-                                        <div class="me-3 inline-flex w-10 h-10">
+                                    <div class="flex items-center space-x-3 py-1 px-2 rounded-md hover:bg-indigo-100 cursor-pointer">
+                                        <div class="inline-flex w-10 h-10">
                                             {% if account.pictureURL == "Empty" or not account.pictureURL%}
                                             <img class="w-10 h-10 object-cover rounded-full" src="/static/images/profile-default.jpg">
                                             {% else %}
-                                            <img class="w-10 h-10 object-cover rounded-full" alt="الصورة الشخصية" src="{{account.pictureURL}}">
+                                            <img class="w-10 h-10 object-cover rounded-full" alt="صورة المستخدم" src="{{account.pictureURL}}">
                                             {% endif %}
                                         </div>
                                         <div>
@@ -204,13 +204,7 @@
                                     </div>
                                 </div>
                                 <div class="px-6 py-4 w-1/6">
-                                    {% set role_found = false %}
-                                    {% for role in roles %}
-                                        {% if role.name_id == account.role %}
-                                            <span data-role class="text-green-800 bg-green-200 font-semibold px-2 rounded-full">{{role.name}}</span>
-                                            {% set role_found = true %}
-                                        {% endif %}
-                                    {% endfor %}
+                                    <span data-role class="text-green-800 bg-green-200 font-semibold px-2 rounded-full">{{account.role}}</span>
                                 </div>
                                 <div class="px-6 py-4 w-1/4">
                                     <p class="text-gray-700 font-semibold tracking-wide">{{account.departmentName}}</p>
@@ -220,14 +214,13 @@
                                     <p data-national-id class="text-gray-700 font-semibold tracking-wide">{{account.nationalId}}</p>
                                 </div>
 
-                                {% if account.role != "CollegeAdmin" %}
                                 <div class="px-6 py-2 w-1/12 text-center">
                                     <!-- Update Modal toggle -->
                                     <button onclick="updateModalOpenButton('{{account.id}}')" update-modal-open-button data-modal-target="update-modal" data-modal-toggle="update-modal" 
                                         class="ml-auto rounded-md bg-indigo-600 px-3.5 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-indigo-600">تعديل</button>
                                 
                                     <!-- Update Main modal -->
-                                    <div data-modal-row-id="{{account.id}}""
+                                    <div data-modal-row-id="{{account.id}}"
                                         class="pointer-events-none opacity-0 fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-200">
                                         <div data-modal="update-modal" class="relative p-4 w-full max-w-5xl max-h-full">
                                             <!-- Modal content -->
@@ -245,8 +238,8 @@
                                                         <span class="sr-only">إغلاق</span>
                                                     </button>
                                                 </div>
-                                                <div class="update-account-container flex">
-                                                    <div class="w-2/5 border-l dark:border-gray-600 border-gray-200">
+                                                <div class="update-account-container flex space-x-5">
+                                                    <div class="w-2/5 border-r dark:border-gray-600 border-gray-200">
                                                         <div class="text-right p-4 md:p-5">
                                                             <div class="flex-col items-center">
                                                                 <div class="flex space-x-4 mb-4">
@@ -278,7 +271,7 @@
                                                             <div class="mb-3">
                                                                 <p class="text-sm text-gray-700 dark:text-gray-400">سيتم إعادة تعيين كلمة المرور إلى الرقم القومي للحساب.</p>
                                                             </div>
-                                                            <form class="" action="/college_admin/accounts/reset_password/{{account.email}}" method="POST" class="">
+                                                            <form class="" action="/admin/colleges/{{college.id}}/accounts/reset_password/{{account.email}}" method="POST" class="">
                                                                 <button type="submit" class="block text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-500 dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-red-600">
                                                                     إعادة تعيين كلمة المرور
                                                                 </button>
@@ -286,13 +279,13 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="ms-auto w-3/5">
+                                                    <div class="w-3/5">
                                                         <!-- Update Modal body -->
-                                                        <form action="/college_admin/accounts/edit_account/{{account.id}}" method="POST" class="p-4 md:p-5" enctype="multipart/form-data">
+                                                        <form action="/admin/colleges/{{college.id}}/accounts/edit_account/{{account.id}}" method="POST" class="p-4 md:p-5" enctype="multipart/form-data">
                                                             <input value="{{account.email}}" type="text" name="account_email" hidden>
                                                             <div class="text-right grid gap-4 mb-4 grid-cols-2">
-                                                                <div class="col-span-2 flex">
-                                                                    <div class="w-1/2 me-3">
+                                                                <div class="col-span-2 flex space-x-3">
+                                                                    <div class="w-1/2">
                                                                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">الاسم</label>
                                                                         <input value="{{account.name}}" type="text" name="account_name" placeholder="أدخل اسم الحساب"
                                                                             class="bg-gray-50 outline text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 dark:text-white outline-1 dark:focus:outline-indigo-500" required>
@@ -305,8 +298,22 @@
                                                                 </div>
         
                                                                 
-                                                                <div class="col-span-2 flex">
-                                                                    <div class="w-1/2 me-3">
+                                                                <div class="col-span-2 flex space-x-3">
+                                                                    <div class="w-1/3">
+                                                                        <label for="college" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">الكلية</label>
+                                                                        <select name="account_college_id" placeholder="اختر الكلية"
+                                                                            class="dark:text-white appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500">
+                                                                            <option value="">لا شيء..</option>
+                                                                            {% for college in colleges %}
+                                                                                {% if account.collegeName == college.name %}
+                                                                                <option value="{{college.id}}" selected>{{college.name}}</option>
+                                                                                {% else %}
+                                                                                <option value="{{college.id}}">{{college.name}}</option>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="w-1/3">
                                                                         <label for="department" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">القسم</label>
                                                                         <select name="account_department_id" placeholder="اختر القسم"
                                                                             class="dark:text-white appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500">
@@ -320,7 +327,7 @@
                                                                             {% endfor %}
                                                                         </select>
                                                                     </div>
-                                                                    <div class="w-1/2">
+                                                                    <div class="w-1/3">
                                                                         <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">الدور</label>
                                                                         <select name="account_role_id" placeholder="اختر الدور"
                                                                             class="dark:text-white appearance-none bg-gray-50 outline text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500" required>
@@ -336,8 +343,8 @@
                                                                     </div>
                                                                 </div>
             
-                                                                <div class="col-span-2 flex">
-                                                                    <div class="w-1/2 me-3">
+                                                                <div class="col-span-2 flex space-x-3">
+                                                                    <div class="w-1/2">
                                                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">الصورة الشخصية</label>
                                                                         <div class="flex items-center justify-center">
                                                                             <label for="profile_picture_{{account.id}}" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -396,18 +403,16 @@
                                     </div> 
                                     <!-- Update End of modal -->  
                                 </div>
-                                {% endif %}
 
                             </div>
                             {% endfor %}
-
                         </div>
                         <div class="flex items-center justify-between px-6 py-4">
                             <button id="prev-page" class="dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-indigo-600 px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 disabled:opacity-50" disabled>
                                 السابق &laquo;
                             </button>
                             <div class="flex items-center space-x-2">
-                                <span class="me-2">الصفحة</span>
+                                <span>الصفحة</span>
                                 <input id="current-page" type="number" min="1" value="1" class="w-12 text-center border border-gray-300 rounded-md">
                                 <span>من</span>
                                 <span id="total-pages">1</span>

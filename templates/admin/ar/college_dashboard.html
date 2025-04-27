@@ -6,10 +6,9 @@
     <link rel="stylesheet" href="/static/css/all.css">
     <link rel="stylesheet" href="/static/css/loader.css">
     <script src="/static/js/tailwind.js"></script>
+    <title>لوحة التحكم</title>
     <!-- Favicons -->
     {% include "/partials/favicons.html" %}
-
-    <title>لوحة الإدارة</title>
 </head>
 
 <body class="bg-blue-100 h-screen flex">
@@ -18,9 +17,9 @@
 
     <!-- Alert Template -->
     {% include "/partials/alert_template_container.html" %}
-        
+     
     <!-- Aside -->
-    {% include "/partials/ar/college_admin_aside.html" %}
+    {% include "/partials/ar/admin_aside.html" %}
     
     <!-- Header -->
     {% include "/partials/ar/header.html" %}
@@ -28,27 +27,27 @@
     <main class="flex-1 mr-48 select-none">
         <section class="flex mt-16">
             <div class="overflow-x-auto w-full p-4">
-                <div class="flex flex-wrap">
-                    <div class="bg-white shadow-md rounded-lg p-6 flex-1 select-none me-4">
+                <div class="flex flex-wrap space-x-4">
+                    <a href="/admin/colleges/{{college.id}}/departments" class="bg-white shadow-md rounded-lg p-6 flex-1 hover:underline">
                         <div class="">
-                            <h2 class="text-lg font-semibold text-gray-700">الأقسام</h2>
+                            <h2 class="text-lg font-semibold text-gray-700">الذهاب إلى الأقسام</h2>
                             <p class="text-4xl font-bold text-gray-900 mt-4">{{ no_of_departments }}</p>
                             <p class="text-sm text-gray-500 mt-2">إجمالي عدد الأقسام</p>
                         </div>
-                    </div>
-                    <div class="bg-white shadow-md rounded-lg p-6 flex-1 select-none">
+                    </a>
+                    <a href="/admin/colleges/{{college.id}}/accounts" class="bg-white shadow-md rounded-lg p-6 flex-1 hover:underline">
                         <div class="">
-                            <h2 class="text-lg font-semibold text-gray-700">الحسابات</h2>
+                            <h2 class="text-lg font-semibold text-gray-700">الذهاب إلى الحسابات</h2>
                             <p class="text-4xl font-bold text-gray-900 mt-4">{{ no_of_accounts }}</p>
                             <p class="text-sm text-gray-500 mt-2">إجمالي عدد الحسابات</p>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>
         
-        <footer class="mr-48 -z-[9] fixed inset-x-0 bottom-0">
-            <div class="bg-blue-100 py-3 text-center">
+        <footer class="mr-48 fixed inset-x-0 bottom-0">
+            <div class="bg-indigo-100 py-3 text-center">
                 <p class="text-sm text-gray-600">© 2025 جامعة الغردقة. جميع الحقوق محفوظة.</p>
             </div>
         </footer>

@@ -8,8 +8,7 @@
     <script src="/static/js/tailwind.js"></script>
     <!-- Favicons -->
     {% include "/partials/favicons.html" %}
-    
-    <title>لوحة الإدارة</title>
+    <title>لوحة التحكم</title>
 </head>
 
 <body class="bg-blue-100 h-screen flex">
@@ -20,15 +19,14 @@
     {% include "/partials/alert_template_container.html" %}
      
     <!-- Aside -->
-    {% include "/partials/ar/college_admin_aside.html" %}
+    {% include "/partials/ar/admin_aside.html" %}
     
     <!-- Header -->
     {% include "/partials/ar/header.html" %}
-    
+
     <main class="flex-1 mr-48">
         <section class="mt-16">
             <div class="overflow-x-auto w-full p-4">
-
                 <div class="flex mx-auto max-w-8xl mb-4">
                     <input data-search type="text" id="searchBar" placeholder="بحث.."
                         class="ml-4 block w-96 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-600 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
@@ -60,7 +58,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <form action="/college_admin/departments/add_department" method="POST" class="p-4 md:p-5">
+                                <form action="/admin/colleges/{{college.id}}/departments/add_department" method="POST" class="p-4 md:p-5">
                                     <div class="grid gap-4 mb-4 grid-cols-2">
                                         <div class="col-span-2">
                                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">الاسم</label>
@@ -93,7 +91,6 @@
                         </div>
 
                         <div data-rows-container class="divide-gray-200 overflow-y-auto" style="min-height: 490px;">
-
                             {% for department in departments %}
                             <div data-row class="border border-b-1 border-r-0 border-t-0 border-l-0 flex items-center" data-row-template data-row-id="{{department.id}}">
                                 <div class="px-6 py-2 w-1/2"> 
@@ -105,10 +102,10 @@
                                 <div class="px-6 py-2 w-1/6 text-center">
                                     <!-- Update Modal toggle -->
                                     <button onclick="updateModalOpenButton('{{department.id}}')" update-modal-open-button data-modal-target="update-modal" data-modal-toggle="update-modal" 
-                                        class="mr-auto rounded-md bg-indigo-600 px-3.5 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-indigo-600">تعديل</button>
+                                        class="ml-auto rounded-md bg-indigo-600 px-3.5 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-indigo-600">تعديل</button>
 
                                     <!-- Update Main modal -->
-                                    <div data-modal-row-id="{{department.id}}""
+                                    <div data-modal-row-id="{{department.id}}"
                                         class="select-none pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-200">
                                         <div data-modal="update-modal" class="relative p-4 w-full max-w-md max-h-full">
                                             <!-- Modal content -->
@@ -137,7 +134,7 @@
                                                     </div>
                                                 </div>
                                                 <!-- Update Modal body -->
-                                                <form action="/college_admin/departments/update_department/{{department.id}}" method="POST"class="p-4 md:p-5">
+                                                <form action="/admin/colleges/{{college.id}}/departments/update_department/{{department.id}}" method="POST"class="p-4 md:p-5">
                                                     <div class="grid gap-4 mb-4 grid-cols-2">
                                                         <div class="col-span-2">
                                                             <label for="name" class="text-right block mb-2 text-sm font-medium text-gray-900 dark:text-white">الاسم</label>
@@ -161,14 +158,13 @@
                                 </div>
                             </div>
                             {% endfor %}
-
                         </div>
                         <div class="flex items-center justify-between px-6 py-4">
                             <button id="prev-page" class="dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-indigo-600 px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 disabled:opacity-50" disabled>
                                 السابق &laquo;
                             </button>
                             <div class="flex items-center space-x-2">
-                                <span class="me-2">الصفحة</span>
+                                <span>الصفحة</span>
                                 <input id="current-page" type="number" min="1" value="1" class="w-12 text-center border border-gray-300 rounded-md">
                                 <span>من</span>
                                 <span id="total-pages">1</span>
