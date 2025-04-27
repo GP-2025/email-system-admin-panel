@@ -38,10 +38,28 @@ def admin_college_dashboard_get(college_id):
     no_of_departments = len(departments)
     no_of_accounts = len(accounts)
     
+    breadcrumbs = [
+        {
+            "en_name": "Hurghada University | Dashboard",
+            "ar_name": "[جامعة الغردقة] | الرئيسية",
+            "url": "/admin/dashboard"
+        },
+        {
+            "en_name": "Colleges",
+            "ar_name": "الكليات",
+            "url": "/admin/colleges"
+        },
+        {
+            "en_name": f"{college.get('name')}",
+            "ar_name": f"{college.get('name')}",
+            "url": f"/admin/colleges/{college_id}"
+        }
+    ]
     return render_template(
         f"/admin/{tools.get_lang()}/college_dashboard.html",
         no_of_departments=no_of_departments,
         no_of_accounts=no_of_accounts,
-        college=college
+        college=college,
+        breadcrumbs=breadcrumbs
     )
 

@@ -48,5 +48,6 @@ def admin_admins_get():
     return render_template(
         f"/admin/{tools.get_lang()}/admins.html",
         accounts=accounts,
+        breadcrumbs=breadcrumbs
     )
     

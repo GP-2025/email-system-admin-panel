@@ -38,11 +38,19 @@ def admin_dashboard_get():
         if acc.get("role").lower() == "admin":
             no_of_admins += 1
     
+    breadcrumbs = [
+        {
+            "en_name": "Hurghada University | Dashboard",
+            "ar_name": "[جامعة الغردقة] | الرئيسية",
+            "url": "/admin/dashboard"
+        }
+    ]
+    
     return render_template(
         f"/admin/{tools.get_lang()}/dashboard.html",
         no_of_colleges=no_of_colleges,
         no_of_college_admins=no_of_college_admins,
         no_of_all_accounts=no_of_all_accounts,
         no_of_admins=no_of_admins,
-           
+        breadcrumbs=breadcrumbs
     )

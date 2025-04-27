@@ -31,10 +31,33 @@ def admin_college_departments_get(college_id):
     if departments:
         departments = list(reversed(departments))
     
+    breadcrumbs = [
+        {
+            "en_name": "Hurghada University | Dashboard",
+            "ar_name": "[جامعة الغردقة] | الرئيسية",
+            "url": "/admin/dashboard"
+        },
+        {
+            "en_name": "Colleges",
+            "ar_name": "الكليات",
+            "url": "/admin/colleges"
+        },
+        {
+            "en_name": f"{college.get('name')}",
+            "ar_name": f"{college.get('name')}",
+            "url": f"/admin/colleges/{college_id}"
+        },
+        {
+            "en_name": "Departments",
+            "ar_name": "الاقسام",
+            "url": f"/admin/colleges/{college_id}/departments"
+        }
+    ]
     return render_template(
         f"/admin/{tools.get_lang()}/college_departments.html",
         departments=departments,
-        college=college
+        college=college,
+        breadcrumbs=breadcrumbs
     )
 
 

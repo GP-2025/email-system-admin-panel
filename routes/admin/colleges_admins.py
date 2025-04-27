@@ -40,14 +40,26 @@ def admin_colleges_admins_get():
         
     roles = tools.get_roles(tools.get_lang())
     
+    breadcrumbs = [
+        {
+            "en_name": "Hurghada University | Dashboard",
+            "ar_name": "[جامعة الغردقة] | الرئيسية",
+            "url": "/admin/dashboard"
+        },
+        {
+            "en_name": "Colleges Admins",
+            "ar_name": "مديرين الكليات",
+            "url": "/admin/colleges_admins"
+        }
+    ]
+    
     return render_template(
         f"/admin/{tools.get_lang()}/colleges_admins.html",
         accounts=accounts,
         roles=roles,
         colleges=colleges,
+        breadcrumbs=breadcrumbs
     )
-    
-# {% include "admin/en/college_admins_account.html" %}
 
 
 # ---------------------------------------

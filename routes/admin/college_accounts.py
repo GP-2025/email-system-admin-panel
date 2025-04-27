@@ -48,6 +48,28 @@ def admin_college_accounts_get(college_id):
         
     roles = tools.get_roles(tools.get_lang())
     
+    breadcrumbs = [
+        {
+            "en_name": "Hurghada University | Dashboard",
+            "ar_name": "[جامعة الغردقة] | الرئيسية",
+            "url": "/admin/dashboard"
+        },
+        {
+            "en_name": "Colleges",
+            "ar_name": "الكليات",
+            "url": "/admin/colleges"
+        },
+        {
+            "en_name": f"{college.get('name')}",
+            "ar_name": f"{college.get('name')}",
+            "url": f"/admin/colleges/{college_id}"
+        },
+        {
+            "en_name": "Accounts",
+            "ar_name": "الحسابات",
+            "url": f"/admin/colleges/{college_id}/accounts"
+        }
+    ]
     return render_template(
         f"/admin/{tools.get_lang()}/college_accounts.html",
         accounts=accounts,
@@ -55,6 +77,7 @@ def admin_college_accounts_get(college_id):
         departments=departments,
         college=college,
         colleges=colleges,
+        breadcrumbs=breadcrumbs
     )
 
 
