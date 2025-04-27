@@ -123,7 +123,7 @@ def admin_colleges_admins_post():
 # POST METHOD
 # ---------------------------------------
 @admin_colleges_admins_bp.route("/colleges_admins/edit_account/<int:account_id>", methods=["POST"])
-def admin_colleges_admins_edit_account(college_id, account_id):
+def admin_colleges_admins_edit_account(account_id):
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -199,7 +199,7 @@ def admin_colleges_admins_edit_account(college_id, account_id):
 # POST METHOD
 # ---------------------------------------
 @admin_colleges_admins_bp.route("/colleges_admins/reset_password/<string:email>", methods=["POST"])
-def admin_colleges_admins_reset_password(college_id, email):
+def admin_colleges_admins_reset_password(email):
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
