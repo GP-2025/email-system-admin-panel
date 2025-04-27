@@ -6,200 +6,24 @@
     <link rel="stylesheet" href="/static/css/all.css">
     <link rel="stylesheet" href="/static/css/loader.css">
     <script src="/static/js/tailwind.js"></script>
+    <!-- Favicons -->
+    {% include "/partials/favicons.html" %}
     <title>Admin Panel</title>
 </head>
-<div class="loader after:border-r-indigo-500 after:border-l-indigo-500 after:border-b-indigo-500"></div>
 
-<div class="z-[99999] absolute top-20 right-4 flex-col w-full max-w-xs" alert-template-container>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for color, message in messages %}
-    <div id="toast-success" alert-message="{{message}}" role="alert" alert-template
-        class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-lg dark:text-gray-400 dark:bg-gray-800 border border-1 dark:border-gray-500">
-        <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-{{color}}-300 bg-{{color}}-100 rounded-lg bg-{{color}}-500">
-            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                {% if color == "green" %}
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                {% elif color == "red" %}
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
-                {% elif color == "orange" %}
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z" />
-                {% endif %}
-            </svg>
-            <span class="sr-only">Check icon</span>
-        </div>
-        <div class="ms-3 text-sm text-white font-normal">{{message}}</div>
-        <button type="button" onclick='closeAlertTemplate("{{message}}")' data-dismiss-target="#toast-success" aria-label="Close"
-            class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">
-            <span class="sr-only">Close</span>
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-            </svg>
-        </button>
-    </div>
-    
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-</div>
 
 <body class="bg-blue-100 h-screen flex">
-    <aside id="cta-button-sidebar" class="fixed top-0 left-0 z-50 w-48 h-full transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-        <div class="h-full px-2 py-4 overflow-y-auto dark:bg-gray-800">
-            <ul class="space-y-2 font-medium">
-                <li>
-                    <a href="/admin/dashboard" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                            <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
-                            <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
-                        </svg>
-                        <span class="ms-3">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/colleges" class="flex items-center p-2 rounded-lg text-white bg-gray-700 group">
-                        <svg class="w-5 h-5 transition duration-75 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                            <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
-                        </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Colleges</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/colleges_admins" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                            <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
-                        </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Colleges Admins</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/admins" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                            <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
-                        </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">System Admins</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="absolute bottom-2 font-medium w-44">
-                <button onclick="updateModalOpenButton('settings')" class="w-full text-left flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512">
-                        <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"/>
-                    </svg>
-                    <span class="flex-1 ms-3 whitespace-nowrap">Settings</span>
-                </button>
+    <!-- Loader -->
+    {% include "/partials/loader.html" %}
 
-                <!-- Settings Main modal -->
-                <div data-modal-row-id="settings"
-                class="select-none pointer-events-none opacity-0 fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-200">
-                    <div data-modal="update-modal" class="relative p-4 w-full max-w-md max-h-full">
-                        <!-- Modal content -->
-                        <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-800">
-                            <!-- Modal header -->
-                            <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                    Settings
-                                </h3>
-                                <button onclick="updateModalCloseButton('settings')"
-                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                    </svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
-                            </div>
-                            
-                            <div class="text-left p-5 border-b dark:border-gray-600 border-gray-200">
-                                <div class="flex items-center space-x-6">
-                                    <div class="flex items-center">
-                                        <img class="h-16 w-16 rounded-lg" src="/static/images/profile-default.jpg" alt="Profile picture">
-                                    </div>
-                                    <div class="space-y-1">
-                                        <p class="text-sm text-gray-600 dark:text-gray-400">Name: <span class="font-medium text-gray-900 dark:text-white">{{session.name}}</span></p>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400">Email: <span class="font-medium text-gray-900 dark:text-white">{{session.email}}</span></p>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400">Role: <span class="font-medium text-gray-900 dark:text-white">{{session.role}}</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-left p-5 border-b dark:border-gray-600 border-gray-200">
-                                <div class="flex items-center justify-between space-x-6">
-                                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Language</h4>
-                                    <form id="lang-form" class="flex items-center space-x-4">
-                                        <select name="lang" placeholder="Type account department"
-                                            class="w-24 py-2 px-2.5 dark:text-white appearance-none bg-gray-50 outline text-sm rounded-lg dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500">
-                                            <option value="en" {% if session.lang == "en" %}selected{% endif %}>English</option>
-                                            <option value="ar" {% if session.lang == "ar" %}selected{% endif %}>العربية</option>
-                                        </select>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="text-left p-5 border-b dark:border-gray-600 border-gray-200">
-                                <div class="flex items-center justify-between space-x-6">
-                                    <a href="/logout" class="text-white inline-flex items-center font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-red-600 dark:hover:bg-red-500 dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-red-600">
-                                        <svg class="me-2 -ms-1 w-4 h-4" fill="currentColor" viewBox="0 0 512 512">
-                                            <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/>
-                                        </svg>
-                                        Logout
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Update End of modal -->  
-            </div>
-        </div>
-    </aside>
+    <!-- Alert Template -->
+    {% include "/partials/alert_template_container.html" %}
+     
+    <!-- Aside -->
+    {% include "/partials/en/admin_aside.html" %}
     
-    <header class="shadow-sm fixed top-0 w-full z-40 select-none">
-        <nav class="p-4 flex items-center justify-between bg-white/30 backdrop-blur-md" aria-label="Global">
-            <div class="w-48"></div>
-            <div class="flex mr-auto">
-                <div>
-                    <span class="sr-only">Admin Panel</span>
-                    <img class="h-8 w-auto" src="/static/images/uni-logo.png" alt="">
-                </div>
-                <div class="flex px-6" aria-label="Breadcrumb">
-                    <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-                        <li class="inline-flex items-center">
-                            <a href="/" class="inline-flex items-center text-sm font-medium text-gray-800 hover:underline">
-                                <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-                                </svg>
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <div class="flex items-center">
-                                <svg class="rtl:rotate-180 w-3 h-3 text-gray-800 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                                </svg>
-                                <a href="/" class="ms-1 text-sm font-medium text-gray-800 hover:underline">Projects</a>
-                            </div>
-                        </li>
-                        <li aria-current="page">
-                            <div class="flex items-center">
-                                <svg class="rtl:rotate-180 w-3 h-3 text-gray-800 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                                </svg>
-                                <a href="/" class="ms-1 text-sm font-medium text-gray-800 hover:underline">Projects</a>
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-            <div class="flex items-center">
-                <div class="flex items-center space-x-3">
-                    <span class="text-sm/6 font-semibold text-gray-900">{{session.name}}</span>
-                    {% if session.picture_url and session.picture_url != "Empty" %}
-                    <img class="h-8 w-8 rounded-lg" src="{{session.picture_url}}" alt="Profile picture">
-                    {% else %}
-                    <img class="h-8 w-8 rounded-lg" src="/static/images/profile-default.jpg" alt="Profile picture">
-                    {% endif %}
-                </div>
-            </div>
-        </nav>
-    </header>
+    <!-- Header -->
+    {% include "/partials/en/header.html" %}
 
     <main class="flex-1 ml-48">
         <section class="mt-16">
