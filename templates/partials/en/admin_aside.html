@@ -80,11 +80,11 @@
                         <div class="text-left p-5 border-b dark:border-gray-600 border-gray-200">
                             <div class="flex items-center justify-between space-x-6">
                                 <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Language</h4>
-                                <form action="/lang" method="POST" class="flex items-center space-x-4">
-                                    <select name="account_department_id" placeholder="Type account department"
-                                        class="w-24 py-2 px-2.5 dark:text-white appearance-none bg-gray-50 outline text-sm rounded-lg dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500">
-                                        <option value="en" {% if session.lang == "en" %}selected{% endif %}>English</option>
-                                        <option value="ar" {% if session.lang == "ar" %}selected{% endif %}>العربية</option>
+                                <form id="lang-form" action="/lang" method="POST" class="flex items-center space-x-4">
+                                    <select name="lang" onchange="this.form.submit()" placeholder="Type account department"
+                                    class="w-24 py-2 px-2.5 dark:text-white appearance-none bg-gray-50 outline text-sm rounded-lg dark:bg-gray-600 dark:outline-gray-300 dark:placeholder-gray-400 outline-1 dark:focus:outline-indigo-500">
+                                        <option value="en" {% if session.lang=="en" %}selected{% endif %}>English</option>
+                                        <option value="ar" {% if session.lang=="ar" %}selected{% endif %}>العربية</option>
                                     </select>
                                 </form>
                             </div>
