@@ -42,9 +42,18 @@ def college_admin_dashboard_get():
     
     no_of_departments = len(departments)
     
+    breadcrumbs = [
+        {
+            "en_name": f"{college.get('name')} | Dashboard",
+            "ar_name": f"{college.get('name')} | الرئيسية",
+            "url": "/college_admin/dashboard"
+        }
+    ]
+    
     return render_template(
         f"/college_admin/{tools.get_lang()}/dashboard.html",
         no_of_departments=no_of_departments,
         no_of_accounts=no_of_accounts,
-        college=college
+        college=college,
+        breadcrumbs=breadcrumbs
     )

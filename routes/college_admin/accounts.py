@@ -24,7 +24,8 @@ def college_admin_accounts_get():
     college_id = session.get("college_id")
     tools.update_token()
     
-    college = api.GetCollegeById(college_id)
+    res = api.GetCollegeById(college_id)
+    college = res.json()
     
     res = api.AllUsers()
     accounts = []
@@ -38,11 +39,24 @@ def college_admin_accounts_get():
     if accounts:
         accounts = list(reversed(accounts))
     
-    departments = college.json().get("departments")
+    departments = college.get("departments")
     if departments:
         departments = list(reversed(departments))
     
     roles = tools.get_roles({tools.get_lang()})
+    
+    breadcrumbs = [
+        {
+            "en_name": f"{college.get('name')} | Dashboard",
+            "ar_name": f"{college.get('name')} | الرئيسية",
+            "url": "/college_admin/dashboard"
+        },
+        {
+            "en_name": "Accounts",
+            "ar_name": "الحسابات",
+            "url": "/college_admin/accounts"
+        }
+    ]
     
     return render_template(
         f"/college_admin/{tools.get_lang()}/accounts.html",
@@ -50,6 +64,7 @@ def college_admin_accounts_get():
         roles=roles,
         departments=departments,
         college=college,
+        breadcrumbs=breadcrumbs
     )
 
 

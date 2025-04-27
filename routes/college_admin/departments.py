@@ -33,10 +33,23 @@ def college_admin_departments_get():
     if departments:
         departments = list(reversed(departments))
     
+    breadcrumbs = [
+        {
+            "en_name": f"{college.get('name')} | Dashboard",
+            "ar_name": f"{college.get('name')} | الرئيسية",
+            "url": "/college_admin/dashboard"
+        },
+        {
+            "en_name": f"Departments",
+            "ar_name": f"الاقسام",
+            "url": "/college_admin/departments"
+        }
+    ]
     return render_template(
         f"/college_admin/{tools.get_lang()}/departments.html",
         departments=departments,
-        college=college
+        college=college,
+        breadcrumbs=breadcrumbs
     )
 
 

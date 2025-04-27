@@ -16,22 +16,20 @@
                             Home
                         </a>
                     </li>
+                    {% for breadcrumb in breadcrumbs %}
                     <li>
                         <div class="flex items-center">
                             <svg class="rtl:rotate-180 w-3 h-3 text-gray-800 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <a href="/" class="ms-1 text-sm font-medium text-gray-800 hover:underline">Projects</a>
+                            {% if session.lang == "ar" %}
+                            <a href="{{breadcrumb.url}}" class="ms-1 text-sm font-medium text-gray-800 hover:underline">{{breadcrumb.ar_name}}</a>
+                            {% else %}
+                            <a href="{{breadcrumb.url}}" class="ms-1 text-sm font-medium text-gray-800 hover:underline">{{breadcrumb.en_name}}</a>
+                            {% endif %}
                         </div>
                     </li>
-                    <li aria-current="page">
-                        <div class="flex items-center">
-                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-800 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                            </svg>
-                            <a href="/" class="ms-1 text-sm font-medium text-gray-800 hover:underline">Projects</a>
-                        </div>
-                    </li>
+                    {% endfor %}
                 </ol>
             </div>
         </div>
