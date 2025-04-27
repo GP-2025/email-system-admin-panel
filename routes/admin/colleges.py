@@ -29,7 +29,7 @@ def admin_colleges_get():
     breadcrumbs = [
         {
             "en_name": "Hurghada University | Dashboard",
-            "ar_name": "[جامعة الغردقة] | الرئيسية",
+            "ar_name": "جامعة الغردقة | الرئيسية",
             "url": "/admin/dashboard"
         },
         {

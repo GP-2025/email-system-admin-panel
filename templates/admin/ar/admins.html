@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/all.css">
+    <link rel="stylesheet" href="/static/css/loader.css">
+    <script src="/static/js/tailwind.js"></script>
+    <!-- Favicons -->
+    {% include "/partials/favicons.html" %}
+    <title>لوحة التحكم</title>
+</head>
+
+<body class="bg-blue-100 h-screen flex">
+    <!-- Loader -->
+    {% include "/partials/loader.html" %}
+
+    <!-- Alert Template -->
+    {% include "/partials/alert_template_container.html" %}
+     
+    <!-- Aside -->
+    {% include "/partials/ar/admin_aside.html" %}
+    
+    <!-- Header -->
+    {% include "/partials/ar/header.html" %}
+
+    <main class="flex-1 mr-48">
+        <section class="mt-16">
+            <div class="overflow-x-auto w-full p-4">
+                <div class="flex mx-auto max-w-8xl mb-4">
+                    <input data-search type="text" id="searchBar" placeholder="بحث.."
+                        class="ml-4 block w-96 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-600 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <select data-sort-by id="sortDropdown" class="text-gray-600 appearance-none block w-64 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                        <option value="">ترتيب حسب..</option>
+                        <option value="name_asc">الاسم (أ-ي)</option>
+                        <option value="name_desc">الاسم (ي-أ)</option>
+                    </select>
+                </div>
+
+                <div class="border border-1 border-gray-300 mb-10 mx-auto max-w-8xl rounded-lg bg-white divide-y divide-gray-300 overflow-hidden">
+                    <div class="w-full">
+                        <div class="dark:bg-gray-800">
+                            <div class="flex text-right text-white">
+                                <div class="font-semibold text-sm uppercase px-6 py-4 w-1/3">الاسم &nbsp;</div>
+                                <div class="font-semibold text-sm uppercase px-6 py-4 w-1/6">الدور &nbsp;</div>
+                                <div class="font-semibold text-sm uppercase px-6 py-4 w-1/6">الرقم القومي &nbsp;</div>
+                            </div>
+                        </div>
+
+                        <div data-rows-container class="divide-gray-200 overflow-y-auto" style="height: 615px;">
+                            {% for account in accounts %}
+                            <div data-row class="border border-b-1 border-r-0 border-t-0 border-l-0 flex items-center" data-row-template data-row-id="{{account.id}}">
+                                <!-- just for the sorting -->
+                                <p data-college class="hidden">{{account.collegeName}}</p>
+                                <div class="px-6 py-1 w-1/3">
+                                    <div class="flex items-center space-x-3 py-1 px-2 rounded-md hover:bg-indigo-100 cursor-pointer">
+                                        <div class="inline-flex w-10 h-10">
+                                            {% if account.pictureURL == "Empty" or not account.pictureURL%}
+                                            <img class="w-10 h-10 object-cover rounded-full" src="/static/images/profile-default.jpg">
+                                            {% else %}
+                                            <img class="w-10 h-10 object-cover rounded-full" alt="صورة المستخدم" src="{{account.pictureURL}}">
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            <p data-name class="text-gray-700 font-semibold tracking-wide">{{account.name}}</p>
+                                            <p data-email class="text-gray-500 text-sm font-semibold tracking-wide">{{account.email}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-6 py-4 w-1/6">
+                                    <span data-role class="text-green-800 bg-green-200 font-semibold px-2 rounded-full">{{account.role}}</span>
+                                </div>
+                                <div class="px-6 py-4 w-1/6">
+                                    <p data-national-id class="text-gray-700 font-semibold tracking-wide">{{account.nationalId}}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="flex items-center justify-between px-6 py-4">
+                            <button id="prev-page" class="dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-indigo-600 px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 disabled:opacity-50" disabled>
+                                السابق &laquo;
+                            </button>
+                            <div class="flex items-center space-x-2">
+                                <span>الصفحة</span>
+                                <input id="current-page" type="number" min="1" value="1" class="w-12 text-center border border-gray-300 rounded-md">
+                                <span>من</span>
+                                <span id="total-pages">1</span>
+                            </div>
+                            <button id="next-page" class="dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-indigo-600 px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 disabled:opacity-50">
+                                التالي &raquo;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mr-48 -z-[9] fixed inset-x-0 bottom-0">
+            <div class="bg-blue-100 py-3 text-center">
+                <p class="text-sm text-gray-600">© 2025 جامعة الغردقة. جميع الحقوق محفوظة.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="/static/js/loader.js"></script>
+    <script src="/static/js/table_handler.js"></script>
+    <script src="/static/js/modal_handler.js"></script>
+    <script src="/static/js/alert_template_handler.js"></script>
+    <script src="/static/js/language.js"></script>
+    <script src="/static/js/accounts.js"></script>
+</body>
+
+</html> 

@@ -34,12 +34,12 @@ def admin_admins_get():
     breadcrumbs = [
         {
             "en_name": "Hurghada University | Dashboard",
-            "ar_name": "[جامعة الغردقة] | الرئيسية",
+            "ar_name": "جامعة الغردقة | الرئيسية",
             "url": "/admin/dashboard"
         },
         {
             "en_name": "System Admins",
-            "ar_name": "المديرين المركزيين",
+            "ar_name": "مدراء النظام",
             "url": "/admin/admins"
         }
     ]
