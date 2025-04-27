@@ -2,8 +2,6 @@
 from flask import session
 import api
 import requests
-from io import BytesIO
-import os
 import tempfile
 
 # ---------------------------------------
