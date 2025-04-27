@@ -52,7 +52,6 @@ def main_login_post():
         return redirect("/login")
     
     if tools.is_admin():
-        print("yes he is admin")
         flash(f"Welcome back, {session["name"]}.", "green")
         return redirect("/admin/dashboard")
     

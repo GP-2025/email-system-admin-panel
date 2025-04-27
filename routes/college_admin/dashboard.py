@@ -31,7 +31,7 @@ def college_admin_dashboard_get():
     departments = college.get("departments")
     
     res = api.AllUsers()
-    no_of_accounts = res.get("count") # count the already logged-in account
+    no_of_accounts = res.json().get("count") # count the already logged-in account
     
     no_of_departments = len(departments)
     

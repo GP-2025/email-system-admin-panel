@@ -26,11 +26,12 @@ def college_admin_accounts_get():
     
     college = api.GetCollegeById(college_id)
     
-    accounts = api.AllUsers().get("data")
+    res = api.AllUsers()
+    accounts = res.json().get("data")
     if accounts:
         accounts = list(reversed(accounts))
     
-    departments = college.get("departments")
+    departments = college.json().get("departments")
     if departments:
         departments = list(reversed(departments))
     
@@ -71,7 +72,8 @@ def college_admin_accounts_post():
             flash("Department already has an account!", "red")
             return redirect("/college_admin/accounts")
     
-    accounts = api.AllUsers().get("data")
+    res = api.AllUsers()
+    accounts = res.json().get("data")
     for account in accounts:        
         if account["email"] == account_email:
             flash("Email already exists!", "red")
@@ -142,7 +144,8 @@ def college_admin_accounts_edit_account(account_id):
             flash("Department already has an account!", "red")
             return redirect("/college_admin/accounts")
     
-    accounts = api.AllUsers().get("data")
+    res = api.AllUsers()
+    accounts = res.json().get("data")
     for account in accounts:
         if account["email"] == account_email and account.get("id") != account_id:
             flash("Email already exists!", "red")

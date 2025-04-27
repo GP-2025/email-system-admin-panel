@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let row_national_id = row_element.querySelector("[data-national-id]").textContent
         Rows.push({
             name: row_name,
-            role: row_role,
             email: row_email,
+            role: row_role,
             national_id: row_national_id,
             element: row_element,
         })
@@ -23,6 +23,7 @@ searchInput.addEventListener("input", function (e) {
     Rows.forEach(row => {
         const isVisible = row.name.toLowerCase().includes(value) ||
         row.email.toLowerCase().includes(value) ||
+        row.role.toLowerCase().includes(value) ||
         row.national_id.toLowerCase().includes(value);
 
         row.element.classList.toggle("hidden", !isVisible);
