@@ -5,10 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
         let row_email = row_element.querySelector("[data-email]").textContent
         let row_role = row_element.querySelector("[data-role]").textContent
         let row_national_id = row_element.querySelector("[data-national-id]").textContent
+        let row_college = row_element.querySelector("[data-college]").textContent
         Rows.push({
             name: row_name,
             email: row_email,
             role: row_role,
+            college: row_college,
             national_id: row_national_id,
             element: row_element,
         })

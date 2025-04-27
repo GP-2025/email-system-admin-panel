@@ -4,14 +4,14 @@ import json
 import api
 import tools
 
-admin_college_accounts_bp = Blueprint("admin_college_accounts", __name__, url_prefix="/admin")
+admin_colleges_admins_bp = Blueprint("admin_colleges_admins", __name__, url_prefix="/admin")
 
 
 # ---------------------------------------
 # GET METHOD
 # ---------------------------------------
-@admin_college_accounts_bp.route("/colleges/<int:college_id>/accounts", methods=["GET"])
-def admin_college_accounts_get(college_id):
+@admin_colleges_admins_bp.route("/colleges_admins", methods=["GET"])
+def admin_colleges_admins_get():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -21,20 +21,12 @@ def admin_college_accounts_get(college_id):
         return redirect("/login")
     
     tools.update_token()
-    res = api.GetCollegeById(college_id)
-    if res.status_code != 200:
-        return render_template('/main/en/404.html'), 404
-    college = res.json()
-    
-    departments = college.get("departments")
-    if departments:
-        departments = list(reversed(departments))
     
     res = api.AllUsers()
     accounts_data = res.json().get("data")
     accounts = []
     for acc in accounts_data:
-        if acc.get("collegeId") == college_id:
+        if acc.get("role") == "CollegeAdmin":
             accounts.append(acc)
     
     if accounts:
@@ -49,20 +41,20 @@ def admin_college_accounts_get(college_id):
     roles = tools.get_roles({tools.get_lang()})
     
     return render_template(
-        f"/admin/{tools.get_lang()}/college_accounts.html",
+        f"/admin/{tools.get_lang()}/colleges_admins.html",
         accounts=accounts,
         roles=roles,
-        departments=departments,
-        college=college,
         colleges=colleges,
     )
+    
+# {% include "admin/en/college_admins_account.html" %}
 
 
 # ---------------------------------------
 # POST METHOD
 # ---------------------------------------
-@admin_college_accounts_bp.route("/colleges/<int:college_id>/accounts/add_account", methods=["POST"])
-def admin_college_accounts_post(college_id):
+@admin_colleges_admins_bp.route("/colleges_admins/add_account", methods=["POST"])
+def admin_colleges_admins_post():
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -72,7 +64,6 @@ def admin_college_accounts_post(college_id):
         return redirect("/login")
 
     tools.update_token()
-    
     account_department_id = request.form.get("account_department_id", None)
     account_email = request.form.get("account_email")
     account_national_id = request.form.get("account_national_id")
@@ -84,24 +75,23 @@ def admin_college_accounts_post(college_id):
         department = res.json()
         if department.get("userId"):
             flash("Department already has an account!", "red")
-            return redirect(f"/admin/colleges/{college_id}/accounts")
+            return redirect(f"/admin/colleges_admins")
     
     res = api.AllUsers()
     accounts = res.json().get("data")
     for account in accounts:        
         if account["email"] == account_email:
             flash("Email already exists!", "red")
-            return redirect(f"/admin/colleges/{college_id}/accounts")
+            return redirect(f"/admin/colleges_admins")
         if account["nationalId"] == account_national_id:
             flash("National ID already exists!", "red")
-            return redirect(f"/admin/colleges/{college_id}/accounts")
+            return redirect(f"/admin/colleges_admins")
     
     data = {
         "Email": request.form.get("account_email"),
         "Password": request.form.get("account_password"),
         "Name": request.form.get("account_name"),
-        "DepartmentId": account_department_id,
-        "CollegeId": int(college_id),
+        "CollegeId": int(request.form.get("account_college_id")),
         "Role": int(request.form.get("account_role_id")),
         "NationalId": request.form.get("account_national_id"),
     }
@@ -122,18 +112,18 @@ def admin_college_accounts_post(college_id):
     res = api.Register(data, files)
     if res.status_code != 200:
         flash(res.json().get("message", "Error registering account!"), "red")
-        return redirect(f"/admin/colleges/{college_id}/accounts")
+        return redirect(f"/admin/colleges_admins")
     
     flash("Account added successfully.", "green")
-    return redirect(f"/admin/colleges/{college_id}/accounts")
+    return redirect(f"/admin/colleges_admins")
 
 
 
 # ---------------------------------------
 # POST METHOD
 # ---------------------------------------
-@admin_college_accounts_bp.route("/colleges/<int:college_id>/accounts/edit_account/<int:account_id>", methods=["POST"])
-def admin_college_accounts_edit_account(college_id, account_id):
+@admin_colleges_admins_bp.route("/colleges_admins/edit_account/<int:account_id>", methods=["POST"])
+def admin_colleges_admins_edit_account(college_id, account_id):
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -155,17 +145,17 @@ def admin_college_accounts_edit_account(college_id, account_id):
         department = res.json()
         if department.get("userId") and department.get("userId") != account_id:
             flash("Department already has an account!", "red")
-            return redirect(f"/admin/colleges/{college_id}/accounts")
+            return redirect(f"/admin/colleges_admins")
     
     res = api.AllUsers()
     accounts = res.json().get("data")
     for account in accounts:
         if account["email"] == account_email and account.get("id") != account_id:
             flash("Email already exists!", "red")
-            return redirect(f"/admin/colleges/{college_id}/accounts")
+            return redirect(f"/admin/colleges_admins")
         if account["nationalId"] == account_national_id and account.get("id") != account_id:
             flash("National ID already exists!", "red")
-            return redirect(f"/admin/colleges/{college_id}/accounts")
+            return redirect(f"/admin/colleges_admins")
     
     data = {
         "Email": request.form.get("account_email"),
@@ -199,18 +189,17 @@ def admin_college_accounts_edit_account(college_id, account_id):
     if res.status_code != 200:
         print(json.dumps(res.json(), indent=2))
         flash(res.json().get("message", "Error editing account!"), "red")
-        return redirect(f"/admin/colleges/{college_id}/accounts")
+        return redirect(f"/admin/colleges_admins")
     
     flash("Account updated successfully.", "green")
-    return redirect(f"/admin/colleges/{college_id}/accounts")
-
+    return redirect(f"/admin/colleges_admins")
 
 
 # ---------------------------------------
 # POST METHOD
 # ---------------------------------------
-@admin_college_accounts_bp.route("/colleges/<int:college_id>/accounts/reset_password/<string:email>", methods=["POST"])
-def admin_college_accounts_reset_password(college_id, email):
+@admin_colleges_admins_bp.route("/colleges_admins/reset_password/<string:email>", methods=["POST"])
+def admin_colleges_admins_reset_password(college_id, email):
     if not tools.check_session():
         flash("Your are not logged in!", "red")
         return redirect("/login")
@@ -224,7 +213,7 @@ def admin_college_accounts_reset_password(college_id, email):
     
     if res.status_code != 200:
         flash("Error reseting  account password!", "red")
-        return redirect(f"/admin/colleges/{college_id}/accounts")
+        return redirect(f"/admin/colleges_admins")
     
     flash("Account password reset successfully.", "green")
-    return redirect(f"/admin/colleges/{college_id}/accounts")
+    return redirect(f"/admin/colleges_admins")

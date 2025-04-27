@@ -79,6 +79,10 @@ sortByInput.addEventListener("change", function (e) {
             return a.role.localeCompare(b.role);
         } else if (value === "role_desc") {
             return b.role.localeCompare(a.role);
+        } else if (value === "college_asc") {
+            return a.college.localeCompare(b.college);
+        } else if (value === "college_desc") {
+            return b.college.localeCompare(a.college);
         }
     });
     Rows.forEach(row => rowsContainer.appendChild(row.element));
