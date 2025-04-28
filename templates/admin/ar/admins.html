@@ -54,7 +54,7 @@
                                 <p data-college class="hidden">{{account.collegeName}}</p>
                                 <div class="px-6 py-1 w-1/3">
                                     <div class="flex items-center space-x-3 py-1 px-2 rounded-md hover:bg-indigo-100 cursor-pointer">
-                                        <div class="inline-flex w-10 h-10">
+                                        <div class="me-3 inline-flex w-10 h-10">
                                             {% if account.pictureURL == "Empty" or not account.pictureURL%}
                                             <img class="w-10 h-10 object-cover rounded-full" src="/static/images/profile-default.jpg">
                                             {% else %}
@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
                                 <div class="px-6 py-4 w-1/6">
-                                    <span data-role class="text-green-800 bg-green-200 font-semibold px-2 rounded-full">{{account.role}}</span>
+                                    <span data-role class="text-green-800 bg-green-200 font-semibold px-2 rounded-full">ادمن جامعة</span>
                                 </div>
                                 <div class="px-6 py-4 w-1/6">
                                     <p data-national-id class="text-gray-700 font-semibold tracking-wide">{{account.nationalId}}</p>
@@ -81,7 +81,7 @@
                                 السابق &laquo;
                             </button>
                             <div class="flex items-center space-x-2">
-                                <span>الصفحة</span>
+                                <span class="me-2">الصفحة</span>
                                 <input id="current-page" type="number" min="1" value="1" class="w-12 text-center border border-gray-300 rounded-md">
                                 <span>من</span>
                                 <span id="total-pages">1</span>

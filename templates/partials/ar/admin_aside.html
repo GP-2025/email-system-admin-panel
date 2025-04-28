@@ -12,7 +12,7 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/colleges" class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group {% if '/admin/colleges' in request.path %}bg-gray-700{% endif %}">
+                <a href="/admin/colleges" class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group {% if '/admin/colleges' in request.path and not '/admin/colleges_admins' in request.path %}bg-gray-700{% endif %}">
                     <svg class="shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                         <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
                     </svg>
@@ -32,7 +32,7 @@
                     <svg class="shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                         <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
                     </svg>
-                    <span class="flex-1 ms-3 whitespace-nowrap">مدراء النظام</span>
+                    <span class="flex-1 ms-3 whitespace-nowrap">مدراء الجامعة</span>
                 </a>
             </li>
         </ul>
@@ -66,19 +66,29 @@
                         </div>
                         
                         <div class="text-right p-5 border-b dark:border-gray-600 border-gray-200">
-                            <div class="flex items-center space-x-6">
+                            <div class="flex items-center">
                                 <div class="flex items-center">
+                                    {% if session.picture_url and session.picture_url != "Empty" %}
+                                    <img class="h-16 w-16 rounded-lg" src="{{session.picture_url}}" alt="الصورة الشخصية">
+                                    {% else %}
                                     <img class="h-16 w-16 rounded-lg" src="/static/images/profile-default.jpg" alt="الصورة الشخصية">
+                                    {% endif %}
                                 </div>
-                                <div class="space-y-1">
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">الاسم: <span class="font-medium text-gray-900 dark:text-white">{{session.name}}</span></p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">البريد الإلكتروني: <span class="font-medium text-gray-900 dark:text-white">{{session.email}}</span></p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">الدور: <span class="font-medium text-gray-900 dark:text-white">{{session.role}}</span></p>
+                                <div class="ms-5 space-y-1">
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">الاسم: <span
+                                            class="font-medium text-gray-900 dark:text-white">{{session.name}}</span>
+                                    </p>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">البريد الإلكتروني: <span
+                                            class="font-medium text-gray-900 dark:text-white">{{session.email}}</span>
+                                    </p>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">الدور: <span
+                                            class="font-medium text-gray-900 dark:text-white">{{session.role}}</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div class="text-right p-5 border-b dark:border-gray-600 border-gray-200">
-                            <div class="flex items-center justify-between space-x-6">
+                            <div class="flex items-center justify-between mx-auto">
                                 <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">اللغة</h4>
                                 <form id="lang-form" action="/lang" method="POST" class="flex items-center space-x-4">
                                     <select name="lang" onchange="this.form.submit()" placeholder="اختر اللغة"
@@ -91,9 +101,11 @@
                         </div>
                         <div class="text-right p-5 border-b dark:border-gray-600 border-gray-200">
                             <div class="flex items-center justify-between space-x-6">
-                                <a href="/logout" class="text-white inline-flex items-center font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-red-600 dark:hover:bg-red-500 dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-red-600">
+                                <a href="/logout"
+                                    class="text-white inline-flex items-center font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-red-600 dark:hover:bg-red-500 dark:focus:outline dark:focus:outline-2 dark:focus:outline-offset-2 dark:focus:outline-red-600">
                                     <svg class="me-2 -ms-1 w-4 h-4" fill="currentColor" viewBox="0 0 512 512">
-                                        <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/>
+                                        <path
+                                            d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
                                     </svg>
                                     تسجيل الخروج
                                 </a>

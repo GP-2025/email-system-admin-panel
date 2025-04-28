@@ -38,8 +38,8 @@ def admin_admins_get():
             "url": "/admin/dashboard"
         },
         {
-            "en_name": "System Admins",
-            "ar_name": "مدراء النظام",
+            "en_name": "University Admins",
+            "ar_name": "مدراء الجامعة",
             "url": "/admin/admins"
         }
     ]
